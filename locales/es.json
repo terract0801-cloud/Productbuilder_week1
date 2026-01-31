@@ -4,5 +4,10 @@
     "includeBonus": "Incluir Número de Bono",
     "generateButton": "Generar Números",
     "copyButton": "Copiar",
-    "copiedButton": "¡Copiado!"
+    "copiedButton": "¡Copiado!",
+    "contactUsHeading": "Contáctenos",
+    "formNameLabel": "Nombre",
+    "formEmailLabel": "Correo electrónico",
+    "formMessageLabel": "Mensaje",
+    "formSendButton": "Enviar"
 }

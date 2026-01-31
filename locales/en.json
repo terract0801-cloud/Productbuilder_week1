@@ -4,5 +4,10 @@
     "includeBonus": "Include Bonus Number",
     "generateButton": "Generate Numbers",
     "copyButton": "Copy",
-    "copiedButton": "Copied!"
+    "copiedButton": "Copied!",
+    "contactUsHeading": "Contact Us",
+    "formNameLabel": "Name",
+    "formEmailLabel": "Email",
+    "formMessageLabel": "Message",
+    "formSendButton": "Send"
 }

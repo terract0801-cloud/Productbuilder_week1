@@ -41,4 +41,8 @@ A modern and stylish web application to generate lottery numbers, with options f
     *   Generates 5 sets of lottery numbers, with an optional bonus number.
     *   Allows users to copy number sets to the clipboard.
     *   Supports switchable light and dark themes with preference persistence.
-    *   **Supports internationalization (English and Spanish).**
+    *   **Supports internationalization (Korean as default, English and Spanish available), including `locales/ko.json`.**
+*   **Contact Form:**
+    *   A simple contact form integrated with Formspree (endpoint: `https://formspree.io/f/meekdzok`).
+    *   Includes fields for Name, Email, and Message, allowing users to send partnership inquiries.
+    *   Styled consistently with the application's glassmorphism theme.

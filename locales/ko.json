@@ -4,5 +4,10 @@
     "includeBonus": "보너스 번호 포함",
     "generateButton": "번호 생성",
     "copyButton": "복사",
-    "copiedButton": "복사됨!"
+    "copiedButton": "복사됨!",
+    "contactUsHeading": "제휴 문의",
+    "formNameLabel": "이름",
+    "formEmailLabel": "이메일",
+    "formMessageLabel": "메시지",
+    "formSendButton": "보내기"
 }
