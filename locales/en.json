@@ -27,6 +27,13 @@
     "strategy3Title": "Long Shot",
     "strategy3Desc": "Picks 'cold' numbers that haven't appeared in a long while.",
     "strategy4Title": "Personalized Combo",
-    "strategy4Desc": "Enter your lucky number (1-45) for a custom combination.",
-    "generateButton": "Get Recommendation"
+    "strategy4Desc": "Enter your lucky number(s) (1-45, up to 6) for a custom combination.",
+    "generateButton": "Get Recommendation",
+    "personalNumberPlaceholder": "e.g., 8, 15, 23",
+    "strategy1Explanation": "These numbers are based on a simulation of the most frequently drawn numbers over a long history.",
+    "strategy2Explanation": "This combination focuses on numbers that have been simulated as 'hot' in recent draws.",
+    "strategy3Explanation": "We picked numbers that have been simulated as 'cold,' meaning they haven't appeared in a while.",
+    "strategy4Explanation": "Including your lucky number(s) {numbers}, we've created a combination with numbers that have a simulated good synergy.",
+    "personalNumberInvalid": "Please enter between 1 and 6 unique numbers, each between 1 and 45. Use commas to separate numbers (e.g., 8, 15, 23).",
+    "personalNumberNoInput": "Please enter your lucky number(s) for the Personalized Combo."
 }

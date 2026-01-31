@@ -27,6 +27,13 @@
     "strategy3Title": "인생 역전형",
     "strategy3Desc": "오랫동안 나오지 않은 '콜드' 번호들로 조합합니다.",
     "strategy4Title": "나만의 번호 조합",
-    "strategy4Desc": "행운의 번호(1-45)를 입력하면, 그 번호와 어울리는 조합을 추천합니다.",
-    "generateButton": "추천 번호 받기"
+    "strategy4Desc": "행운의 번호(1-45, 최대 6개)를 입력하면, 그 번호와 어울리는 조합을 추천합니다.",
+    "generateButton": "추천 번호 받기",
+    "personalNumberPlaceholder": "예: 8, 15, 23",
+    "strategy1Explanation": "이 번호들은 오랜 역사 동안 가장 자주 추첨된 번호들의 시뮬레이션 기반입니다.",
+    "strategy2Explanation": "이 조합은 최근 추첨에서 '핫'하게 등장한 번호들을 시뮬레이션하여 구성되었습니다.",
+    "strategy3Explanation": "'콜드' 번호들, 즉 오랫동안 나오지 않은 번호들을 시뮬레이션하여 선택했습니다.",
+    "strategy4Explanation": "행운의 번호 {numbers}를 포함하여, 좋은 시너지를 내는 번호 조합을 만들었습니다.",
+    "personalNumberInvalid": "1에서 45 사이의 고유한 번호를 1개에서 6개 사이로 입력해주세요. 쉼표로 구분해주세요 (예: 8, 15, 23).",
+    "personalNumberNoInput": "나만의 번호 조합을 위해 행운의 번호를 입력해주세요."
 }

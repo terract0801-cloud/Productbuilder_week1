@@ -253,6 +253,7 @@ class StrategyResultDisplay extends HTMLElement {
                     border-radius: 15px;
                     text-align: center;
                     animation: fadeIn 0.5s ease-in-out;
+                    margin-bottom: 1.5rem; /* Added margin-bottom here */
                 }
                 @keyframes fadeIn {
                     from { opacity: 0; transform: translateY(20px); }
@@ -299,7 +300,7 @@ class StrategyResultDisplay extends HTMLElement {
 }
 customElements.define('strategy-result-display', StrategyResultDisplay);
 
-function generateStrategyNumbers(strategy, userNumber = null) {
+function generateStrategyNumbers(strategy, userNumbers = []) {
     let selectedNumbers = new Set();
     let explanation = '';
     let title = '';
@@ -311,7 +312,9 @@ function generateStrategyNumbers(strategy, userNumber = null) {
     function getRandomSubarray(arr, size) {
         const shuffled = [...arr].sort(() => 0.5 - Math.random());
         let result = new Set();
-        shuffled.slice(0, size).forEach(num => result.add(num));
+        for (let i = 0; i < shuffled.length && result.size < size; i++) {
+            result.add(shuffled[i]);
+        }
         while(result.size < size) {
             result.add(Math.floor(Math.random() * 45) + 1);
         }
@@ -321,23 +324,23 @@ function generateStrategyNumbers(strategy, userNumber = null) {
     switch (strategy) {
         case 'statistical':
             title = window.getTranslation('strategy1Title');
-            explanation = 'These numbers are based on a simulation of the most frequently drawn numbers over a long history.';
+            explanation = window.getTranslation('strategy1Explanation');
             selectedNumbers = new Set(getRandomSubarray(popularNumbers, 6));
             break;
         case 'trends':
             title = window.getTranslation('strategy2Title');
-            explanation = 'This combination focuses on numbers that have been simulated as "hot" in recent draws.';
+            explanation = window.getTranslation('strategy2Explanation');
             selectedNumbers = new Set(getRandomSubarray(hotNumbers, 6));
             break;
         case 'longshot':
             title = window.getTranslation('strategy3Title');
-            explanation = 'We picked numbers that have been simulated as "cold," meaning they haven\'t appeared in a while.';
+            explanation = window.getTranslation('strategy3Explanation');
             selectedNumbers = new Set(getRandomSubarray(coldNumbers, 6));
             break;
         case 'personal':
             title = window.getTranslation('strategy4Title');
-            explanation = `Including your lucky number ${userNumber}, we've created a combination with numbers that have a simulated good synergy.`;
-            selectedNumbers.add(userNumber);
+            explanation = window.getTranslation('strategy4Explanation').replace('{numbers}', userNumbers.join(', '));
+            userNumbers.forEach(num => selectedNumbers.add(num));
             while (selectedNumbers.size < 6) {
                 const randomNumber = Math.floor(Math.random() * 45) + 1;
                 if (!selectedNumbers.has(randomNumber)) {
@@ -364,6 +367,20 @@ document.addEventListener('DOMContentLoaded', () => {
     const strategyForm = document.getElementById('strategy-form');
     const resultContainer = document.getElementById('strategy-result-container');
     const personalNumberInput = document.getElementById('personal-number');
+    const strategyRadioButtons = strategyForm.querySelectorAll('input[name="strategy"]');
+
+    // Function to update placeholder for personal number input
+    const updatePersonalNumberPlaceholder = () => {
+        const selectedStrategy = strategyForm.querySelector('input[name="strategy"]:checked').value;
+        if (selectedStrategy === 'personal') {
+            personalNumberInput.placeholder = window.getTranslation('personalNumberPlaceholder');
+            personalNumberInput.style.display = 'block'; // Show input
+        } else {
+            personalNumberInput.placeholder = '';
+            personalNumberInput.value = ''; // Clear value when not personal
+            personalNumberInput.style.display = 'none'; // Hide input
+        }
+    };
 
     if(strategyForm) {
         strategyForm.addEventListener('submit', (e) => {
@@ -371,26 +388,44 @@ document.addEventListener('DOMContentLoaded', () => {
             const formData = new FormData(strategyForm);
             const strategy = formData.get('strategy');
             
-            let personalNumber = null;
+            let userNumbers = [];
             if (strategy === 'personal') {
-                if(personalNumberInput.value) {
-                    personalNumber = parseInt(personalNumberInput.value, 10);
-                }
-                if (!personalNumber || isNaN(personalNumber) || personalNumber < 1 || personalNumber > 45) {
-                    alert('Please enter a valid number between 1 and 45 for the Personalized Combo.');
+                const inputValue = personalNumberInput.value.trim();
+                if (!inputValue) {
+                    alert(window.getTranslation('personalNumberNoInput'));
                     return;
                 }
+                
+                const parts = inputValue.split(',').map(part => parseInt(part.trim(), 10));
+                
+                // Filter out non-numbers and duplicates, then check range
+                const uniqueNumbers = [...new Set(parts)].filter(num => !isNaN(num) && num >= 1 && num <= 45);
+                
+                if (uniqueNumbers.length === 0 || uniqueNumbers.length > 6) {
+                    alert(window.getTranslation('personalNumberInvalid'));
+                    return;
+                }
+                userNumbers = uniqueNumbers;
             }
     
-            const result = generateStrategyNumbers(strategy, personalNumber);
-            
             resultContainer.innerHTML = '';
-            const resultDisplay = document.createElement('strategy-result-display');
-            resultDisplay.setAttribute('numbers', JSON.stringify(result.numbers));
-            resultDisplay.setAttribute('explanation', result.explanation);
-            resultDisplay.setAttribute('title', result.title);
-    
-            resultContainer.appendChild(resultDisplay);
+            
+            for (let i = 0; i < 5; i++) {
+                const result = generateStrategyNumbers(strategy, userNumbers);
+                const resultDisplay = document.createElement('strategy-result-display');
+                resultDisplay.setAttribute('numbers', JSON.stringify(result.numbers));
+                resultDisplay.setAttribute('explanation', result.explanation);
+                resultDisplay.setAttribute('title', result.title);
+                resultContainer.appendChild(resultDisplay);
+            }
         });
+
+        // Add change listeners to radio buttons
+        strategyRadioButtons.forEach(radio => {
+            radio.addEventListener('change', updatePersonalNumberPlaceholder);
+        });
+
+        // Initial call to set correct placeholder/visibility on load
+        updatePersonalNumberPlaceholder();
     }
 });

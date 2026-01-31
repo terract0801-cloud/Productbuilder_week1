@@ -27,6 +27,13 @@
     "strategy3Title": "Apuesta Arriesgada",
     "strategy3Desc": "Selecciona números 'fríos' que no han aparecido en mucho tiempo.",
     "strategy4Title": "Combo Personalizado",
-    "strategy4Desc": "Ingresa tu número de la suerte (1-45) para una combinación personalizada.",
-    "generateButton": "Obtener Recomendación"
+    "strategy4Desc": "Ingresa tus números de la suerte (1-45, hasta 6) para una combinación personalizada.",
+    "generateButton": "Obtener Recomendación",
+    "personalNumberPlaceholder": "ej., 8, 15, 23",
+    "strategy1Explanation": "Estos números se basan en una simulación de los números sorteados con mayor frecuencia a lo largo de la historia.",
+    "strategy2Explanation": "Esta combinación se centra en números que han sido simulados como 'calientes' en los sorteos recientes.",
+    "strategy3Explanation": "Hemos elegido números que han sido simulados como 'fríos', lo que significa que no han aparecido en mucho tiempo.",
+    "strategy4Explanation": "Incluyendo tu(s) número(s) de la suerte {numbers}, hemos creado una combinación con números que tienen una sinergia simulada buena.",
+    "personalNumberInvalid": "Por favor, introduce entre 1 y 6 números únicos, cada uno entre 1 y 45. Usa comas para separar los números (ej., 8, 15, 23).",
+    "personalNumberNoInput": "Por favor, introduce tu(s) número(s) de la suerte para el Combo Personalizado."
 }
