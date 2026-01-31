@@ -31,7 +31,6 @@ document.addEventListener('DOMContentLoaded', () => {
     setTheme(savedTheme || (prefersDark ? 'dark' : 'light'));
 });
 
-
 class LottoGenerator extends HTMLElement {
   constructor() {
     super();
@@ -40,10 +39,9 @@ class LottoGenerator extends HTMLElement {
     const wrapper = document.createElement('div');
     wrapper.setAttribute('class', 'wrapper');
 
-    const button = document.createElement('button');
-    button.textContent = 'Generate Numbers';
-    button.addEventListener('click', () => this.generateNumbers());
-
+    this.generateBtn = document.createElement('button');
+    this.generateBtn.addEventListener('click', () => this.generateNumbers());
+    
     const result = document.createElement('div');
     result.setAttribute('class', 'result');
 
@@ -55,7 +53,7 @@ class LottoGenerator extends HTMLElement {
         align-items: center;
         gap: 2rem;
       }
-      button {
+      .generate-btn {
         padding: 1rem 2.5rem;
         font-size: 1.5rem;
         font-weight: 600;
@@ -70,11 +68,11 @@ class LottoGenerator extends HTMLElement {
         position: relative;
         overflow: hidden;
       }
-      body.dark-mode button {
+      body.dark-mode .generate-btn {
         background: linear-gradient(145deg, #8e9eab, #eef2f3);
         color: #333;
       }
-      button:hover {
+      .generate-btn:hover {
         transform: translateY(-3px);
         box-shadow: 0 8px 25px var(--glow-color), 0 4px 10px rgba(0,0,0,0.2);
       }
@@ -145,12 +143,26 @@ class LottoGenerator extends HTMLElement {
 
     shadow.appendChild(style);
     shadow.appendChild(wrapper);
-    wrapper.appendChild(button);
+    wrapper.appendChild(this.generateBtn);
     wrapper.appendChild(result);
 
     this.resultContainer = result;
     this.bonusCheckbox = document.getElementById('bonus-checkbox');
   }
+
+    connectedCallback() {
+        this.updateButtonText();
+        // Listen for language changes to update dynamic text
+        document.addEventListener('languageChanged', () => {
+            this.updateButtonText();
+        });
+    }
+
+    updateButtonText() {
+        if (window.getTranslation) {
+            this.generateBtn.textContent = window.getTranslation('generateButton');
+        }
+    }
 
   getNumberColor(number) {
     if (number <= 10) return 'linear-gradient(135deg, #ffb88c, #de6262)';
@@ -176,6 +188,8 @@ class LottoGenerator extends HTMLElement {
   }
 
   generateNumbers() {
+    this.updateButtonText();
+    
     const includeBonus = this.bonusCheckbox.checked;
     this.resultContainer.innerHTML = '';
     for (let i = 0; i < 5; i++) {
@@ -224,6 +238,7 @@ class LottoGenerator extends HTMLElement {
       const copyButton = document.createElement('button');
       copyButton.setAttribute('class', 'copy-btn');
       copyButton.innerHTML = ICONS.copy;
+      copyButton.title = window.getTranslation ? window.getTranslation('copyButton') : 'Copy';
       copyButton.addEventListener('click', () => this.copyNumbers(mainNumbers, bonusNumber, copyButton));
       row.appendChild(copyButton);
 

@@ -3,19 +3,27 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lotto Number Generator</title>
+    <title data-i18n-key="appTitle">Lotto Number Generator</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="theme-switcher">
-        <button id="theme-toggle">Toggle Dark Mode</button>
-    </div>
-    <h1>Lotto Number Generator</h1>
+    <header class="top-bar">
+        <div class="lang-switcher">
+            <button id="lang-en">EN</button>
+            <button id="lang-es">ES</button>
+        </div>
+        <div class="theme-switcher">
+            <button id="theme-toggle"></button>
+        </div>
+    </header>
+    <h1 data-i18n-key="mainHeading">Lotto Number Generator</h1>
     <div class="options-container">
-        <label for="bonus-checkbox">Include Bonus Number</label>
+        <label for="bonus-checkbox" data-i18n-key="includeBonus">Include Bonus Number</label>
         <input type="checkbox" id="bonus-checkbox">
     </div>
     <lotto-generator></lotto-generator>
+    
+    <script src="i18n.js"></script>
     <script src="main.js"></script>
 </body>
 </html>

@@ -2,27 +2,28 @@
 
 ## Overview
 
-A modern and stylish web application to generate lottery numbers, with options for bonus numbers and easy copying of results.
+A modern and stylish web application to generate lottery numbers, with options for bonus numbers, easy copying of results, and multi-language support (English/Spanish).
 
 ## Current Task
 
-### Plan
+### Plan - Internationalization (i18n)
 
-1.  **Feature: Bonus Number**
-    *   Add a checkbox to `index.html` to allow users to include a bonus number.
-    *   Update `main.js` to generate 6 main numbers and 1 bonus number when the option is active.
-    *   Style the bonus number differently to distinguish it from the main numbers.
-2.  **Feature: Copy to Clipboard**
-    *   Add a "Copy" icon/button next to each generated number set.
-    *   Implement clipboard functionality in `main.js` using `navigator.clipboard.writeText`.
-    *   Provide visual feedback to the user upon successful copy.
-3.  **UI/UX Redesign**
-    *   Update `style.css` and inline styles in `main.js` to create a more sophisticated and modern look.
-    *   Introduce a new, vibrant color palette and improve typography (e.g., using Google Fonts).
-    *   Incorporate icons for interactive elements (Copy, Theme Toggle).
-    *   Refine layout, spacing, and add subtle animations and multi-layered shadow effects for a premium feel.
-4.  **Deployment**
-    *   Commit all changes to git and push to the remote repository.
+1.  **Create Translation Files**:
+    *   Create a `locales` directory with `en.json` and `es.json`.
+    *   Populate JSON files with key-value pairs for all UI text strings.
+2.  **Implement Language Switcher**:
+    *   Add a language switcher UI to `index.html`.
+    *   Add `data-i18n-key` attributes to all translatable HTML elements.
+3.  **Implement Translation Logic**:
+    *   Create a new `i18n.js` module to handle language loading and application.
+    *   Fetch and apply translations based on user selection.
+    *   Persist the selected language in `localStorage`.
+    *   Detect browser language for initial setup.
+4.  **Integrate and Verify**:
+    *   Ensure all components, including dynamic text in the `LottoGenerator`, are translated.
+    *   Thoroughly test language switching and all existing features.
+5.  **Deployment**:
+    *   Commit all new and modified files to git and push to the remote repository.
 
 ### Design and Features
 
@@ -32,17 +33,12 @@ A modern and stylish web application to generate lottery numbers, with options f
     *   A toggle switch for light/dark mode.
     *   A checkbox to include a bonus number.
     *   "Copy" buttons for each number set.
+    *   A language switcher for English and Spanish.
 *   **Styling:**
     *   A sophisticated, modern, and bold design.
-    *   Vibrant color palette with gradients and textures.
-    *   Expressive typography and clear visual hierarchy.
-    *   Interactive icons and "glow" effects on buttons.
-    *   Multi-layered drop shadows for a sense of depth.
-    *   Fully responsive for mobile and web.
-    *   Accessible (A11Y) design.
+    *   Fully responsive for mobile and web and accessible (A11Y) design.
 *   **Functionality:**
-    *   Generates 5 sets of lottery numbers.
-    *   Optionally includes a bonus number for each set.
-    *   Sorts numbers in ascending order.
+    *   Generates 5 sets of lottery numbers, with an optional bonus number.
     *   Allows users to copy number sets to the clipboard.
     *   Supports switchable light and dark themes with preference persistence.
+    *   **Supports internationalization (English and Spanish).**
