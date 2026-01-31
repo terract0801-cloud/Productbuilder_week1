@@ -1,36 +1,36 @@
+const ICONS = {
+    sun: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>`,
+    moon: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>`,
+    copy: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>`,
+    check: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>`
+};
+
 const themeToggle = document.getElementById('theme-toggle');
 const body = document.body;
 
-// Function to set the theme
 const setTheme = (theme) => {
     if (theme === 'dark') {
-        body.classList.add('dark-mode');
-        themeToggle.textContent = 'Toggle Light Mode';
-    } else {
         body.classList.remove('dark-mode');
-        themeToggle.textContent = 'Toggle Dark Mode';
+        themeToggle.innerHTML = ICONS.moon;
+    } else {
+        body.classList.add('dark-mode');
+        themeToggle.innerHTML = ICONS.sun;
     }
     localStorage.setItem('theme', theme);
 };
 
-// Event listener for the toggle button
 themeToggle.addEventListener('click', () => {
-    const currentTheme = localStorage.getItem('theme') || 'light';
+    const currentTheme = localStorage.getItem('theme') || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
     const newTheme = currentTheme === 'light' ? 'dark' : 'light';
     setTheme(newTheme);
 });
 
-// Check for saved theme or system preference on initial load
 document.addEventListener('DOMContentLoaded', () => {
     const savedTheme = localStorage.getItem('theme');
     const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
-
-    if (savedTheme) {
-        setTheme(savedTheme);
-    } else if (prefersDark) {
-        setTheme('dark');
-    }
+    setTheme(savedTheme || (prefersDark ? 'dark' : 'light'));
 });
+
 
 class LottoGenerator extends HTMLElement {
   constructor() {
@@ -49,52 +49,97 @@ class LottoGenerator extends HTMLElement {
 
     const style = document.createElement('style');
     style.textContent = `
-      :host {
-        --button-background: var(--button-background, #ffdd57);
-        --button-text-color: var(--button-text-color, #333);
-      }
       .wrapper {
         display: flex;
         flex-direction: column;
         align-items: center;
+        gap: 2rem;
       }
       button {
-        padding: 15px 30px;
+        padding: 1rem 2.5rem;
         font-size: 1.5rem;
-        font-weight: bold;
+        font-weight: 600;
+        font-family: 'Poppins', sans-serif;
         cursor: pointer;
-        margin-bottom: 30px;
         border: none;
-        border-radius: 10px;
-        background: var(--button-background);
-        color: var(--button-text-color);
-        box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        border-radius: 50px;
+        background: linear-gradient(145deg, #2c5364, #203a43, #0f2027);
+        color: #fff;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.2), 0 2px 5px rgba(0,0,0,0.1);
         transition: all 0.3s ease;
+        position: relative;
+        overflow: hidden;
+      }
+      body.dark-mode button {
+        background: linear-gradient(145deg, #8e9eab, #eef2f3);
+        color: #333;
       }
       button:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+        transform: translateY(-3px);
+        box-shadow: 0 8px 25px var(--glow-color), 0 4px 10px rgba(0,0,0,0.2);
       }
       .result {
         display: flex;
         flex-direction: column;
-        gap: 15px;
+        gap: 1.5rem;
+        width: 100%;
       }
       .lotto-row {
         display: flex;
-        gap: 15px;
+        align-items: center;
+        justify-content: center;
+        gap: 1rem;
+        padding: 1rem;
+        background: rgba(255,255,255,0.05);
+        border-radius: 15px;
       }
       .number {
         display: flex;
         align-items: center;
         justify-content: center;
-        width: 60px;
-        height: 60px;
+        width: 55px;
+        height: 55px;
         border-radius: 50%;
-        font-size: 2rem;
-        font-weight: bold;
+        font-size: 1.8rem;
+        font-weight: 600;
         color: white;
-        box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+        text-shadow: 0 1px 3px rgba(0,0,0,0.3);
+        box-shadow: inset 0 -3px 5px rgba(0,0,0,0.2), 0 4px 10px rgba(0,0,0,0.4);
+        transition: all 0.3s ease;
+      }
+      .bonus-number {
+        transform: scale(0.9);
+        box-shadow: inset 0 -2px 4px rgba(0,0,0,0.2), 0 2px 5px rgba(0,0,0,0.3);
+        border: 3px solid rgba(255,255,255,0.8);
+      }
+      .plus-icon {
+        font-size: 1.5rem;
+        font-weight: 600;
+        color: var(--text-color);
+        opacity: 0.8;
+      }
+      .copy-btn {
+        background: none;
+        border: none;
+        color: var(--text-color);
+        cursor: pointer;
+        margin-left: auto;
+        padding: 5px;
+        border-radius: 50%;
+        width: 40px;
+        height: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.3s ease;
+      }
+      .copy-btn:hover {
+        background: var(--component-background);
+        box-shadow: 0 0 10px 3px var(--glow-color);
+      }
+      .copy-btn svg {
+        width: 20px;
+        height: 20px;
       }
     `;
 
@@ -104,21 +149,39 @@ class LottoGenerator extends HTMLElement {
     wrapper.appendChild(result);
 
     this.resultContainer = result;
+    this.bonusCheckbox = document.getElementById('bonus-checkbox');
   }
 
   getNumberColor(number) {
-      if (number <= 10) return '#f1c40f'; // Yellow
-      if (number <= 20) return '#3498db'; // Blue
-      if (number <= 30) return '#e74c3c'; // Red
-      if (number <= 40) return '#95a5a6'; // Gray
-      return '#2ecc71'; // Green
+    if (number <= 10) return 'linear-gradient(135deg, #ffb88c, #de6262)';
+    if (number <= 20) return 'linear-gradient(135deg, #4facfe, #00f2fe)';
+    if (number <= 30) return 'linear-gradient(135deg, #ff416c, #ff4b2b)';
+    if (number <= 40) return 'linear-gradient(135deg, #a1c4fd, #c2e9fb)';
+    return 'linear-gradient(135deg, #56ab2f, #a8e063)';
+  }
+
+  copyNumbers(numbers, bonusNumber, button) {
+    let textToCopy = numbers.join(', ');
+    if (bonusNumber) {
+      textToCopy += ` + ${bonusNumber}`;
+    }
+    navigator.clipboard.writeText(textToCopy).then(() => {
+      button.innerHTML = ICONS.check;
+      setTimeout(() => {
+        button.innerHTML = ICONS.copy;
+      }, 1500);
+    }).catch(err => {
+      console.error('Failed to copy numbers: ', err);
+    });
   }
 
   generateNumbers() {
+    const includeBonus = this.bonusCheckbox.checked;
     this.resultContainer.innerHTML = '';
     for (let i = 0; i < 5; i++) {
       const numbers = new Set();
-      while (numbers.size < 6) {
+      const numbersToGenerate = includeBonus ? 7 : 6;
+      while (numbers.size < numbersToGenerate) {
         numbers.add(Math.floor(Math.random() * 45) + 1);
       }
 
@@ -127,13 +190,43 @@ class LottoGenerator extends HTMLElement {
       const row = document.createElement('div');
       row.setAttribute('class', 'lotto-row');
 
-      for (const number of sortedNumbers) {
+      const mainNumbers = includeBonus ? sortedNumbers.slice(0, 6) : sortedNumbers;
+      const bonusNumber = includeBonus ? sortedNumbers[6] : null;
+
+      const numbersContainer = document.createElement('div');
+      numbersContainer.style.display = 'flex';
+      numbersContainer.style.gap = '1rem';
+      numbersContainer.style.alignItems = 'center';
+
+      for (const number of mainNumbers) {
         const numberDiv = document.createElement('div');
         numberDiv.setAttribute('class', 'number');
         numberDiv.textContent = number;
-        numberDiv.style.backgroundColor = this.getNumberColor(number);
-        row.appendChild(numberDiv);
+        numberDiv.style.background = this.getNumberColor(number);
+        numbersContainer.appendChild(numberDiv);
       }
+
+      row.appendChild(numbersContainer);
+
+      if (bonusNumber) {
+        const plusIcon = document.createElement('span');
+        plusIcon.setAttribute('class', 'plus-icon');
+        plusIcon.textContent = '+';
+        row.appendChild(plusIcon);
+
+        const bonusDiv = document.createElement('div');
+        bonusDiv.setAttribute('class', 'number bonus-number');
+        bonusDiv.textContent = bonusNumber;
+        bonusDiv.style.background = this.getNumberColor(bonusNumber);
+        row.appendChild(bonusDiv);
+      }
+
+      const copyButton = document.createElement('button');
+      copyButton.setAttribute('class', 'copy-btn');
+      copyButton.innerHTML = ICONS.copy;
+      copyButton.addEventListener('click', () => this.copyNumbers(mainNumbers, bonusNumber, copyButton));
+      row.appendChild(copyButton);
+
       this.resultContainer.appendChild(row);
     }
   }

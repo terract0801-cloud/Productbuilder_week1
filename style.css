@@ -1,62 +1,120 @@
-:root {
-    --background-gradient-start: #6a11cb;
-    --background-gradient-end: #2575fc;
-    --text-color: white;
-    --component-background: rgba(255, 255, 255, 0.1);
-    --component-border-color: rgba(255, 255, 255, 0.3);
-    --button-background: #ffdd57;
-    --button-text-color: #333;
-}
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
 
-body.dark-mode {
-    --background-gradient-start: #232323;
-    --background-gradient-end: #4a4a4a;
+:root {
+    --background-gradient-start: #1a2980;
+    --background-gradient-end: #26d0ce;
     --text-color: #f0f0f0;
-    --component-background: rgba(0, 0, 0, 0.2);
-    --component-border-color: rgba(255, 255, 255, 0.1);
-    --button-background: #5a5a5a;
-    --button-text-color: #f0f0f0;
+    --component-background: rgba(255, 255, 255, 0.05);
+    --component-border-color: rgba(255, 255, 255, 0.2);
+    --glow-color: rgba(45, 211, 206, 0.5);
+
+    /* Light Mode */
+    --lm-background-gradient-start: #fdfbfb;
+    --lm-background-gradient-end: #ebedee;
+    --lm-text-color: #333;
+    --lm-component-background: rgba(255, 255, 255, 0.8);
+    --lm-component-border-color: rgba(0, 0, 0, 0.1);
+    --lm-glow-color: rgba(26, 41, 128, 0.3);
 }
 
 body {
-    font-family: 'Helvetica Neue', sans-serif;
+    font-family: 'Poppins', sans-serif;
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-start; /* Align to top */
+    padding-top: 5rem;
     min-height: 100vh;
-    background: linear-gradient(to right, var(--background-gradient-start), var(--background-gradient-end));
+    background: linear-gradient(135deg, var(--background-gradient-start), var(--background-gradient-end));
     color: var(--text-color);
     text-align: center;
-    transition: background 0.3s, color 0.3s;
+    transition: background 0.5s ease, color 0.5s ease;
+    position: relative;
+    overflow-x: hidden;
 }
 
+body::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><filter id="n"><feTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="10" stitchTiles="stitch"/></filter><rect width="100%" height="100%" filter="url(%23n)" opacity="0.05"/></svg>');
+    z-index: -1;
+}
+
+body.dark-mode {
+    --background-gradient-start: var(--lm-background-gradient-start);
+    --background-gradient-end: var(--lm-background-gradient-end);
+    --text-color: var(--lm-text-color);
+    --component-background: var(--lm-component-background);
+    --component-border-color: var(--lm-component-border-color);
+    --glow-color: var(--lm-glow-color);
+}
+
+
 h1 {
-    font-size: 3rem;
-    margin-bottom: 1rem;
+    font-size: 3.5rem;
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+    letter-spacing: 1px;
+    text-shadow: 0 4px 20px rgba(0,0,0,0.2);
+}
+
+.options-container {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 2rem;
+    background: var(--component-background);
+    padding: 1rem 1.5rem;
+    border-radius: 15px;
+    box-shadow: 0 8px 32px 0 rgba(0,0,0,0.37);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    border: 1px solid var(--component-border-color);
+}
+
+.options-container label {
+    font-weight: 600;
+}
+
+.theme-switcher {
+    position: absolute;
+    top: 25px;
+    right: 25px;
+}
+
+#theme-toggle {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 1.5rem; /* Will be replaced by icon */
+    color: var(--text-color);
+    padding: 5px;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+}
+
+#theme-toggle:hover {
+    background: var(--component-background);
+    box-shadow: 0 0 15px 5px var(--glow-color);
 }
 
 lotto-generator {
     background: var(--component-background);
     padding: 2rem;
-    border-radius: 15px;
-    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-    backdrop-filter: blur(5px);
-    -webkit-backdrop-filter: blur(5px);
+    border-radius: 20px;
+    box-shadow: 0 8px 32px 0 rgba(0,0,0,0.37);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
     border: 1px solid var(--component-border-color);
-}
-
-.theme-switcher {
-    position: absolute;
-    top: 20px;
-    right: 20px;
-}
-
-#theme-toggle {
-    padding: 10px 15px;
-    border: 1px solid var(--component-border-color);
-    border-radius: 5px;
-    background-color: var(--component-background);
-    color: var(--text-color);
-    cursor: pointer;
+    width: 90%;
+    max-width: 800px;
 }
