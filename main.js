@@ -77,6 +77,11 @@ class LottoGenerator extends HTMLElement {
       }
       .result {
         display: flex;
+        flex-direction: column;
+        gap: 15px;
+      }
+      .lotto-row {
+        display: flex;
         gap: 15px;
       }
       .number {
@@ -110,20 +115,26 @@ class LottoGenerator extends HTMLElement {
   }
 
   generateNumbers() {
-    const numbers = new Set();
-    while (numbers.size < 6) {
-      numbers.add(Math.floor(Math.random() * 45) + 1);
-    }
-
-    const sortedNumbers = Array.from(numbers).sort((a, b) => a - b);
-
     this.resultContainer.innerHTML = '';
-    for (const number of sortedNumbers) {
-      const numberDiv = document.createElement('div');
-      numberDiv.setAttribute('class', 'number');
-      numberDiv.textContent = number;
-      numberDiv.style.backgroundColor = this.getNumberColor(number);
-      this.resultContainer.appendChild(numberDiv);
+    for (let i = 0; i < 5; i++) {
+      const numbers = new Set();
+      while (numbers.size < 6) {
+        numbers.add(Math.floor(Math.random() * 45) + 1);
+      }
+
+      const sortedNumbers = Array.from(numbers).sort((a, b) => a - b);
+
+      const row = document.createElement('div');
+      row.setAttribute('class', 'lotto-row');
+
+      for (const number of sortedNumbers) {
+        const numberDiv = document.createElement('div');
+        numberDiv.setAttribute('class', 'number');
+        numberDiv.textContent = number;
+        numberDiv.style.backgroundColor = this.getNumberColor(number);
+        row.appendChild(numberDiv);
+      }
+      this.resultContainer.appendChild(row);
     }
   }
 }
