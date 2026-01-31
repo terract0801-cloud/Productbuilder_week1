@@ -1,1 +1,62 @@
-/* Add styles here */
+:root {
+    --background-gradient-start: #6a11cb;
+    --background-gradient-end: #2575fc;
+    --text-color: white;
+    --component-background: rgba(255, 255, 255, 0.1);
+    --component-border-color: rgba(255, 255, 255, 0.3);
+    --button-background: #ffdd57;
+    --button-text-color: #333;
+}
+
+body.dark-mode {
+    --background-gradient-start: #232323;
+    --background-gradient-end: #4a4a4a;
+    --text-color: #f0f0f0;
+    --component-background: rgba(0, 0, 0, 0.2);
+    --component-border-color: rgba(255, 255, 255, 0.1);
+    --button-background: #5a5a5a;
+    --button-text-color: #f0f0f0;
+}
+
+body {
+    font-family: 'Helvetica Neue', sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    background: linear-gradient(to right, var(--background-gradient-start), var(--background-gradient-end));
+    color: var(--text-color);
+    text-align: center;
+    transition: background 0.3s, color 0.3s;
+}
+
+h1 {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+}
+
+lotto-generator {
+    background: var(--component-background);
+    padding: 2rem;
+    border-radius: 15px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    border: 1px solid var(--component-border-color);
+}
+
+.theme-switcher {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+}
+
+#theme-toggle {
+    padding: 10px 15px;
+    border: 1px solid var(--component-border-color);
+    border-radius: 5px;
+    background-color: var(--component-background);
+    color: var(--text-color);
+    cursor: pointer;
+}
