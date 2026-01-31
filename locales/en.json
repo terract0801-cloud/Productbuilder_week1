@@ -9,5 +9,13 @@
     "formNameLabel": "Name",
     "formEmailLabel": "Email",
     "formMessageLabel": "Message",
-    "formSendButton": "Send"
+    "formSendButton": "Send",
+    "aboutHeading": "About Our Lotto Number Generator",
+    "aboutText": "This tool is designed to provide you with random lottery number combinations for various games. Our goal is to offer a simple, fast, and user-friendly experience. We are constantly working to improve our generator and add new features. Thank you for using our service!",
+    "howToUseHeading": "How to Use",
+    "howToUseText": "Using the generator is easy. Just click the 'Generate' button to get a new set of lottery numbers. You can also choose to include a bonus number by checking the 'Include Bonus Number' checkbox. To copy the numbers, click the 'Copy' button next to each set.",
+    "footerAbout": "About",
+    "footerHowToUse": "How to Use",
+    "footerPrivacy": "Privacy Policy",
+    "footerTerms": "Terms of Service"
 }

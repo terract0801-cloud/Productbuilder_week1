@@ -9,5 +9,13 @@
     "formNameLabel": "이름",
     "formEmailLabel": "이메일",
     "formMessageLabel": "메시지",
-    "formSendButton": "보내기"
+    "formSendButton": "보내기",
+    "aboutHeading": "로또 번호 생성기 정보",
+    "aboutText": "이 도구는 다양한 게임에 대한 무작위 로또 번호 조합을 제공하도록 설계되었습니다. 우리의 목표는 간단하고 빠르며 사용자 친화적인 경험을 제공하는 것입니다. 우리는 생성기를 개선하고 새로운 기능을 추가하기 위해 끊임없이 노력하고 있습니다. 저희 서비스를 이용해 주셔서 감사합니다!",
+    "howToUseHeading": "사용 방법",
+    "howToUseText": "생성기 사용은 쉽습니다. '번호 생성' 버튼을 클릭하기만 하면 새로운 로또 번호 세트를 얻을 수 있습니다. '보너스 번호 포함' 확인란을 선택하여 보너스 번호를 포함하도록 선택할 수도 있습니다. 번호를 복사하려면 각 세트 옆에 있는 '복사' 버튼을 클릭하십시오.",
+    "footerAbout": "정보",
+    "footerHowToUse": "사용 방법",
+    "footerPrivacy": "개인 정보 정책",
+    "footerTerms": "서비스 약관"
 }

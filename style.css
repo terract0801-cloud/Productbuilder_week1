@@ -251,3 +251,56 @@ body.dark-mode .contact-form textarea::placeholder {
     width: 90%;
     max-width: 800px;
 }
+
+/* Content Section Styling */
+.content-section {
+    margin-top: 4rem;
+    padding: 2rem;
+    background: var(--component-background);
+    border-radius: 20px;
+    box-shadow: 0 8px 32px 0 rgba(0,0,0,0.37);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid var(--component-border-color);
+    width: 90%;
+    max-width: 800px;
+    text-align: left;
+}
+
+.content-section h2 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    color: var(--text-color);
+    text-align: center;
+}
+
+.content-section p {
+    font-size: 1.1rem;
+    line-height: 1.6;
+}
+
+/* Footer Styling */
+.footer {
+    width: 100%;
+    padding: 2rem 0;
+    margin-top: 4rem;
+    background: rgba(0,0,0,0.2);
+    text-align: center;
+}
+
+.footer-links {
+    margin-bottom: 1rem;
+}
+
+.footer-links a {
+    color: var(--text-color);
+    text-decoration: none;
+    margin: 0 1rem;
+    font-weight: 600;
+    transition: color 0.3s ease;
+}
+
+.footer-links a:hover {
+    color: var(--glow-color);
+}

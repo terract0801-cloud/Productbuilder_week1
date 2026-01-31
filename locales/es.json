@@ -9,5 +9,13 @@
     "formNameLabel": "Nombre",
     "formEmailLabel": "Correo electrónico",
     "formMessageLabel": "Mensaje",
-    "formSendButton": "Enviar"
+    "formSendButton": "Enviar",
+    "aboutHeading": "Sobre Nuestro Generador de Números de Lotería",
+    "aboutText": "Esta herramienta está diseñada para proporcionarte combinaciones de números de lotería aleatorios para varios juegos. Nuestro objetivo es ofrecer una experiencia simple, rápida y fácil de usar. Trabajamos constantemente para mejorar nuestro generador y agregar nuevas funciones. ¡Gracias por usar nuestro servicio!",
+    "howToUseHeading": "Cómo Usar",
+    "howToUseText": "Usar el generador es fácil. Simplemente haz clic en el botón 'Generar' para obtener un nuevo conjunto de números de lotería. También puedes optar por incluir un número de bono marcando la casilla 'Incluir Número de Bono'. Para copiar los números, haz clic en el botón 'Copiar' junto a cada conjunto.",
+    "footerAbout": "Sobre",
+    "footerHowToUse": "Cómo Usar",
+    "footerPrivacy": "Política de Privacidad",
+    "footerTerms": "Términos de Servicio"
 }
