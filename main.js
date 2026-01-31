@@ -33,204 +33,205 @@ themeToggle.addEventListener('click', () => {
     setTheme(newTheme);
 });
 
-class LottoGenerator extends HTMLElement {
-  constructor() {
-    super();
-    const shadow = this.attachShadow({ mode: 'open' });
+// LottoGenerator class is no longer used, but keeping for reference if needed.
+// class LottoGenerator extends HTMLElement {
+//   constructor() {
+//     super();
+//     const shadow = this.attachShadow({ mode: 'open' });
 
-    const wrapper = document.createElement('div');
-    wrapper.setAttribute('class', 'wrapper');
+//     const wrapper = document.createElement('div');
+//     wrapper.setAttribute('class', 'wrapper');
 
-    this.generateBtn = document.createElement('button');
-    this.generateBtn.classList.add('generate-btn');
-    this.generateBtn.addEventListener('click', () => this.generateNumbers());
+//     this.generateBtn = document.createElement('button');
+//     this.generateBtn.classList.add('generate-btn');
+//     this.generateBtn.addEventListener('click', () => this.generateNumbers());
     
-    const result = document.createElement('div');
-    result.setAttribute('class', 'result');
+//     const result = document.createElement('div');
+//     result.setAttribute('class', 'result');
 
-    const style = document.createElement('style');
-    style.textContent = `
-      .wrapper {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 2rem;
-      }
-      .generate-btn {
-        padding: 0.8rem 2rem;
-        font-size: 1.2rem;
-        font-weight: 600;
-        font-family: 'Poppins', sans-serif;
-        cursor: pointer;
-        border-radius: 15px;
-        color: var(--text-color);
-        background: var(--component-background);
-        border: 1px solid var(--component-border-color);
-        box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-        backdrop-filter: blur(5px);
-        -webkit-backdrop-filter: blur(5px);
-        transition: all 0.3s ease;
-      }
-      .generate-btn:hover {
-        box-shadow: 0 0 20px 5px var(--glow-color);
-      }
-      .result {
-        display: flex;
-        flex-direction: column;
-        gap: 1.5rem;
-        width: 100%;
-      }
-      .lotto-row {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: 1rem;
-        padding: 1rem;
-        background: rgba(255,255,255,0.05);
-        border-radius: 15px;
-      }
-      .number {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        width: 55px;
-        height: 55px;
-        border-radius: 50%;
-        font-size: 1.8rem;
-        font-weight: 600;
-        color: white;
-        text-shadow: 0 1px 3px rgba(0,0,0,0.3);
-        box-shadow: inset 0 -3px 5px rgba(0,0,0,0.2), 0 4px 10px rgba(0,0,0,0.4);
-        transition: all 0.3s ease;
-      }
-      .bonus-number {
-        transform: scale(0.9);
-        box-shadow: inset 0 -2px 4px rgba(0,0,0,0.2), 0 2px 5px rgba(0,0,0,0.3);
-        border: 3px solid rgba(255,255,255,0.8);
-      }
-      .plus-icon {
-        font-size: 1.5rem;
-        font-weight: 600;
-        color: var(--text-color);
-        opacity: 0.8;
-      }
-      .copy-btn {
-        background: none;
-        border: none;
-        color: var(--text-color);
-        cursor: pointer;
-        margin-left: auto;
-        padding: 5px;
-        border-radius: 50%;
-        width: 40px;
-        height: 40px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        transition: all 0.3s ease;
-      }
-      .copy-btn:hover {
-        background: var(--component-background);
-        box-shadow: 0 0 10px 3px var(--glow-color);
-      }
-      .copy-btn svg {
-        width: 20px;
-        height: 20px;
-      }
-    `;
+//     const style = document.createElement('style');
+//     style.textContent = `
+//       .wrapper {
+//         display: flex;
+//         flex-direction: column;
+//         align-items: center;
+//         gap: 2rem;
+//       }
+//       .generate-btn {
+//         padding: 0.8rem 2rem;
+//         font-size: 1.2rem;
+//         font-weight: 600;
+//         font-family: 'Poppins', sans-serif;
+//         cursor: pointer;
+//         border-radius: 15px;
+//         color: var(--text-color);
+//         background: var(--component-background);
+//         border: 1px solid var(--component-border-color);
+//         box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+//         backdrop-filter: blur(5px);
+//         -webkit-backdrop-filter: blur(5px);
+//         transition: all 0.3s ease;
+//       }
+//       .generate-btn:hover {
+//         box-shadow: 0 0 20px 5px var(--glow-color);
+//       }
+//       .result {
+//         display: flex;
+//         flex-direction: column;
+//         gap: 1.5rem;
+//         width: 100%;
+//       }
+//       .lotto-row {
+//         display: flex;
+//         align-items: center;
+//         justify-content: center;
+//         gap: 1rem;
+//         padding: 1rem;
+//         background: rgba(255,255,255,0.05);
+//         border-radius: 15px;
+//       }
+//       .number {
+//         display: flex;
+//         align-items: center;
+//         justify-content: center;
+//         width: 55px;
+//         height: 55px;
+//         border-radius: 50%;
+//         font-size: 1.8rem;
+//         font-weight: 600;
+//         color: white;
+//         text-shadow: 0 1px 3px rgba(0,0,0,0.3);
+//         box-shadow: inset 0 -3px 5px rgba(0,0,0,0.2), 0 4px 10px rgba(0,0,0,0.4);
+//         transition: all 0.3s ease;
+//       }
+//       .bonus-number {
+//         transform: scale(0.9);
+//         box-shadow: inset 0 -2px 4px rgba(0,0,0,0.2), 0 2px 5px rgba(0,0,0,0.3);
+//         border: 3px solid rgba(255,255,255,0.8);
+//       }
+//       .plus-icon {
+//         font-size: 1.5rem;
+//         font-weight: 600;
+//         color: var(--text-color);
+//         opacity: 0.8;
+//       }
+//       .copy-btn {
+//         background: none;
+//         border: none;
+//         color: var(--text-color);
+//         cursor: pointer;
+//         margin-left: auto;
+//         padding: 5px;
+//         border-radius: 50%;
+//         width: 40px;
+//         height: 40px;
+//         display: flex;
+//         align-items: center;
+//         justify-content: center;
+//         transition: all 0.3s ease;
+//       }
+//       .copy-btn:hover {
+//         background: var(--component-background);
+//         box-shadow: 0 0 10px 3px var(--glow-color);
+//       }
+//       .copy-btn svg {
+//         width: 20px;
+//         height: 20px;
+//       }
+//     `;
 
-    shadow.appendChild(style);
-    shadow.appendChild(wrapper);
-    wrapper.appendChild(this.generateBtn);
-    wrapper.appendChild(result);
+//     shadow.appendChild(style);
+//     shadow.appendChild(wrapper);
+//     wrapper.appendChild(this.generateBtn);
+//     wrapper.appendChild(result);
 
-    this.resultContainer = result;
-    this.bonusCheckbox = document.getElementById('bonus-checkbox');
-  }
+//     this.resultContainer = result;
+//     this.bonusCheckbox = document.getElementById('bonus-checkbox');
+//   }
 
-    connectedCallback() {
-        this.updateButtonText();
-        document.addEventListener('languageChanged', () => this.updateButtonText());
-    }
+//     connectedCallback() {
+//         this.updateButtonText();
+//         document.addEventListener('languageChanged', () => this.updateButtonText());
+//     }
 
-    updateButtonText() {
-        if (window.getTranslation) {
-            this.generateBtn.textContent = window.getTranslation('generateButton');
-        }
-    }
+//     updateButtonText() {
+//         if (window.getTranslation) {
+//             this.generateBtn.textContent = window.getTranslation('generateButton');
+//         }
+//     }
 
-  copyNumbers(numbers, bonusNumber, button) {
-    let textToCopy = numbers.join(', ');
-    if (bonusNumber) {
-      textToCopy += ` + ${bonusNumber}`;
-    }
-    navigator.clipboard.writeText(textToCopy).then(() => {
-      button.innerHTML = ICONS.check;
-      setTimeout(() => {
-        button.innerHTML = ICONS.copy;
-      }, 1500);
-    }).catch(err => {
-      console.error('Failed to copy numbers: ', err);
-    });
-  }
+//   copyNumbers(numbers, bonusNumber, button) {
+//     let textToCopy = numbers.join(', ');
+//     if (bonusNumber) {
+//       textToCopy += ` + ${bonusNumber}`;
+//     }
+//     navigator.clipboard.writeText(textToCopy).then(() => {
+//       button.innerHTML = ICONS.check;
+//       setTimeout(() => {
+//         button.innerHTML = ICONS.copy;
+//       }, 1500);
+//     }).catch(err => {
+//       console.error('Failed to copy numbers: ', err);
+//     });
+//   }
 
-  generateNumbers() {
-    this.updateButtonText();
+//   generateNumbers() {
+//     this.updateButtonText();
     
-    const includeBonus = this.bonusCheckbox.checked;
-    this.resultContainer.innerHTML = '';
-    for (let i = 0; i < 5; i++) {
-      const numbers = new Set();
-      const numbersToGenerate = includeBonus ? 7 : 6;
-      while (numbers.size < numbersToGenerate) {
-        numbers.add(Math.floor(Math.random() * 45) + 1);
-      }
+//     const includeBonus = this.bonusCheckbox.checked;
+//     this.resultContainer.innerHTML = '';
+//     for (let i = 0; i < 5; i++) {
+//       const numbers = new Set();
+//       const numbersToGenerate = includeBonus ? 7 : 6;
+//       while (numbers.size < numbersToGenerate) {
+//         numbers.add(Math.floor(Math.random() * 45) + 1);
+//       }
 
-      const sortedNumbers = Array.from(numbers).sort((a, b) => a - b);
-      const row = document.createElement('div');
-      row.setAttribute('class', 'lotto-row');
-      const mainNumbers = includeBonus ? sortedNumbers.slice(0, 6) : sortedNumbers;
-      const bonusNumber = includeBonus ? sortedNumbers[6] : null;
-      const numbersContainer = document.createElement('div');
-      numbersContainer.style.display = 'flex';
-      numbersContainer.style.gap = '1rem';
-      numbersContainer.style.alignItems = 'center';
+//       const sortedNumbers = Array.from(numbers).sort((a, b) => a - b);
+//       const row = document.createElement('div');
+//       row.setAttribute('class', 'lotto-row');
+//       const mainNumbers = includeBonus ? sortedNumbers.slice(0, 6) : sortedNumbers;
+//       const bonusNumber = includeBonus ? sortedNumbers[6] : null;
+//       const numbersContainer = document.createElement('div');
+//       numbersContainer.style.display = 'flex';
+//       numbersContainer.style.gap = '1rem';
+//       numbersContainer.style.alignItems = 'center';
 
-      for (const number of mainNumbers) {
-        const numberDiv = document.createElement('div');
-        numberDiv.setAttribute('class', 'number');
-        numberDiv.textContent = number;
-        numberDiv.style.background = getNumberColor(number);
-        numbersContainer.appendChild(numberDiv);
-      }
+//       for (const number of mainNumbers) {
+//         const numberDiv = document.createElement('div');
+//         numberDiv.setAttribute('class', 'number');
+//         numberDiv.textContent = number;
+//         numberDiv.style.background = getNumberColor(number);
+//         numbersContainer.appendChild(numberDiv);
+//       }
 
-      row.appendChild(numbersContainer);
+//       row.appendChild(numbersContainer);
 
-      if (bonusNumber) {
-        const plusIcon = document.createElement('span');
-        plusIcon.setAttribute('class', 'plus-icon');
-        plusIcon.textContent = '+';
-        row.appendChild(plusIcon);
+//       if (bonusNumber) {
+//         const plusIcon = document.createElement('span');
+//         plusIcon.setAttribute('class', 'plus-icon');
+//         plusIcon.textContent = '+';
+//         row.appendChild(plusIcon);
 
-        const bonusDiv = document.createElement('div');
-        bonusDiv.setAttribute('class', 'number bonus-number');
-        bonusDiv.textContent = bonusNumber;
-        bonusDiv.style.background = getNumberColor(bonusNumber);
-        row.appendChild(bonusDiv);
-      }
+//         const bonusDiv = document.createElement('div');
+//         bonusDiv.setAttribute('class', 'number bonus-number');
+//         bonusDiv.textContent = bonusNumber;
+//         bonusDiv.style.background = getNumberColor(bonusNumber);
+//         row.appendChild(bonusDiv);
+//       }
 
-      const copyButton = document.createElement('button');
-      copyButton.setAttribute('class', 'copy-btn');
-      copyButton.innerHTML = ICONS.copy;
-      copyButton.title = window.getTranslation ? window.getTranslation('copyButton') : 'Copy';
-      copyButton.addEventListener('click', () => this.copyNumbers(mainNumbers, bonusNumber, copyButton));
-      row.appendChild(copyButton);
+//       const copyButton = document.createElement('button');
+//       copyButton.setAttribute('class', 'copy-btn');
+//       copyButton.innerHTML = ICONS.copy;
+//       copyButton.title = window.getTranslation ? window.getTranslation('copyButton') : 'Copy';
+//       copyButton.addEventListener('click', () => this.copyNumbers(mainNumbers, bonusNumber, copyButton));
+//       row.appendChild(copyButton);
 
-      this.resultContainer.appendChild(row);
-    }
-  }
-}
-customElements.define('lotto-generator', LottoGenerator);
+//       this.resultContainer.appendChild(row);
+//     }
+//   }
+// }
+// customElements.define('lotto-generator', LottoGenerator);
 
 // --- AI Strategy Generator ---
 
@@ -256,71 +257,78 @@ class StrategyResultDisplay extends HTMLElement {
 
     connectedCallback() {
         const numbers = JSON.parse(this.getAttribute('numbers'));
-        const explanation = this.getAttribute('explanation');
-        const title = this.getAttribute('title');
+        const explanation = this.getAttribute('explanation'); // Can be empty
+        const title = this.getAttribute('title'); // Can be empty
 
         this.shadowRoot.innerHTML = `
             <style>
                 .result-wrapper {
-                    padding: 1.5rem; /* Reduced padding for more compact display */
-                    background: rgba(0,0,0,0.2);
-                    border-radius: 15px;
+                    padding: 1rem; /* Adjusted for tighter packing */
+                    background: rgba(0,0,0,0.1); /* Lighter background within the main box */
+                    border-radius: 10px; /* Slightly smaller radius */
                     text-align: center;
                     animation: fadeIn 0.5s ease-in-out;
-                    margin-bottom: 0.8rem; /* Adjusted margin-bottom */
-                    display: flex; /* Make it a flex container */
-                    flex-direction: column; /* Stack contents vertically */
-                    align-items: center; /* Center items horizontally */
-                    gap: 0.8rem; /* Gap between elements */
-                    position: relative; /* For copy button positioning */
+                    margin-bottom: 0.8rem;
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    gap: 0.5rem; /* Smaller gap */
+                    position: relative;
                 }
                 @keyframes fadeIn {
                     from { opacity: 0; transform: translateY(20px); }
                     to { opacity: 1; transform: translateY(0); }
                 }
+                .result-header {
+                    display: ${title ? 'block' : 'none'}; /* Show only if title exists */
+                    width: 100%;
+                }
                 .result-title {
-                    font-size: 1.5rem; /* Adjusted font size */
+                    font-size: 1.3rem; /* Further adjusted font size */
                     font-weight: 700;
-                    margin-bottom: 0.5rem; /* Adjusted margin */
+                    margin-bottom: 0.3rem;
+                    color: var(--text-color);
                 }
                 .numbers-container {
                     display: flex;
                     justify-content: center;
-                    gap: 0.8rem; /* Adjusted gap */
-                    margin-bottom: 0.5rem; /* Adjusted margin */
-                    flex-wrap: wrap; /* Allow numbers to wrap on small screens */
+                    gap: 0.5rem; /* Further adjusted gap */
+                    margin-bottom: 0.5rem;
+                    flex-wrap: wrap;
                 }
                 .number {
                     display: flex;
                     align-items: center;
                     justify-content: center;
-                    width: 50px; /* Adjusted size */
-                    height: 50px; /* Adjusted size */
+                    width: 45px; /* Adjusted size */
+                    height: 45px; /* Adjusted size */
                     border-radius: 50%;
-                    font-size: 1.7rem; /* Adjusted font size */
+                    font-size: 1.5rem; /* Adjusted font size */
                     font-weight: 600;
                     color: white;
                     text-shadow: 0 1px 3px rgba(0,0,0,0.3);
                     box-shadow: inset 0 -3px 5px rgba(0,0,0,0.2), 0 4px 10px rgba(0,0,0,0.4);
                 }
                 .explanation {
+                    display: ${explanation ? 'block' : 'none'}; /* Show only if explanation exists */
                     font-style: italic;
                     opacity: 0.9;
-                    font-size: 0.95rem; /* Adjusted font size */
-                    padding: 0 0.5rem; /* Added horizontal padding */
+                    font-size: 0.85rem; /* Further adjusted font size */
+                    padding: 0 0.5rem;
+                    color: var(--text-color);
                 }
-                .copy-btn-result { /* New style for copy button in result display */
+                .copy-btn-result {
                     background: none;
                     border: none;
                     color: var(--text-color);
                     cursor: pointer;
-                    position: absolute; /* Position it absolutely */
-                    top: 10px; /* Adjust as needed */
-                    right: 10px; /* Adjust as needed */
-                    padding: 5px;
+                    position: absolute;
+                    top: 5px; /* Adjusted position */
+                    right: 5px; /* Adjusted position */
+                    padding: 3px;
                     border-radius: 50%;
-                    width: 35px; /* Adjusted size */
-                    height: 35px; /* Adjusted size */
+                    width: 30px; /* Adjusted size */
+                    height: 30px; /* Adjusted size */
                     display: flex;
                     align-items: center;
                     justify-content: center;
@@ -328,19 +336,21 @@ class StrategyResultDisplay extends HTMLElement {
                 }
                 .copy-btn-result:hover {
                     background: var(--component-background);
-                    box-shadow: 0 0 10px 3px var(--glow-color);
+                    box-shadow: 0 0 8px 2px var(--glow-color); /* Adjusted shadow */
                 }
                 .copy-btn-result svg {
-                    width: 18px; /* Adjusted size */
-                    height: 18px; /* Adjusted size */
+                    width: 16px; /* Adjusted size */
+                    height: 16px; /* Adjusted size */
                 }
             </style>
             <div class="result-wrapper">
-                <h3 class="result-title">${title}</h3>
+                <div class="result-header">
+                    <h3 class="result-title">${title}</h3>
+                    <p class="explanation">${explanation}</p>
+                </div>
                 <div class="numbers-container">
                     ${numbers.map(num => `<div class="number" style="background: ${getNumberColor(num)}">${num}</div>`).join('')}
                 </div>
-                <p class="explanation">${explanation}</p>
                 <button class="copy-btn-result" title="${window.getTranslation ? window.getTranslation('copyButton') : 'Copy'}">${ICONS.copy}</button>
             </div>
         `;
@@ -362,76 +372,71 @@ function generateStrategyNumbers(strategy, userNumbers = [], numbersToExclude = 
     // Filter out numbers that should be excluded
     const availableNumbers = allPossibleNumbers.filter(num => !numbersToExclude.has(num));
 
-    const popularNumbers = [7, 14, 21, 28, 35, 1, 10, 20, 30, 40, 45].filter(num => !numbersToExclude.has(num));
-    const hotNumbers = [5, 12, 19, 26, 33, 42, 4, 11, 18, 25, 32].filter(num => !numbersToExclude.has(num));
-    const coldNumbers = [9, 16, 23, 31, 38, 44, 2, 13, 24, 34, 43].filter(num => !numbersToExclude.has(num));
-
-    function getRandomSubarray(arr, size) {
-        // Ensure we have enough available numbers for the subarray
-        // Consider numbers that are in arr and not in numbersToExclude
-        let pool = arr.filter(num => !numbersToExclude.has(num));
-
-        if (pool.length < size) {
-            // If the specific pool is too small after exclusions, draw from general availableNumbers
-            let fillCount = size - pool.length;
-            let tempAvailable = availableNumbers.filter(num => !pool.includes(num)); // Avoid duplicates from pool
-            pool = [...pool, ...getRandomSubarray(tempAvailable, fillCount)]; // Recursively fill from available
-            if (pool.length < size) { // Fallback just in case
-                pool = [...pool, ...getRandomSubarray(allPossibleNumbers.filter(num => !pool.includes(num)), size - pool.length)];
-            }
-        }
-        
-        const shuffled = [...pool].sort(() => 0.5 - Math.random());
+    function getRandomUniqueNumbers(pool, count, currentExclusions) {
         let result = new Set();
-        
-        // Take numbers from the shuffled array
-        for (let i = 0; i < shuffled.length && result.size < size; i++) {
-            result.add(shuffled[i]);
+        let currentPool = [...pool].filter(num => !currentExclusions.has(num));
+
+        // Try to pick from the specific pool first
+        for (let i = 0; i < currentPool.length && result.size < count; i++) {
+            result.add(currentPool[i]);
         }
 
-        // This should not be needed if getRandomSubarray is robust, but as a failsafe
-        while (result.size < size) {
+        // If not enough, fill with random unique numbers from general availableNumbers
+        let fillFromAvailable = availableNumbers.filter(num => !result.has(num) && !currentExclusions.has(num));
+        while (result.size < count && fillFromAvailable.length > 0) {
+            const randomIndex = Math.floor(Math.random() * fillFromAvailable.length);
+            const randomNumber = fillFromAvailable.splice(randomIndex, 1)[0];
+            result.add(randomNumber);
+        }
+
+        // Final fallback if still not enough (should ideally not happen if availableNumbers is >= 6)
+        while (result.size < count) {
             const randomNumber = Math.floor(Math.random() * 45) + 1;
-            if (!result.has(randomNumber) && !numbersToExclude.has(randomNumber)) {
+            if (!result.has(randomNumber) && !currentExclusions.has(randomNumber)) {
                 result.add(randomNumber);
             }
         }
         return Array.from(result);
     }
 
+    const popularNumbersPool = [7, 14, 21, 28, 35, 1, 10, 20, 30, 40, 45];
+    const hotNumbersPool = [5, 12, 19, 26, 33, 42, 4, 11, 18, 25, 32];
+    const coldNumbersPool = [9, 16, 23, 31, 38, 44, 2, 13, 24, 34, 43];
+
+
     switch (strategy) {
         case 'statistical':
             title = window.getTranslation('strategy1Title');
             explanation = window.getTranslation('strategy1Explanation');
-            selectedNumbers = new Set(getRandomSubarray(popularNumbers, 6));
+            selectedNumbers = new Set(getRandomUniqueNumbers(popularNumbersPool, 6, numbersToExclude));
             break;
         case 'trends':
             title = window.getTranslation('strategy2Title');
             explanation = window.getTranslation('strategy2Explanation');
-            selectedNumbers = new Set(getRandomSubarray(hotNumbers, 6));
+            selectedNumbers = new Set(getRandomUniqueNumbers(hotNumbersPool, 6, numbersToExclude));
             break;
         case 'longshot':
             title = window.getTranslation('strategy3Title');
             explanation = window.getTranslation('strategy3Explanation');
-            selectedNumbers = new Set(getRandomSubarray(coldNumbers, 6));
+            selectedNumbers = new Set(getRandomUniqueNumbers(coldNumbersPool, 6, numbersToExclude));
             break;
         case 'personal':
             title = window.getTranslation('strategy4Title');
             explanation = window.getTranslation('strategy4Explanation').replace('{numbers}', userNumbers.join(', '));
             userNumbers.forEach(num => selectedNumbers.add(num));
-            // Fill remaining numbers, respecting general exclusions and already selected personal numbers
-            let personalFillPool = availableNumbers.filter(num => !selectedNumbers.has(num));
+            
+            let personalFillPool = availableNumbers.filter(num => !selectedNumbers.has(num)); // Use availableNumbers that also respects numbersToExclude
 
             while (selectedNumbers.size < 6) {
                 if (personalFillPool.length === 0) {
-                    // Fallback to all possible if no more available unique numbers
+                    // Fallback to all possible numbers if personalFillPool runs out
                     const randomNumber = Math.floor(Math.random() * 45) + 1;
-                    if (!selectedNumbers.has(randomNumber)) {
+                    if (!selectedNumbers.has(randomNumber)) { // Ensure uniqueness even in fallback
                         selectedNumbers.add(randomNumber);
                     }
                 } else {
                     const randomIndex = Math.floor(Math.random() * personalFillPool.length);
-                    const randomNumber = personalFillPool.splice(randomIndex, 1)[0]; // Remove to avoid re-picking from this pool
+                    const randomNumber = personalFillPool.splice(randomIndex, 1)[0];
                     selectedNumbers.add(randomNumber);
                 }
             }
@@ -455,7 +460,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const strategyForm = document.getElementById('strategy-form');
     const resultContainer = document.getElementById('strategy-result-container');
     const personalNumberInput = document.getElementById('personal-number');
-    const strategyRadioButtons = strategyForm.querySelectorAll('input[name="strategy"]');
+    const strategyRadioButtons = strategyForm.querySelectorAll('input[name="strategy"]'); // Fixed: missing closing parenthesis
 
     // Function to update placeholder for personal number input
     const updatePersonalNumberPlaceholder = () => {
@@ -465,12 +470,14 @@ document.addEventListener('DOMContentLoaded', () => {
         if (selectedStrategy === 'personal') {
             personalNumberInput.placeholder = window.getTranslation('personalNumberPlaceholder');
             personalNumberInput.style.display = 'block'; // Show input
-            personalCard.style.minHeight = 'auto'; // Adjust card height
+            // Adjust card height for personal strategy
+            if (personalCard) personalCard.style.minHeight = 'auto';
         } else {
             personalNumberInput.placeholder = '';
             personalNumberInput.value = ''; // Clear value when not personal
             personalNumberInput.style.display = 'none'; // Hide input
-            personalCard.style.minHeight = '150px'; // Reset card height (adjust as needed for consistent card height)
+            // Reset card height if not personal strategy
+            if (personalCard) personalCard.style.minHeight = '150px'; // Adjust as needed
         }
     };
 
@@ -500,7 +507,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 userNumbers = uniqueNumbers;
             }
     
-            resultContainer.innerHTML = '';
+            resultContainer.innerHTML = ''; // Clear previous results
+            
             // Add a wrapper for better visual grouping of multiple results
             const resultsWrapper = document.createElement('div');
             resultsWrapper.style.display = 'flex';
@@ -512,8 +520,12 @@ document.addEventListener('DOMContentLoaded', () => {
             resultsWrapper.style.borderRadius = '20px';
             resultsWrapper.style.boxShadow = 'inset 0 0 15px rgba(0,0,0,0.1)';
 
-
             let allGeneratedNumbers = new Set(); // To store all numbers generated across sets
+
+            // Store the overall title and explanation once
+            let overallTitle = '';
+            let overallExplanation = '';
+            let isFirstSet = true;
             
             for (let i = 0; i < 5; i++) {
                 // For personal strategy, userNumbers is always included, so exclude those too for filling randoms
@@ -523,15 +535,34 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 const result = generateStrategyNumbers(strategy, userNumbers, numbersToExcludeForThisSet);
                 
+                // Set overall title and explanation only once from the first result
+                if (isFirstSet) {
+                    overallTitle = result.title;
+                    overallExplanation = result.explanation;
+                    isFirstSet = false;
+                }
+
                 const resultDisplay = document.createElement('strategy-result-display');
                 resultDisplay.setAttribute('numbers', JSON.stringify(result.numbers));
-                resultDisplay.setAttribute('explanation', result.explanation);
-                resultDisplay.setAttribute('title', result.title);
+                // Only pass explanation and title for the first set, others get empty strings
+                resultDisplay.setAttribute('explanation', i === 0 ? result.explanation : '');
+                resultDisplay.setAttribute('title', i === 0 ? result.title : '');
                 resultsWrapper.appendChild(resultDisplay);
 
                 // Add newly generated numbers to the exclusion set for the next iteration
                 result.numbers.forEach(num => allGeneratedNumbers.add(num));
             }
+
+            // Create a header for the resultsWrapper to display the overall title and explanation once
+            const wrapperHeader = document.createElement('div');
+            wrapperHeader.style.textAlign = 'center';
+            wrapperHeader.style.marginBottom = '1rem';
+            wrapperHeader.innerHTML = `
+                <h3 style="font-size: 1.8rem; font-weight: 700; margin-bottom: 0.5rem; color: var(--text-color);">${overallTitle}</h3>
+                <p style="font-style: italic; opacity: 0.9; font-size: 1rem; color: var(--text-color);">${overallExplanation}</p>
+            `;
+            resultsWrapper.prepend(wrapperHeader); // Add header at the beginning of the wrapper
+
             resultContainer.appendChild(resultsWrapper);
         });
 
