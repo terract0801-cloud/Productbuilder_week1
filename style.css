@@ -237,3 +237,17 @@ body.dark-mode .contact-form textarea::placeholder {
 .contact-form button[type="submit"]:hover {
     box-shadow: 0 0 20px 5px var(--glow-color);
 }
+
+/* Disqus Section Styling */
+.disqus-section {
+    margin-top: 4rem;
+    padding: 2rem;
+    background: var(--component-background);
+    border-radius: 20px;
+    box-shadow: 0 8px 32px 0 rgba(0,0,0,0.37);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid var(--component-border-color);
+    width: 90%;
+    max-width: 800px;
+}

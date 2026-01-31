@@ -46,3 +46,5 @@ A modern and stylish web application to generate lottery numbers, with options f
     *   A simple contact form integrated with Formspree (endpoint: `https://formspree.io/f/meekdzok`).
     *   Includes fields for Name, Email, and Message, allowing users to send partnership inquiries.
     *   Styled consistently with the application's glassmorphism theme.
+*   **Comment Section:**
+    *   A comment section powered by Disqus (`productbuilder-pevo0jlsvy`) is integrated at the bottom of the page.
