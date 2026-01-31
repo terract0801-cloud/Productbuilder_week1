@@ -14,6 +14,7 @@ async function setLanguage(lang) {
         // Update active class on buttons
         document.getElementById('lang-en').classList.toggle('active', lang === 'en');
         document.getElementById('lang-es').classList.toggle('active', lang === 'es');
+        document.getElementById('lang-ko').classList.toggle('active', lang === 'ko');
 
     } catch (error) {
         console.error(error);
@@ -44,11 +45,13 @@ function getTranslation(key) {
 document.addEventListener('DOMContentLoaded', () => {
     const langEnButton = document.getElementById('lang-en');
     const langEsButton = document.getElementById('lang-es');
+    const langKoButton = document.getElementById('lang-ko');
 
     langEnButton.addEventListener('click', () => setLanguage('en'));
     langEsButton.addEventListener('click', () => setLanguage('es'));
+    langKoButton.addEventListener('click', () => setLanguage('ko'));
 
-    const initialLang = localStorage.getItem('language') || (navigator.language.startsWith('es') ? 'es' : 'en');
+    const initialLang = localStorage.getItem('language') || 'ko';
     setLanguage(initialLang);
 });
 

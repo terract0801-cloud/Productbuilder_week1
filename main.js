@@ -40,6 +40,7 @@ class LottoGenerator extends HTMLElement {
     wrapper.setAttribute('class', 'wrapper');
 
     this.generateBtn = document.createElement('button');
+    this.generateBtn.classList.add('generate-btn');
     this.generateBtn.addEventListener('click', () => this.generateNumbers());
     
     const result = document.createElement('div');
@@ -54,27 +55,22 @@ class LottoGenerator extends HTMLElement {
         gap: 2rem;
       }
       .generate-btn {
-        padding: 1rem 2.5rem;
-        font-size: 1.5rem;
+        padding: 0.8rem 2rem;
+        font-size: 1.2rem;
         font-weight: 600;
         font-family: 'Poppins', sans-serif;
         cursor: pointer;
-        border: none;
-        border-radius: 50px;
-        background: linear-gradient(145deg, #2c5364, #203a43, #0f2027);
-        color: #fff;
-        box-shadow: 0 5px 15px rgba(0,0,0,0.2), 0 2px 5px rgba(0,0,0,0.1);
+        border-radius: 15px;
+        color: var(--text-color);
+        background: var(--component-background);
+        border: 1px solid var(--component-border-color);
+        box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        backdrop-filter: blur(5px);
+        -webkit-backdrop-filter: blur(5px);
         transition: all 0.3s ease;
-        position: relative;
-        overflow: hidden;
-      }
-      body.dark-mode .generate-btn {
-        background: linear-gradient(145deg, #8e9eab, #eef2f3);
-        color: #333;
       }
       .generate-btn:hover {
-        transform: translateY(-3px);
-        box-shadow: 0 8px 25px var(--glow-color), 0 4px 10px rgba(0,0,0,0.2);
+        box-shadow: 0 0 20px 5px var(--glow-color);
       }
       .result {
         display: flex;
