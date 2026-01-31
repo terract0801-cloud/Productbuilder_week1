@@ -19,16 +19,18 @@ const setTheme = (theme) => {
     localStorage.setItem('theme', theme);
 };
 
+const getNumberColor = (number) => {
+    if (number <= 10) return 'linear-gradient(135deg, #ffb88c, #de6262)';
+    if (number <= 20) return 'linear-gradient(135deg, #4facfe, #00f2fe)';
+    if (number <= 30) return 'linear-gradient(135deg, #ff416c, #ff4b2b)';
+    if (number <= 40) return 'linear-gradient(135deg, #a1c4fd, #c2e9fb)';
+    return 'linear-gradient(135deg, #56ab2f, #a8e063)';
+};
+
 themeToggle.addEventListener('click', () => {
     const currentTheme = localStorage.getItem('theme') || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
     const newTheme = currentTheme === 'light' ? 'dark' : 'light';
     setTheme(newTheme);
-});
-
-document.addEventListener('DOMContentLoaded', () => {
-    const savedTheme = localStorage.getItem('theme');
-    const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
-    setTheme(savedTheme || (prefersDark ? 'dark' : 'light'));
 });
 
 class LottoGenerator extends HTMLElement {
@@ -148,10 +150,7 @@ class LottoGenerator extends HTMLElement {
 
     connectedCallback() {
         this.updateButtonText();
-        // Listen for language changes to update dynamic text
-        document.addEventListener('languageChanged', () => {
-            this.updateButtonText();
-        });
+        document.addEventListener('languageChanged', () => this.updateButtonText());
     }
 
     updateButtonText() {
@@ -159,14 +158,6 @@ class LottoGenerator extends HTMLElement {
             this.generateBtn.textContent = window.getTranslation('generateButton');
         }
     }
-
-  getNumberColor(number) {
-    if (number <= 10) return 'linear-gradient(135deg, #ffb88c, #de6262)';
-    if (number <= 20) return 'linear-gradient(135deg, #4facfe, #00f2fe)';
-    if (number <= 30) return 'linear-gradient(135deg, #ff416c, #ff4b2b)';
-    if (number <= 40) return 'linear-gradient(135deg, #a1c4fd, #c2e9fb)';
-    return 'linear-gradient(135deg, #56ab2f, #a8e063)';
-  }
 
   copyNumbers(numbers, bonusNumber, button) {
     let textToCopy = numbers.join(', ');
@@ -196,13 +187,10 @@ class LottoGenerator extends HTMLElement {
       }
 
       const sortedNumbers = Array.from(numbers).sort((a, b) => a - b);
-
       const row = document.createElement('div');
       row.setAttribute('class', 'lotto-row');
-
       const mainNumbers = includeBonus ? sortedNumbers.slice(0, 6) : sortedNumbers;
       const bonusNumber = includeBonus ? sortedNumbers[6] : null;
-
       const numbersContainer = document.createElement('div');
       numbersContainer.style.display = 'flex';
       numbersContainer.style.gap = '1rem';
@@ -212,7 +200,7 @@ class LottoGenerator extends HTMLElement {
         const numberDiv = document.createElement('div');
         numberDiv.setAttribute('class', 'number');
         numberDiv.textContent = number;
-        numberDiv.style.background = this.getNumberColor(number);
+        numberDiv.style.background = getNumberColor(number);
         numbersContainer.appendChild(numberDiv);
       }
 
@@ -227,7 +215,7 @@ class LottoGenerator extends HTMLElement {
         const bonusDiv = document.createElement('div');
         bonusDiv.setAttribute('class', 'number bonus-number');
         bonusDiv.textContent = bonusNumber;
-        bonusDiv.style.background = this.getNumberColor(bonusNumber);
+        bonusDiv.style.background = getNumberColor(bonusNumber);
         row.appendChild(bonusDiv);
       }
 
@@ -242,5 +230,167 @@ class LottoGenerator extends HTMLElement {
     }
   }
 }
-
 customElements.define('lotto-generator', LottoGenerator);
+
+// --- AI Strategy Generator ---
+
+class StrategyResultDisplay extends HTMLElement {
+    constructor() {
+        super();
+        this.attachShadow({ mode: 'open' });
+    }
+
+    connectedCallback() {
+        const numbers = JSON.parse(this.getAttribute('numbers'));
+        const explanation = this.getAttribute('explanation');
+        const title = this.getAttribute('title');
+
+        this.shadowRoot.innerHTML = `
+            <style>
+                .result-wrapper {
+                    padding: 2rem;
+                    background: rgba(0,0,0,0.2);
+                    border-radius: 15px;
+                    text-align: center;
+                    animation: fadeIn 0.5s ease-in-out;
+                }
+                @keyframes fadeIn {
+                    from { opacity: 0; transform: translateY(20px); }
+                    to { opacity: 1; transform: translateY(0); }
+                }
+                .result-title {
+                    font-size: 1.8rem;
+                    font-weight: 700;
+                    margin-bottom: 1rem;
+                }
+                .numbers-container {
+                    display: flex;
+                    justify-content: center;
+                    gap: 1rem;
+                    margin-bottom: 1.5rem;
+                }
+                .number {
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    width: 60px;
+                    height: 60px;
+                    border-radius: 50%;
+                    font-size: 2rem;
+                    font-weight: 600;
+                    color: white;
+                    text-shadow: 0 1px 3px rgba(0,0,0,0.3);
+                    box-shadow: inset 0 -3px 5px rgba(0,0,0,0.2), 0 4px 10px rgba(0,0,0,0.4);
+                }
+                .explanation {
+                    font-style: italic;
+                    opacity: 0.9;
+                }
+            </style>
+            <div class="result-wrapper">
+                <h3 class="result-title">${title}</h3>
+                <div class="numbers-container">
+                    ${numbers.map(num => `<div class="number" style="background: ${getNumberColor(num)}">${num}</div>`).join('')}
+                </div>
+                <p class="explanation">${explanation}</p>
+            </div>
+        `;
+    }
+}
+customElements.define('strategy-result-display', StrategyResultDisplay);
+
+function generateStrategyNumbers(strategy, userNumber = null) {
+    let selectedNumbers = new Set();
+    let explanation = '';
+    let title = '';
+
+    const popularNumbers = [7, 14, 21, 28, 35, 1, 10, 20, 30, 40, 45];
+    const hotNumbers = [5, 12, 19, 26, 33, 42, 4, 11, 18, 25, 32];
+    const coldNumbers = [9, 16, 23, 31, 38, 44, 2, 13, 24, 34, 43];
+
+    function getRandomSubarray(arr, size) {
+        const shuffled = [...arr].sort(() => 0.5 - Math.random());
+        let result = new Set();
+        shuffled.slice(0, size).forEach(num => result.add(num));
+        while(result.size < size) {
+            result.add(Math.floor(Math.random() * 45) + 1);
+        }
+        return Array.from(result);
+    }
+
+    switch (strategy) {
+        case 'statistical':
+            title = window.getTranslation('strategy1Title');
+            explanation = 'These numbers are based on a simulation of the most frequently drawn numbers over a long history.';
+            selectedNumbers = new Set(getRandomSubarray(popularNumbers, 6));
+            break;
+        case 'trends':
+            title = window.getTranslation('strategy2Title');
+            explanation = 'This combination focuses on numbers that have been simulated as "hot" in recent draws.';
+            selectedNumbers = new Set(getRandomSubarray(hotNumbers, 6));
+            break;
+        case 'longshot':
+            title = window.getTranslation('strategy3Title');
+            explanation = 'We picked numbers that have been simulated as "cold," meaning they haven\'t appeared in a while.';
+            selectedNumbers = new Set(getRandomSubarray(coldNumbers, 6));
+            break;
+        case 'personal':
+            title = window.getTranslation('strategy4Title');
+            explanation = `Including your lucky number ${userNumber}, we've created a combination with numbers that have a simulated good synergy.`;
+            selectedNumbers.add(userNumber);
+            while (selectedNumbers.size < 6) {
+                const randomNumber = Math.floor(Math.random() * 45) + 1;
+                if (!selectedNumbers.has(randomNumber)) {
+                    selectedNumbers.add(randomNumber);
+                }
+            }
+            break;
+    }
+
+    return {
+        numbers: Array.from(selectedNumbers).sort((a, b) => a - b),
+        explanation,
+        title
+    };
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    // Theme initialization
+    const savedTheme = localStorage.getItem('theme');
+    const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+    setTheme(savedTheme || (prefersDark ? 'dark' : 'light'));
+
+    // AI Strategy Form listener
+    const strategyForm = document.getElementById('strategy-form');
+    const resultContainer = document.getElementById('strategy-result-container');
+    const personalNumberInput = document.getElementById('personal-number');
+
+    if(strategyForm) {
+        strategyForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const formData = new FormData(strategyForm);
+            const strategy = formData.get('strategy');
+            
+            let personalNumber = null;
+            if (strategy === 'personal') {
+                if(personalNumberInput.value) {
+                    personalNumber = parseInt(personalNumberInput.value, 10);
+                }
+                if (!personalNumber || isNaN(personalNumber) || personalNumber < 1 || personalNumber > 45) {
+                    alert('Please enter a valid number between 1 and 45 for the Personalized Combo.');
+                    return;
+                }
+            }
+    
+            const result = generateStrategyNumbers(strategy, personalNumber);
+            
+            resultContainer.innerHTML = '';
+            const resultDisplay = document.createElement('strategy-result-display');
+            resultDisplay.setAttribute('numbers', JSON.stringify(result.numbers));
+            resultDisplay.setAttribute('explanation', result.explanation);
+            resultDisplay.setAttribute('title', result.title);
+    
+            resultContainer.appendChild(resultDisplay);
+        });
+    }
+});

@@ -1,49 +1,44 @@
-# Lotto Number Generator
+# AI-Powered Lotto Number Generator
 
 ## Overview
 
-A modern and stylish web application to generate lottery numbers, with options for bonus numbers, easy copying of results, and multi-language support (English/Spanish).
+A modern and stylish web application that generates lottery numbers. This app provides users with a unique experience by offering number recommendations based on four different data-driven strategies, moving beyond simple random generation. It features a sophisticated, responsive design with multi-language support and other advanced functionalities.
 
-## Completed Tasks
+## Implemented Features
 
-### AdSense Optimization
+*   **Strategic Number Generation:** Users can choose from four different strategies to get their lottery numbers:
+    1.  **Statistical Stability:** Recommends numbers that have historically appeared most frequently.
+    2.  **Recent Trends:** Focuses on numbers that have been 'hot' in recent draws.
+    3.  **Long Shot:** Suggests numbers that have been 'cold' and haven't appeared in a long time.
+    4.  **Personalized Combo:** Allows the user to input their own lucky number and generates a combination that has the best 'chemistry' with it.
+*   **AdSense Optimization:** Enhanced content quality, improved navigation, and added legal pages (`privacy.html`, `terms.html`).
+*   **Modern UI/UX:**
+    *   A main "Generate" button and a display area for number sets.
+    *   Toggle switches for light/dark mode and bonus number inclusion.
+    *   "Copy" buttons for each number set for easy use.
+*   **Internationalization:** Supports Korean (default), English, and Spanish.
+*   **User Engagement:** Includes a Formspree-powered contact form and a Disqus comment section.
 
-1.  **Enhanced Content Quality and Depth**:
-    *   Added "About" and "How to Use" sections to `index.html`.
-    *   Expanded descriptive text throughout the site.
-2.  **Improved User Experience and Navigation**:
-    *   Implemented a footer with links to all major sections.
-    *   Added "Privacy Policy" and "Terms of Service" pages.
-3.  **Created Legal Pages**:
-    *   Developed and added `privacy.html` and `terms.html`.
-4.  **Reviewed and Refined**:
-    *   Ensured all new content is translated and works with the existing i18n implementation.
-    *   Verified that the site is fully responsive and free of technical errors.
+## Current Task: Implement Strategic Lotto Number Generation
 
-## Current Task
+The current goal is to build the front-end interface and logic for the strategic number generation feature.
 
-No active task. Ready for the next request.
+### Plan:
 
-### Design and Features
-
-*   **UI Components:**
-    *   A main "Generate" button.
-    *   A display area for multiple sets of generated numbers.
-    *   A toggle switch for light/dark mode.
-    *   A checkbox to include a bonus number.
-    *   "Copy" buttons for each number set.
-    *   A language switcher for English and Spanish.
-*   **Styling:**
-    *   A sophisticated, modern, and bold design.
-    *   Fully responsive for mobile and web and accessible (A11Y) design.
-*   **Functionality:**
-    *   Generates 5 sets of lottery numbers, with an optional bonus number.
-    *   Allows users to copy number sets to the clipboard.
-    *   Supports switchable light and dark themes with preference persistence.
-    *   **Supports internationalization (Korean as default, English and Spanish available), including `locales/ko.json`.**
-*   **Contact Form:**
-    *   A simple contact form integrated with Formspree (endpoint: `https://formspree.io/f/meekdzok`).
-    *   Includes fields for Name, Email, and Message, allowing users to send partnership inquiries.
-    *   Styled consistently with the application's glassmorphism theme.
-*   **Comment Section:**
-    *   A comment section powered by Disqus (`productbuilder-pevo0jlsvy`) is integrated at the bottom of the page.
+1.  **HTML Structure (`index.html`):**
+    *   Create a dedicated section for the AI-powered recommendation feature.
+    *   Add a title and descriptive text.
+    *   Implement a form with four radio-button options, each representing a generation strategy.
+    *   Include a number input field for the "Personalized Combo" strategy.
+    *   Add a "Get Recommendation" button to trigger the generation.
+    *   Define a result area to display the generated numbers and the reasoning behind the recommendation.
+2.  **CSS Styling (`style.css`):**
+    *   Apply a modern, clean, and intuitive style to the new strategy selection section.
+    *   Design the radio buttons to be visually engaging, like selectable cards.
+    *   Ensure the layout is fully responsive and consistent with the existing theme (light/dark modes).
+    *   Style the results area to present the numbers and their "story" clearly.
+3.  **JavaScript Logic (`main.js`):**
+    *   Add an event listener to the recommendation button.
+    *   Implement a function to generate lotto numbers based on the selected strategy. (Note: Since real historical data is not available, the logic will simulate the data for each strategy to demonstrate the feature).
+    *   Create a `<lotto-result>` Web Component to dynamically render the results in a structured and reusable way. This component will display the chosen numbers and the explanatory text.
+    *   Handle user input and basic validation (e.g., for the personalized number).

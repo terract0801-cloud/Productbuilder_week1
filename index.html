@@ -21,6 +21,49 @@
         </div>
     </header>
     <h1 data-i18n-key="mainHeading">Lotto Number Generator</h1>
+
+    <section class="strategy-section">
+        <h2 data-i18n-key="strategyHeading">AI-Powered Recommendation</h2>
+        <p data-i18n-key="strategySubheading">Choose a strategy to get your personalized lotto numbers.</p>
+        <form id="strategy-form" class="strategy-form">
+            <div class="strategy-options">
+                <label class="strategy-option">
+                    <input type="radio" name="strategy" value="statistical" checked>
+                    <div class="strategy-card">
+                        <h3 data-i18n-key="strategy1Title">Statistical Stability</h3>
+                        <p data-i18n-key="strategy1Desc">Based on numbers that have appeared most frequently over time.</p>
+                    </div>
+                </label>
+                <label class="strategy-option">
+                    <input type="radio" name="strategy" value="trends">
+                    <div class="strategy-card">
+                        <h3 data-i18n-key="strategy2Title">Recent Trends</h3>
+                        <p data-i18n-key="strategy2Desc">Focuses on 'hot' numbers from the most recent draws.</p>
+                    </div>
+                </label>
+                <label class="strategy-option">
+                    <input type="radio" name="strategy" value="longshot">
+                    <div class="strategy-card">
+                        <h3 data-i18n-key="strategy3Title">Long Shot</h3>
+                        <p data-i18n-key="strategy3Desc">Picks 'cold' numbers that haven't appeared in a long while.</p>
+                    </div>
+                </label>
+                <label class="strategy-option">
+                    <input type="radio" name="strategy" value="personal">
+                    <div class="strategy-card">
+                        <h3 data-i18n-key="strategy4Title">Personalized Combo</h3>
+                        <p data-i18n-key="strategy4Desc">Enter your lucky number (1-45) for a custom combination.</p>
+                        <input type="number" id="personal-number" min="1" max="45" placeholder="8">
+                    </div>
+                </label>
+            </div>
+            <button type="submit" class="generate-btn" data-i18n-key="generateButton">Get Recommendation</button>
+        </form>
+        <div id="strategy-result-container"></div>
+    </section>
+
+    <hr class="section-divider">
+
     <div class="options-container">
         <label for="bonus-checkbox" data-i18n-key="includeBonus">Include Bonus Number</label>
         <input type="checkbox" id="bonus-checkbox">

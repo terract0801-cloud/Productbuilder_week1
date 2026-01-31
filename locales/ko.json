@@ -17,5 +17,16 @@
     "footerAbout": "정보",
     "footerHowToUse": "사용 방법",
     "footerPrivacy": "개인 정보 정책",
-    "footerTerms": "서비스 약관"
+    "footerTerms": "서비스 약관",
+    "strategyHeading": "AI 번호 추천",
+    "strategySubheading": "원하는 추천 전략을 선택하고 번호를 받아보세요.",
+    "strategy1Title": "통계적 안정형",
+    "strategy1Desc": "역대 가장 많이 당첨된 번호들을 기반으로 조합합니다.",
+    "strategy2Title": "최근 트렌드형",
+    "strategy2Desc": "최근 추첨에서 자주 등장한 '핫'한 번호들로 조합합니다.",
+    "strategy3Title": "인생 역전형",
+    "strategy3Desc": "오랫동안 나오지 않은 '콜드' 번호들로 조합합니다.",
+    "strategy4Title": "나만의 번호 조합",
+    "strategy4Desc": "행운의 번호(1-45)를 입력하면, 그 번호와 어울리는 조합을 추천합니다.",
+    "generateButton": "추천 번호 받기"
 }

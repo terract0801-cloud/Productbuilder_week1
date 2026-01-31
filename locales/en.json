@@ -17,5 +17,16 @@
     "footerAbout": "About",
     "footerHowToUse": "How to Use",
     "footerPrivacy": "Privacy Policy",
-    "footerTerms": "Terms of Service"
+    "footerTerms": "Terms of Service",
+    "strategyHeading": "AI-Powered Recommendation",
+    "strategySubheading": "Choose a strategy to get your personalized lotto numbers.",
+    "strategy1Title": "Statistical Stability",
+    "strategy1Desc": "Based on numbers that have appeared most frequently over time.",
+    "strategy2Title": "Recent Trends",
+    "strategy2Desc": "Focuses on 'hot' numbers from the most recent draws.",
+    "strategy3Title": "Long Shot",
+    "strategy3Desc": "Picks 'cold' numbers that haven't appeared in a long while.",
+    "strategy4Title": "Personalized Combo",
+    "strategy4Desc": "Enter your lucky number (1-45) for a custom combination.",
+    "generateButton": "Get Recommendation"
 }

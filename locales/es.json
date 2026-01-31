@@ -17,5 +17,16 @@
     "footerAbout": "Sobre",
     "footerHowToUse": "Cómo Usar",
     "footerPrivacy": "Política de Privacidad",
-    "footerTerms": "Términos de Servicio"
+    "footerTerms": "Términos de Servicio",
+    "strategyHeading": "Recomendación con IA",
+    "strategySubheading": "Elige una estrategia para obtener tus números de lotería personalizados.",
+    "strategy1Title": "Estabilidad Estadística",
+    "strategy1Desc": "Basado en los números que han aparecido con mayor frecuencia a lo largo del tiempo.",
+    "strategy2Title": "Tendencias Recientes",
+    "strategy2Desc": "Se enfoca en los números 'calientes' de los sorteos más recientes.",
+    "strategy3Title": "Apuesta Arriesgada",
+    "strategy3Desc": "Selecciona números 'fríos' que no han aparecido en mucho tiempo.",
+    "strategy4Title": "Combo Personalizado",
+    "strategy4Desc": "Ingresa tu número de la suerte (1-45) para una combinación personalizada.",
+    "generateButton": "Obtener Recomendación"
 }
