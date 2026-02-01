@@ -561,9 +561,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 const resultDisplay = document.createElement('strategy-result-display');
                 resultDisplay.setAttribute('numbers', JSON.stringify(result.numbers));
-                // Only pass explanation and title for the first set, others get empty strings
-                resultDisplay.setAttribute('explanation', i === 0 ? result.explanation : '');
-                resultDisplay.setAttribute('title', i === 0 ? result.title : '');
                 resultsWrapper.appendChild(resultDisplay);
 
                 // Add newly generated numbers to the exclusion set for the next iteration
