@@ -38,5 +38,14 @@
     "personalNumberNoInput": "Por favor, introduce tu(s) número(s) de la suerte para el Combo Personalizado.",
     "goToDonghaengLotto": "Ir a Lotería Donghaeng",
     "metaDescription": "Genera números de lotería inteligentes basados en análisis estadísticos, tendencias recientes, números 'long shot' o tus números de la suerte personalizados. Obtén recomendaciones de lotería con IA para una diversión máxima.",
-    "metaKeywords": "generador de lotería, números de lotería, lotería IA, números de la suerte, predicciones de lotería, lotería estadística, análisis de tendencias, lotería personalizada, 로또 번호 생성기, 로또번호생성기, 로또번호 예측, 동행복권, 로또생성, ai 로또"
+    "metaKeywords": "generador de lotería, números de lotería, lotería IA, números de la suerte, predicciones de lotería, lotería estadística, análisis de tendencias, lotería personalizada, 로또 번호 생성기, 로또번호생성기, 로또번호 예측, 동행복권, 로또생성, ai 로또",
+    "faqHeading": "Entendiendo Nuestras Estrategias Potenciadas por IA",
+    "faq1Question": "¿Cómo funciona la estrategia de 'Estabilidad Estadística'?",
+    "faq1Answer": "Esta estrategia recomienda los números de lotería que han aparecido con mayor frecuencia a lo largo de la historia. Se basa en la teoría de que los números con una alta frecuencia de sorteos pasados tienen una mayor probabilidad de volver a aparecer.",
+    "faq2Question": "¿Qué es la estrategia de 'Tendencias Recientes'?",
+    "faq2Answer": "Este enfoque se centra en identificar los números 'calientes', aquellos que han sido sorteados con frecuencia en los resultados de lotería más recientes. Es una estrategia que apuesta por la continuación de una tendencia actual a corto plazo.",
+    "faq3Question": "¿Qué define la estrategia de 'Apuesta Arriesgada' (Long Shot)?",
+    "faq3Answer": "La estrategia de 'Apuesta Arriesgada' selecciona números 'fríos', que son aquellos que no han sido sorteados durante un período significativo. La creencia subyacente es que estos números están estadísticamente 'pendientes' de aparecer pronto.",
+    "faq4Question": "¿Cómo funciona el 'Combo Personalizado'?",
+    "faq4Answer": "Tú proporcionas un número de la suerte personal, y nuestro generador crea una combinación personalizada que históricamente ha mostrado la mejor compatibilidad o 'química' con tu número elegido, basándose en datos de sorteos anteriores."
 }

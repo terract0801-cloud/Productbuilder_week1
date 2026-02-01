@@ -300,12 +300,9 @@ class StrategyResultDisplay extends HTMLElement {
                     margin-bottom: 0.3rem;
                     color: var(--text-color);
                 }
-                .numbers-container {
-                    display: flex;
-                    justify-content: center;
-                    gap: 0.5rem; /* Further adjusted gap */
-                    margin-bottom: 0.5rem;
-                    flex-wrap: wrap;
+                .numbers-table {
+                    border-collapse: collapse;
+                    margin: 0.5rem 0;
                 }
                 .number {
                     display: flex;
@@ -319,6 +316,7 @@ class StrategyResultDisplay extends HTMLElement {
                     color: white;
                     text-shadow: 0 1px 3px rgba(0,0,0,0.3);
                     box-shadow: inset 0 -3px 5px rgba(0,0,0,0.2), 0 4px 10px rgba(0,0,0,0.4);
+                    margin: 0 4px;
                 }
                 .explanation {
                     font-style: italic;
@@ -355,9 +353,13 @@ class StrategyResultDisplay extends HTMLElement {
             </style>
             <div class="result-wrapper">
                 ${headerHtml} <!-- Insert the conditional header -->
-                <div class="numbers-container">
-                    ${numbers.map(num => `<div class="number" style="background: ${getNumberColor(num)}">${num}</div>`).join('')}
-                </div>
+                <table class="numbers-table">
+                    <tbody>
+                        <tr>
+                            ${numbers.map(num => `<td><div class="number" style="background: ${getNumberColor(num)}">${num}</div></td>`).join('')}
+                        </tr>
+                    </tbody>
+                </table>
                 <button class="copy-btn-result" title="${window.getTranslation ? window.getTranslation('copyButton') : 'Copy'}">${ICONS.copy}</button>
             </div>
         `;
