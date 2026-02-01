@@ -420,24 +420,26 @@ body.dark-mode .contact-form textarea::placeholder {
 }
 
 .go-to-lotto-btn {
-    padding: 0.8rem 2.5rem; /* Slightly smaller than main generate button */
-    font-size: 1.2rem;
-    font-weight: 600;
+    display: inline-block; /* Treat as a block element for sizing/margins but allow text to flow */
+    padding: 1rem 3rem; /* Same as generate-btn for consistency */
+    font-size: 1.5rem; /* Same as generate-btn */
+    font-weight: 700;
     font-family: 'Poppins', sans-serif;
     cursor: pointer;
-    border-radius: 40px; /* Slightly less rounded */
+    border-radius: 50px; /* Same as generate-btn */
     color: var(--text-color);
     background: linear-gradient(135deg, #f76b1c, #fad961); /* Distinctive warm gradient */
     border: none;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    box-shadow: 0 4px 20px rgba(0,0,0,0.3); /* Same as generate-btn */
     transition: all 0.3s ease;
-    margin-top: 1.5rem; /* Add some space above */
+    margin-top: 1.5rem; /* Add some space above the button */
     text-decoration: none; /* Ensure no underline if it renders as a link */
+    line-height: 1; /* Adjust line height for vertical centering */
 }
 
 .go-to-lotto-btn:hover {
-    box-shadow: 0 0 20px 6px rgba(247, 107, 28, 0.5); /* Matching glow effect */
-    transform: scale(1.03);
+    box-shadow: 0 0 25px 8px rgba(247, 107, 28, 0.5); /* Matching glow effect */
+    transform: scale(1.05); /* Matching hover effect */
 }
 
 #strategy-result-container {
