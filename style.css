@@ -419,6 +419,27 @@ body.dark-mode .contact-form textarea::placeholder {
     transform: scale(1.05);
 }
 
+.go-to-lotto-btn {
+    padding: 0.8rem 2.5rem; /* Slightly smaller than main generate button */
+    font-size: 1.2rem;
+    font-weight: 600;
+    font-family: 'Poppins', sans-serif;
+    cursor: pointer;
+    border-radius: 40px; /* Slightly less rounded */
+    color: var(--text-color);
+    background: linear-gradient(135deg, #f76b1c, #fad961); /* Distinctive warm gradient */
+    border: none;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    transition: all 0.3s ease;
+    margin-top: 1.5rem; /* Add some space above */
+    text-decoration: none; /* Ensure no underline if it renders as a link */
+}
+
+.go-to-lotto-btn:hover {
+    box-shadow: 0 0 20px 6px rgba(247, 107, 28, 0.5); /* Matching glow effect */
+    transform: scale(1.03);
+}
+
 #strategy-result-container {
     margin-top: 2rem;
 }

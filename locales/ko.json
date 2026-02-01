@@ -35,5 +35,6 @@
     "strategy3Explanation": "'콜드' 번호들, 즉 오랫동안 나오지 않은 번호들을 시뮬레이션하여 선택했습니다.",
     "strategy4Explanation": "행운의 번호 {numbers}를 포함하여, 좋은 시너지를 내는 번호 조합을 만들었습니다.",
     "personalNumberInvalid": "1에서 45 사이의 고유한 번호를 1개에서 6개 사이로 입력해주세요. 쉼표로 구분해주세요 (예: 8, 15, 23).",
-    "personalNumberNoInput": "나만의 번호 조합을 위해 행운의 번호를 입력해주세요."
+    "personalNumberNoInput": "나만의 번호 조합을 위해 행운의 번호를 입력해주세요.",
+    "goToDonghaengLotto": "동행복권 바로가기"
 }

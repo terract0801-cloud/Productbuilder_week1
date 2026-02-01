@@ -35,5 +35,6 @@
     "strategy3Explanation": "We picked numbers that have been simulated as 'cold,' meaning they haven't appeared in a while.",
     "strategy4Explanation": "Including your lucky number(s) {numbers}, we've created a combination with numbers that have a simulated good synergy.",
     "personalNumberInvalid": "Please enter between 1 and 6 unique numbers, each between 1 and 45. Use commas to separate numbers (e.g., 8, 15, 23).",
-    "personalNumberNoInput": "Please enter your lucky number(s) for the Personalized Combo."
+    "personalNumberNoInput": "Please enter your lucky number(s) for the Personalized Combo.",
+    "goToDonghaengLotto": "Go to Donghaeng Lottery"
 }
