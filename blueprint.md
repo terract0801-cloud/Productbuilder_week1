@@ -39,8 +39,8 @@ The goal is to implement comprehensive SEO optimizations based on Google's and N
     *   **[DONE] TASK 2.1:** Modified `<title>` tag to be more descriptive and dynamic using i18n. (Already done by previous tasks/user)
     *   **[DONE] TASK 2.2:** Added `<meta name="description">` tag using i18n for dynamic content. (Already done by previous tasks/user)
     *   **[DONE] TASK 2.3:** Added `<meta name="keywords">` tag (Naver specific) using i18n. (Already done by previous tasks/user)
-    *   **[DONE] TASK 2.4:** Added Open Graph (OG) meta tags (e.g., `og:title`, `og:description`, `og:image`, `og:url`, `og:type`) using i18n. (Already done by previous tasks/user, TODOs left for user to update URLs)
-    *   **[DONE] TASK 2.5:** Added Twitter Card meta tags (e.g., `twitter:card`, `twitter:title`, `twitter:description`, `twitter:image`). (Already done by previous tasks/user, TODOs left for user to update URLs)
+    *   **[DONE] TASK 2.4:** Added Open Graph (OG) meta tags (e.g., `og:title`, `og:description`, `og:image`, `og:url`, `og:type`) using i18n. (Placeholder URLs replaced with actual deployed URL)
+    *   **[DONE] TASK 2.5:** Added Twitter Card meta tags (e.g., `twitter:card`, `twitter:title`, `twitter:description`, `twitter:image`). (Placeholder URLs replaced with actual deployed URL)
     *   **[DONE] TASK 2.6:** Make `lang` attribute on `<html>` dynamic based on the active language from `i18n.js`. (Already handled by `i18n.js` itself).
 3.  **[DONE] Refine HTML Structure (Semantic HTML):**
     *   **[DONE] TASK 3.1:** Wrapped main content in `<main>` tags. Heading hierarchy and semantic element usage are now optimal for a single-page app.
