@@ -260,6 +260,17 @@ class StrategyResultDisplay extends HTMLElement {
         const explanation = this.getAttribute('explanation'); // Can be empty
         const title = this.getAttribute('title'); // Can be empty
 
+        // Dynamically construct the header part only if title or explanation exists AND is not empty
+        let headerHtml = '';
+        if (title && title.trim() !== '' || explanation && explanation.trim() !== '') {
+            headerHtml = `
+                <div class="result-header">
+                    ${title && title.trim() !== '' ? `<h3 class="result-title">${title}</h3>` : ''}
+                    ${explanation && explanation.trim() !== '' ? `<p class="explanation">${explanation}</p>` : ''}
+                </div>
+            `;
+        }
+
         this.shadowRoot.innerHTML = `
             <style>
                 .result-wrapper {
@@ -281,7 +292,6 @@ class StrategyResultDisplay extends HTMLElement {
                     to { opacity: 1; transform: translateY(0); }
                 }
                 .result-header {
-                    display: ${title ? 'block' : 'none'}; /* Show only if title exists */
                     width: 100%;
                 }
                 .result-title {
@@ -311,7 +321,6 @@ class StrategyResultDisplay extends HTMLElement {
                     box-shadow: inset 0 -3px 5px rgba(0,0,0,0.2), 0 4px 10px rgba(0,0,0,0.4);
                 }
                 .explanation {
-                    display: ${explanation ? 'block' : 'none'}; /* Show only if explanation exists */
                     font-style: italic;
                     opacity: 0.9;
                     font-size: 0.85rem; /* Further adjusted font size */
@@ -345,10 +354,7 @@ class StrategyResultDisplay extends HTMLElement {
                 }
             </style>
             <div class="result-wrapper">
-                <div class="result-header">
-                    <h3 class="result-title">${title}</h3>
-                    <p class="explanation">${explanation}</p>
-                </div>
+                ${headerHtml} <!-- Insert the conditional header -->
                 <div class="numbers-container">
                     ${numbers.map(num => `<div class="number" style="background: ${getNumberColor(num)}">${num}</div>`).join('')}
                 </div>
@@ -499,7 +505,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 const parts = inputValue.split(',').map(part => parseInt(part.trim(), 10));
                 
                 // Filter out non-numbers and duplicates, then check range
-                const uniqueNumbers = [...new Set(parts)].filter(num => !isNaN(num) && num >= 1 && num <= 45);
+                const uniqueNumbers = [...new Set(parts)].filter(num => !isNaN(num) && num >= 1 && num >= 1 && num <= 45);
                 
                 if (uniqueNumbers.length === 0 || uniqueNumbers.length > 6) {
                     alert(window.getTranslation('personalNumberInvalid'));
@@ -514,7 +520,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const resultsWrapper = document.createElement('div');
             resultsWrapper.style.display = 'flex';
             resultsWrapper.style.flexDirection = 'column';
-            resultsWrapper.style.gap = '1rem'; // Gap between result cards
+            resultsWrapper.style.gap = '0.5rem'; // Adjusted gap between individual results for tighter packing
             resultsWrapper.style.marginTop = '1rem';
             resultsWrapper.style.padding = '1rem';
             resultsWrapper.style.background = 'var(--component-background)'; // Use component background
@@ -545,9 +551,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 const resultDisplay = document.createElement('strategy-result-display');
                 resultDisplay.setAttribute('numbers', JSON.stringify(result.numbers));
-                // Only pass explanation and title for the first set, others get empty strings
-                resultDisplay.setAttribute('explanation', i === 0 ? result.explanation : '');
-                resultDisplay.setAttribute('title', i === 0 ? result.title : '');
+                // Do not pass explanation and title to individual StrategyResultDisplay instances
+                // resultDisplay.setAttribute('explanation', i === 0 ? result.explanation : '');
+                // resultDisplay.setAttribute('title', i === 0 ? result.title : '');
                 resultsWrapper.appendChild(resultDisplay);
 
                 // Add newly generated numbers to the exclusion set for the next iteration
