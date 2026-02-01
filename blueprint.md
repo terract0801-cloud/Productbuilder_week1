@@ -47,3 +47,4 @@ The goal is to implement comprehensive SEO optimizations based on Google's and N
 4.  **[DONE] Crawlability & Indexability:**
     *   **[DONE] TASK 4.1:** Created `robots.txt` file to allow crawling of essential assets.
     *   **[DONE] TASK 4.2:** Added `rel="noopener noreferrer"` to external links for security and SEO. (Donghaeng Lottery button in `main.js` and Disqus comments link in `index.html`).
+    *   **[DONE] TASK 4.3:** Created `sitemap.xml` for basic site discoverability.
