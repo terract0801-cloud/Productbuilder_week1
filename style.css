@@ -339,6 +339,12 @@ body.dark-mode .contact-form textarea::placeholder {
     margin-bottom: 2rem;
 }
 
+@media (min-width: 1025px) { /* Enforce 2x2 grid on larger screens */
+    .strategy-options {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
 .strategy-option input[type="radio"] {
     display: none; /* Hide the actual radio button */
 }
