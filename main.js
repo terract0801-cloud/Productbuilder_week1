@@ -1,5 +1,5 @@
 const ICONS = {
-    sun: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>`,
+    sun: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y1="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>`,
     moon: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>`,
     copy: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>`,
     check: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>`
@@ -400,7 +400,7 @@ function generateStrategyNumbers(strategy, userNumbers = [], numbersToExclude = 
         while (result.size < count) {
             const randomNumber = Math.floor(Math.random() * 45) + 1;
             if (!result.has(randomNumber) && !currentExclusions.has(randomNumber)) {
-                result.add(randomNumber);
+                selectedNumbers.add(randomNumber);
             }
         }
         return Array.from(result);
@@ -467,11 +467,21 @@ document.addEventListener('DOMContentLoaded', () => {
     const strategyForm = document.getElementById('strategy-form');
     const resultContainer = document.getElementById('strategy-result-container');
     const personalNumberInput = document.getElementById('personal-number');
-    const strategyRadioButtons = strategyForm.querySelectorAll('input[name="strategy"]'); // Fixed: missing closing parenthesis
+    let strategyRadioButtons = []; // Initialize to an empty array
+
+    if (strategyForm) {
+        strategyRadioButtons = strategyForm.querySelectorAll('input[name="strategy"]'); // Safe assignment
+    }
 
     // Function to update placeholder for personal number input
     const updatePersonalNumberPlaceholder = () => {
-        const selectedStrategy = strategyForm.querySelector('input[name="strategy']:checked').value;
+        let selectedStrategy = null;
+        // Safely get checked radio button if strategyForm exists
+        const checkedRadio = strategyForm ? strategyForm.querySelector('input[name="strategy"]:checked') : null;
+        if (checkedRadio) {
+            selectedStrategy = checkedRadio.value;
+        }
+
         const personalCard = document.querySelector('label.strategy-option input[value="personal"] + .strategy-card');
         
         if (selectedStrategy === 'personal') {
