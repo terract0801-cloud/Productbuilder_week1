@@ -383,6 +383,12 @@ function generateStrategyNumbers(strategy, userNumbers = [], numbersToExclude = 
         let result = new Set();
         let currentPool = [...pool].filter(num => !currentExclusions.has(num));
 
+        // Shuffle the current pool to get random numbers from it
+        for (let i = currentPool.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [currentPool[i], currentPool[j]] = [currentPool[j], currentPool[i]];
+        }
+
         // Try to pick from the specific pool first
         for (let i = 0; i < currentPool.length && result.size < count; i++) {
             result.add(currentPool[i]);
