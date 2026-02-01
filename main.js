@@ -695,7 +695,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const donghaengButton = document.createElement('button');
             donghaengButton.classList.add('go-to-lotto-btn');
             donghaengButton.textContent = window.getTranslation('goToDonghaengLotto');
-            donghaengButton.onclick = () => window.open('https://www.dhlottery.co.kr/', '_blank', 'noopener,noreferrer');
+            donghaengButton.onclick = () => window.open('https://dhlottery.co.kr/common.do?method=main', '_blank', 'noopener,noreferrer');
             resultsWrapper.appendChild(donghaengButton); // Append button to the resultsWrapper
 
             createShareButtons(resultsWrapper);
