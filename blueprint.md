@@ -15,10 +15,13 @@ A modern and stylish web application that generates lottery numbers. This app pr
 *   **Modern UI/UX:**
     *   An interactive accordion UI on strategy cards to show detailed explanations without cluttering the interface.
     *   A main "Generate" button and a display area for number sets.
+    *   Social sharing buttons (Facebook, Twitter, KakaoTalk, Copy Link) that appear after number generation.
     *   Toggle switches for light/dark mode.
     *   "Copy" buttons for each number set for easy use.
 *   **Internationalization:** Supports Korean (default), English, and Spanish.
-*   **User Engagement:** Includes a Formspree-powered contact form and a Disqus comment section.
+*   **User Engagement:** 
+    *   Includes a Formspree-powered contact form and a Disqus comment section.
+    *   **Social Sharing:** Encourages viral growth by allowing users to easily share the site on major platforms.
 *   **SEO & Crawlability:** Includes a `robots.txt` for crawlers and a `sitemap.xml` for site discovery.
 
 ## GEO (Generative Engine Optimization) & UX Refinement

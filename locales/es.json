@@ -42,5 +42,8 @@
     "strategy1Detail": "Esta estrategia recomienda los números de lotería que han aparecido con mayor frecuencia a lo largo de la historia. Se basa en la teoría de que los números con una alta frecuencia de sorteos pasados tienen una mayor probabilidad de volver a aparecer.",
     "strategy2Detail": "Este enfoque se centra en identificar los números 'calientes', aquellos que han sido sorteados con frecuencia en los resultados de lotería más recientes. Es una estrategia que apuesta por la continuación de una tendencia actual a corto plazo.",
     "strategy3Detail": "La estrategia de 'Apuesta Arriesgada' selecciona números 'fríos', que son aquellos que no han sido sorteados durante un período significativo. La creencia subyacente es que estos números están estadísticamente 'pendientes' de aparecer pronto.",
-    "strategy4Detail": "Tú proporcionas un número de la suerte personal, y nuestro generador crea una combinación personalizada que históricamente ha mostrado la mejor compatibilidad o 'química' con tu número elegido, basándose en datos de sorteos anteriores."
+    "strategy4Detail": "Tú proporcionas un número de la suerte personal, y nuestro generador crea una combinación personalizada que históricamente ha mostrado la mejor compatibilidad o 'química' con tu número elegido, basándose en datos de sorteos anteriores.",
+    "shareTitle": "¡Comparte la buena suerte!",
+    "shareText": "¡He conseguido mis números de la suerte con este Generador de Lotería IA! ¡Échale un vistazo!",
+    "ctaButton": "¡Pruébalo!"
 }

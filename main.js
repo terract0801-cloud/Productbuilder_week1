@@ -2,7 +2,11 @@ const ICONS = {
     sun: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y1="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>`,
     moon: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>`,
     copy: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>`,
-    check: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>`
+    check: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>`,
+    facebook: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>`,
+    twitter: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 16 16" fill="currentColor"><path d="M12.6.75h2.454l-5.36 6.142L16 15.25h-4.937l-3.867-5.07-4.425 5.07H.316l5.733-6.57L0 .75h5.063l3.495 4.633L12.601.75Zm-.86 13.028h1.36L4.323 2.145H2.865z"/></svg>`,
+    kakao: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.477 2 2 6.125 2 11.25c0 2.75 1.25 5.25 3.375 6.938L4 22l4.75-2.5C10.25 20.25 11.125 20.5 12 20.5c5.523 0 10-4.125 10-9.25S17.523 2 12 2z"/></svg>`,
+    link: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.72"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.72-1.72"></path></svg>`
 };
 
 const themeToggle = document.getElementById('theme-toggle');
@@ -465,6 +469,84 @@ function generateStrategyNumbers(strategy, userNumbers = [], numbersToExclude = 
     };
 }
 
+function createShareButtons(container) {
+    const shareContainer = document.createElement('div');
+    shareContainer.className = 'share-container';
+
+    const shareTitle = document.createElement('p');
+    shareTitle.className = 'share-title';
+    shareTitle.textContent = window.getTranslation ? window.getTranslation('shareTitle') : 'Share the good luck!'; // Temp text
+    shareContainer.appendChild(shareTitle);
+
+    const buttonsWrapper = document.createElement('div');
+    buttonsWrapper.className = 'share-buttons-wrapper';
+    
+    const siteUrl = 'https://productbuilder-week1-2gy.pages.dev/';
+    const shareText = window.getTranslation ? window.getTranslation('shareText') : 'I got my lucky numbers from this AI Lotto Generator!'; // Temp text
+
+    const networks = [
+        { name: 'facebook', icon: ICONS.facebook, color: '#1877F2' },
+        { name: 'twitter', icon: ICONS.twitter, color: '#1DA1F2' },
+        { name: 'kakao', icon: ICONS.kakao, color: '#FEE500' },
+        { name: 'link', icon: ICONS.link, color: '#cccccc' }
+    ];
+
+    networks.forEach(network => {
+        const button = document.createElement('button');
+        button.className = 'share-btn';
+        button.innerHTML = network.icon;
+        button.style.setProperty('--glow-color', network.color + '80'); // Add transparency to glow
+        
+        button.addEventListener('click', () => {
+            switch(network.name) {
+                case 'facebook':
+                    window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(siteUrl)}`, '_blank');
+                    break;
+                case 'twitter':
+                    window.open(`https://twitter.com/intent/tweet?url=${encodeURIComponent(siteUrl)}&text=${encodeURIComponent(shareText)}`, '_blank');
+                    break;
+                case 'kakao':
+                    if (window.Kakao && Kakao.isInitialized()) {
+                        Kakao.Share.sendDefault({
+                            objectType: 'feed',
+                            content: {
+                                title: window.getTranslation ? window.getTranslation('appTitle') : 'AI Lotto Generator',
+                                description: shareText,
+                                imageUrl: 'https://productbuilder-week1-2gy.pages.dev/social-share.jpg', // Replace with actual image
+                                link: {
+                                    mobileWebUrl: siteUrl,
+                                    webUrl: siteUrl,
+                                },
+                            },
+                            buttons: [
+                                {
+                                    title: window.getTranslation ? window.getTranslation('ctaButton') : 'Try it out!',
+                                    link: {
+                                        mobileWebUrl: siteUrl,
+                                        webUrl: siteUrl,
+                                    },
+                                },
+                            ],
+                        });
+                    }
+                    break;
+                case 'link':
+                    navigator.clipboard.writeText(siteUrl).then(() => {
+                        button.innerHTML = ICONS.check;
+                        setTimeout(() => {
+                            button.innerHTML = ICONS.link;
+                        }, 2000);
+                    }).catch(err => console.error('Failed to copy link', err));
+                    break;
+            }
+        });
+        buttonsWrapper.appendChild(button);
+    });
+
+    shareContainer.appendChild(buttonsWrapper);
+    container.appendChild(shareContainer);
+}
+
 document.addEventListener('DOMContentLoaded', () => {
     // Theme initialization
     const savedTheme = localStorage.getItem('theme');
@@ -615,6 +697,8 @@ document.addEventListener('DOMContentLoaded', () => {
             donghaengButton.textContent = window.getTranslation('goToDonghaengLotto');
             donghaengButton.onclick = () => window.open('https://www.dhlottery.co.kr/', '_blank', 'noopener,noreferrer');
             resultsWrapper.appendChild(donghaengButton); // Append button to the resultsWrapper
+
+            createShareButtons(resultsWrapper);
 
             resultContainer.appendChild(resultsWrapper);
         });

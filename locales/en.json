@@ -42,5 +42,8 @@
     "strategy1Detail": "This strategy recommends lottery numbers that have appeared most frequently throughout history. It operates on the theory that numbers with a high frequency of past draws have a greater probability of appearing again.",
     "strategy2Detail": "This approach focuses on identifying 'hot' numbers—those that have been drawn frequently in the most recent lottery results. It's a strategy that bets on the continuation of a current, short-term trend.",
     "strategy3Detail": "The 'Long Shot' strategy selects 'cold' numbers, which are those that have not been drawn for a significant period. The underlying belief is that these numbers are statistically 'due' for an appearance soon.",
-    "strategy4Detail": "You provide a personal lucky number, and our generator creates a custom combination that has historically shown the best compatibility or 'chemistry' with your chosen number, based on past draw data."
+    "strategy4Detail": "You provide a personal lucky number, and our generator creates a custom combination that has historically shown the best compatibility or 'chemistry' with your chosen number, based on past draw data.",
+    "shareTitle": "Share the good luck!",
+    "shareText": "I got my lucky numbers from this AI Lotto Generator! Check it out!",
+    "ctaButton": "Try it out!"
 }
