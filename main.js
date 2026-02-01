@@ -263,17 +263,18 @@ class StrategyResultDisplay extends HTMLElement {
         this.shadowRoot.innerHTML = `
             <style>
                 .result-wrapper {
-                    padding: 1rem; /* Adjusted for tighter packing */
-                    background: rgba(0,0,0,0.1); /* Lighter background within the main box */
-                    border-radius: 10px; /* Slightly smaller radius */
+                    padding: 0.8rem; /* Adjusted for tighter packing within the main box */
+                    background: transparent; /* Make individual results blend into the parent wrapper */
+                    border-radius: 0; /* No individual border-radius */
                     text-align: center;
                     animation: fadeIn 0.5s ease-in-out;
-                    margin-bottom: 0.8rem;
+                    margin-bottom: 0.5rem; /* Subtle separation within the main box */
                     display: flex;
                     flex-direction: column;
                     align-items: center;
                     gap: 0.5rem; /* Smaller gap */
                     position: relative;
+                    box-shadow: none; /* Remove individual box shadow */
                 }
                 @keyframes fadeIn {
                     from { opacity: 0; transform: translateY(20px); }
