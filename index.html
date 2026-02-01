@@ -1,10 +1,24 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="google-adsense-account" content="ca-pub-2327387100786453">
     <title data-i18n-key="appTitle">Lotto Number Generator</title>
+    <meta name="description" data-i18n-key="metaDescription" content="Generate intelligent lottery numbers based on statistical analysis, recent trends, long shots, or your personalized lucky numbers. Get AI-powered lotto recommendations for ultimate fun.">
+    <meta name="keywords" data-i18n-key="metaKeywords" content="lotto generator, lottery numbers, AI lottery, lucky numbers, lotto predictions, statistical lottery, trend analysis, personalized lotto, 로또 번호 생성기, 로또번호생성기, 로또번호 예측, 동행복권, 로또생성, ai 로또">
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://your-lotto-app-url.com/"> <!-- TODO: Replace with actual deployed URL -->
+    <meta property="og:title" data-i18n-key="appTitle" content="Lotto Number Generator">
+    <meta property="og:description" data-i18n-key="metaDescription" content="Generate intelligent lottery numbers based on statistical analysis, recent trends, long shots, or your personalized lucky numbers. Get AI-powered lotto recommendations for ultimate fun.">
+    <meta property="og:image" content="https://your-lotto-app-url.com/social-share.jpg"> <!-- TODO: Replace with actual social share image -->
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://your-lotto-app-url.com/"> <!-- TODO: Replace with actual deployed URL -->
+    <meta property="twitter:title" data-i18n-key="appTitle" content="Lotto Number Generator">
+    <meta property="twitter:description" data-i18n-key="metaDescription" content="Generate intelligent lottery numbers based on statistical analysis, recent trends, long shots, or your personalized lucky numbers. Get AI-powered lotto recommendations for ultimate fun.">
+    <meta property="twitter:image" content="https://your-lotto-app-url.com/social-share.jpg"> <!-- TODO: Replace with actual social share image -->
     <link rel="stylesheet" href="style.css">
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2327387100786453"
      crossorigin="anonymous"></script>
@@ -35,86 +49,86 @@
         <div class="theme-switcher">
             <button id="theme-toggle"></button>
         </div>
-    </header>
-    <h1 data-i18n-key="mainHeading">Lotto Number Generator</h1>
-
-    <section class="strategy-section">
-        <h2 data-i18n-key="strategyHeading">AI-Powered Recommendation</h2>
-        <p data-i18n-key="strategySubheading">Choose a strategy to get your personalized lotto numbers.</p>
-        <form id="strategy-form" class="strategy-form">
-            <div class="strategy-options">
-                <label class="strategy-option">
-                    <input type="radio" name="strategy" value="statistical" checked>
-                    <div class="strategy-card">
-                        <h3 data-i18n-key="strategy1Title">Statistical Stability</h3>
-                        <p data-i18n-key="strategy1Desc">Based on numbers that have appeared most frequently over time.</p>
-                    </div>
-                </label>
-                <label class="strategy-option">
-                    <input type="radio" name="strategy" value="trends">
-                    <div class="strategy-card">
-                        <h3 data-i18n-key="strategy2Title">Recent Trends</h3>
-                        <p data-i18n-key="strategy2Desc">Focuses on 'hot' numbers from the most recent draws.</p>
-                    </div>
-                </label>
-                <label class="strategy-option">
-                    <input type="radio" name="strategy" value="longshot">
-                    <div class="strategy-card">
-                        <h3 data-i18n-key="strategy3Title">Long Shot</h3>
-                        <p data-i18n-key="strategy3Desc">Picks 'cold' numbers that haven't appeared in a long while.</p>
-                    </div>
-                </label>
-                <label class="strategy-option">
-                    <input type="radio" name="strategy" value="personal">
-                    <div class="strategy-card">
-                        <h3 data-i18n-key="strategy4Title">Personalized Combo</h3>
-                        <p data-i18n-key="strategy4Desc">Enter your lucky number (1-45) for a custom combination.</p>
-                        <input type="text" id="personal-number" data-i18n-key="personalNumberPlaceholder" placeholder="e.g., 8, 15, 23">
-                    </div>
-                </label>
-            </div>
-            <button type="submit" class="generate-btn" data-i18n-key="generateButton">Get Recommendation</button>
-        </form>
-        <div id="strategy-result-container"></div>
-    </section>
-
-
-
-    <section id="about" class="content-section">
-        <h2 data-i18n-key="aboutHeading">About Our Lotto Number Generator</h2>
-        <p data-i18n-key="aboutText">This tool is designed to provide you with random lottery number combinations for various games. Our goal is to offer a simple, fast, and user-friendly experience. We are constantly working to improve our generator and add new features. Thank you for using our service!</p>
-    </section>
-
-    <section id="how-to-use" class="content-section">
-        <h2 data-i18n-key="howToUseHeading">How to Use</h2>
-        <p data-i18n-key="howToUseText">Using the generator is easy. Just click the "Generate" button to get a new set of lottery numbers. You can also choose to include a bonus number by checking the "Include Bonus Number" checkbox. To copy the numbers, click the "Copy" button next to each set.</p>
-    </section>
+        </header>
+        <main>
+            <h1 data-i18n-key="mainHeading">Lotto Number Generator</h1>
     
-    <section class="contact-form-section">
-        <h2 data-i18n-key="contactUsHeading">Contact Us</h2>
-        <form action="https://formspree.io/f/meekdzok" method="POST" class="contact-form">
-            <div class="form-group">
-                <label for="name" data-i18n-key="formNameLabel">Name</label>
-                <input type="text" id="name" name="name" required placeholder="Your Name">
-            </div>
-            <div class="form-group">
-                <label for="email" data-i18n-key="formEmailLabel">Email</label>
-                <input type="email" id="email" name="email" required placeholder="your@email.com">
-            </div>
-            <div class="form-group">
-                <label for="message" data-i18n-key="formMessageLabel">Message</label>
-                <textarea id="message" name="message" rows="5" required placeholder="Your message here..."></textarea>
-            </div>
-            <button type="submit" data-i18n-key="formSendButton">Send</button>
-        </form>
-    </section>
-
-    <section class="disqus-section">
-        <div id="disqus_thread"></div>
-    </section>
-
-    <footer class="footer">
-        <div class="footer-links">
+            <section class="strategy-section">
+                <h2 data-i18n-key="strategyHeading">AI-Powered Recommendation</h2>
+                <p data-i18n-key="strategySubheading">Choose a strategy to get your personalized lotto numbers.</p>
+                <form id="strategy-form" class="strategy-form">
+                    <div class="strategy-options">
+                        <label class="strategy-option">
+                            <input type="radio" name="strategy" value="statistical" checked>
+                            <div class="strategy-card">
+                                <h3 data-i18n-key="strategy1Title">Statistical Stability</h3>
+                                <p data-i18n-key="strategy1Desc">Based on numbers that have appeared most frequently over time.</p>
+                            </div>
+                        </label>
+                        <label class="strategy-option">
+                            <input type="radio" name="strategy" value="trends">
+                            <div class="strategy-card">
+                                <h3 data-i18n-key="strategy2Title">Recent Trends</h3>
+                                <p data-i18n-key="strategy2Desc">Focuses on 'hot' numbers from the most recent draws.</p>
+                            </div>
+                        </label>
+                        <label class="strategy-option">
+                            <input type="radio" name="strategy" value="longshot">
+                            <div class="strategy-card">
+                                <h3 data-i18n-key="strategy3Title">Long Shot</h3>
+                                <p data-i18n-key="strategy3Desc">Picks 'cold' numbers that haven't appeared in a long while.</p>
+                            </div>
+                        </label>
+                        <label class="strategy-option">
+                            <input type="radio" name="strategy" value="personal">
+                            <div class="strategy-card">
+                                <h3 data-i18n-key="strategy4Title">Personalized Combo</h3>
+                                <p data-i18n-key="strategy4Desc">Enter your lucky number (1-45) for a custom combination.</p>
+                                <input type="text" id="personal-number" data-i18n-key="personalNumberPlaceholder" placeholder="e.g., 8, 15, 23">
+                            </div>
+                        </label>
+                    </div>
+                    <button type="submit" class="generate-btn" data-i18n-key="generateButton">Get Recommendation</button>
+                </form>
+                <div id="strategy-result-container"></div>
+            </section>
+    
+    
+    
+            <section id="about" class="content-section">
+                <h2 data-i18n-key="aboutHeading">About Our Lotto Number Generator</h2>
+                <p data-i18n-key="aboutText">This tool is designed to provide you with random lottery number combinations for various games. Our goal is to offer a simple, fast, and user-friendly experience. We are constantly working to improve our generator and add new features. Thank you for using our service!</p>
+            </section>
+    
+            <section id="how-to-use" class="content-section">
+                <h2 data-i18n-key="howToUseHeading">How to Use</h2>
+                <p data-i18n-key="howToUseText">Using the generator is easy. Just click the "Generate" button to get a new set of lottery numbers. You can also choose to include a bonus number by checking the "Include Bonus Number" checkbox. To copy the numbers, click the "Copy" button next to each set.</p>
+            </section>
+            
+            <section class="contact-form-section">
+                <h2 data-i18n-key="contactUsHeading">Contact Us</h2>
+                <form action="https://formspree.io/f/meekdzok" method="POST" class="contact-form">
+                    <div class="form-group">
+                        <label for="name" data-i18n-key="formNameLabel">Name</label>
+                        <input type="text" id="name" name="name" required placeholder="Your Name">
+                    </div>
+                    <div class="form-group">
+                        <label for="email" data-i18n-key="formEmailLabel">Email</label>
+                        <input type="email" id="email" name="email" required placeholder="your@email.com">
+                    </div>
+                    <div class="form-group">
+                        <label for="message" data-i18n-key="formMessageLabel">Message</label>
+                        <textarea id="message" name="message" rows="5" required placeholder="Your message here..."></textarea>
+                    </div>
+                    <button type="submit" data-i18n-key="formSendButton">Send</button>
+                </form>
+            </section>
+    
+            <section class="disqus-section">
+                <div id="disqus_thread"></div>
+            </section>
+        </main>
+        <footer class="footer">        <div class="footer-links">
             <a href="#about" data-i18n-key="footerAbout">About</a>
             <a href="#how-to-use" data-i18n-key="footerHowToUse">How to Use</a>
             <a href="privacy.html" data-i18n-key="footerPrivacy">Privacy Policy</a>
@@ -135,7 +149,7 @@
         (d.head || d.body).appendChild(s);
         })();
     </script>
-    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" target="_blank" rel="noopener noreferrer">comments powered by Disqus.</a></noscript>
     
     <script src="i18n.js"></script>
     <script src="main.js"></script>

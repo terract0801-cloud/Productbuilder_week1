@@ -16,29 +16,34 @@ A modern and stylish web application that generates lottery numbers. This app pr
     *   A main "Generate" button and a display area for number sets.
     *   Toggle switches for light/dark mode and bonus number inclusion.
     *   "Copy" buttons for each number set for easy use.
-*   **Internationalization:** Supports Korean (default), English, and Spanish.
+*   **Internationalization:** Supports Korean (default), English), and Spanish.
 *   **User Engagement:** Includes a Formspree-powered contact form and a Disqus comment section.
 
-## Current Task: Implement Strategic Lotto Number Generation
+## Current Task: Comprehensive SEO Optimization
 
-The current goal is to build the front-end interface and logic for the strategic number generation feature.
+The goal is to implement comprehensive SEO optimizations based on Google's and Naver's guidelines to make the website "SEO perfect."
 
 ### Plan:
 
-1.  **HTML Structure (`index.html`):**
-    *   Create a dedicated section for the AI-powered recommendation feature.
-    *   Add a title and descriptive text.
-    *   Implement a form with four radio-button options, each representing a generation strategy.
-    *   Include a number input field for the "Personalized Combo" strategy.
-    *   Add a "Get Recommendation" button to trigger the generation.
-    *   Define a result area to display the generated numbers and the reasoning behind the recommendation.
-2.  **CSS Styling (`style.css`):**
-    *   Apply a modern, clean, and intuitive style to the new strategy selection section.
-    *   Design the radio buttons to be visually engaging, like selectable cards.
-    *   Ensure the layout is fully responsive and consistent with the existing theme (light/dark modes).
-    *   Style the results area to present the numbers and their "story" clearly.
-3.  **JavaScript Logic (`main.js`):**
-    *   Add an event listener to the recommendation button.
-    *   Implement a function to generate lotto numbers based on the selected strategy. (Note: Since real historical data is not available, the logic will simulate the data for each strategy to demonstrate the feature).
-    *   Create a `<lotto-result>` Web Component to dynamically render the results in a structured and reusable way. This component will display the chosen numbers and the explanatory text.
-    *   Handle user input and basic validation (e.g., for the personalized number).
+1.  **[DONE] Analyze Current `index.html` for basic SEO elements:**
+    *   Checked for existing `<title>` tag.
+    *   Confirmed `<meta name="description">` tag is MISSING.
+    *   Confirmed `<meta name="keywords">` tag is MISSING.
+    *   Confirmed Open Graph (OG) and Twitter Card meta tags are MISSING.
+    *   Checked for proper heading structure (`<h1>`, `<h2>`, etc.) - Acceptable.
+    *   Checked for `alt` attributes on images - No direct `<img>` tags, SVGs handled via JS (acceptable for decorative).
+    *   Confirmed `viewport` meta tag is PRESENT and correct.
+    *   Confirmed `charset` meta tag is PRESENT and correct.
+    *   Confirmed `lang` attribute on `<html>` is PRESENT but hardcoded to "en", needs to be dynamic.
+2.  **[DONE] Improve `index.html` Metadata:**
+    *   **[DONE] TASK 2.1:** Modified `<title>` tag to be more descriptive and dynamic using i18n. (Already done by previous tasks/user)
+    *   **[DONE] TASK 2.2:** Added `<meta name="description">` tag using i18n for dynamic content. (Already done by previous tasks/user)
+    *   **[DONE] TASK 2.3:** Added `<meta name="keywords">` tag (Naver specific) using i18n. (Already done by previous tasks/user)
+    *   **[DONE] TASK 2.4:** Added Open Graph (OG) meta tags (e.g., `og:title`, `og:description`, `og:image`, `og:url`, `og:type`) using i18n. (Already done by previous tasks/user, TODOs left for user to update URLs)
+    *   **[DONE] TASK 2.5:** Added Twitter Card meta tags (e.g., `twitter:card`, `twitter:title`, `twitter:description`, `twitter:image`). (Already done by previous tasks/user, TODOs left for user to update URLs)
+    *   **[DONE] TASK 2.6:** Make `lang` attribute on `<html>` dynamic based on the active language from `i18n.js`. (Already handled by `i18n.js` itself).
+3.  **[DONE] Refine HTML Structure (Semantic HTML):**
+    *   **[DONE] TASK 3.1:** Wrapped main content in `<main>` tags. Heading hierarchy and semantic element usage are now optimal for a single-page app.
+4.  **[DONE] Crawlability & Indexability:**
+    *   **[DONE] TASK 4.1:** Created `robots.txt` file to allow crawling of essential assets.
+    *   **[DONE] TASK 4.2:** Added `rel="noopener noreferrer"` to external links for security and SEO. (Donghaeng Lottery button in `main.js` and Disqus comments link in `index.html`).

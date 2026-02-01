@@ -36,5 +36,7 @@
     "strategy4Explanation": "Incluyendo tu(s) número(s) de la suerte {numbers}, hemos creado una combinación con números que tienen una sinergia simulada buena.",
     "personalNumberInvalid": "Por favor, introduce entre 1 y 6 números únicos, cada uno entre 1 y 45. Usa comas para separar los números (ej., 8, 15, 23).",
     "personalNumberNoInput": "Por favor, introduce tu(s) número(s) de la suerte para el Combo Personalizado.",
-    "goToDonghaengLotto": "Ir a Lotería Donghaeng"
+    "goToDonghaengLotto": "Ir a Lotería Donghaeng",
+    "metaDescription": "Genera números de lotería inteligentes basados en análisis estadísticos, tendencias recientes, números 'long shot' o tus números de la suerte personalizados. Obtén recomendaciones de lotería con IA para una diversión máxima.",
+    "metaKeywords": "generador de lotería, números de lotería, lotería IA, números de la suerte, predicciones de lotería, lotería estadística, análisis de tendencias, lotería personalizada, 로또 번호 생성기, 로또번호생성기, 로또번호 예측, 동행복권, 로또생성, ai 로또"
 }
