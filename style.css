@@ -334,15 +334,11 @@ body.dark-mode .contact-form textarea::placeholder {
 
 .strategy-options {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Increased min-width for cards */
     gap: 1.5rem;
     margin-bottom: 2rem;
-}
-
-@media (min-width: 1025px) { /* Enforce 2x2 grid on larger screens */
-    .strategy-options {
-        grid-template-columns: repeat(2, 1fr);
-    }
+    box-sizing: border-box; /* Ensure proper box model for grid container */
+    align-items: stretch; /* Ensure cards stretch to same height */
 }
 
 .strategy-option input[type="radio"] {
@@ -356,10 +352,16 @@ body.dark-mode .contact-form textarea::placeholder {
     border: 2px solid var(--component-border-color);
     cursor: pointer;
     transition: all 0.3s ease;
-    height: 100%;
+    height: auto; /* Allow content to define height */
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    box-sizing: border-box; /* Ensure proper box model for cards */
+}
+
+.strategy-card h3, .strategy-card p {
+    word-break: break-word; /* Ensure long text wraps */
+    overflow-wrap: break-word; /* Modern property for word breaking */
 }
 
 .strategy-card h3 {
@@ -430,6 +432,17 @@ body.dark-mode .contact-form textarea::placeholder {
 }
 
 /* Responsive adjustments */
+@media (min-width: 769px) { /* Tablets and larger - force 2 columns */
+    .strategy-options {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 2rem; /* Increase gap for better spacing */
+    }
+}
+@media (min-width: 1025px) { /* Enforce 2x2 grid on larger screens */
+    .strategy-options {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
 @media (max-width: 1024px) {
     h1 {
         font-size: 2.8rem;
