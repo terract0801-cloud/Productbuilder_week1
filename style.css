@@ -355,24 +355,72 @@ body.dark-mode .contact-form textarea::placeholder {
     height: auto; /* Allow content to define height */
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    justify-content: flex-start; /* Align content to the top */
     box-sizing: border-box; /* Ensure proper box model for cards */
+    overflow: hidden; /* Hide overflowing content during transition */
+}
+
+.strategy-title-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.5rem;
+}
+
+.info-icon {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 700;
+    font-style: italic;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    border: 2px solid var(--text-color);
+    color: var(--text-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.info-icon:hover {
+    background: var(--glow-color);
+    border-color: var(--glow-color);
 }
 
 .strategy-card h3, .strategy-card p {
     word-break: break-word; /* Ensure long text wraps */
     overflow-wrap: break-word; /* Modern property for word breaking */
+    text-align: left;
 }
 
 .strategy-card h3 {
     font-size: 1.5rem;
-    margin-bottom: 0.5rem;
+    margin-bottom: 0;
     color: var(--text-color);
 }
 
 .strategy-card p {
     font-size: 0.9rem;
     line-height: 1.4;
+    margin-bottom: 1rem;
+}
+
+.strategy-detail {
+    font-size: 0.85rem !important;
+    line-height: 1.5;
+    max-height: 0;
+    opacity: 0;
+    overflow: hidden;
+    transition: max-height 0.4s ease-out, opacity 0.4s ease-out, margin-top 0.4s ease-out;
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.strategy-card.active .strategy-detail {
+    margin-top: 1rem;
+    max-height: 200px; /* Adjust as needed for content */
+    opacity: 1;
     margin-bottom: 1rem;
 }
 

@@ -39,13 +39,8 @@
     "goToDonghaengLotto": "Go to Donghaeng Lottery",
     "metaDescription": "Generate intelligent lottery numbers based on statistical analysis, recent trends, long shots, or your personalized lucky numbers. Get AI-powered lotto recommendations for ultimate fun.",
     "metaKeywords": "lotto generator, lottery numbers, AI lottery, lucky numbers, lotto predictions, statistical lottery, trend analysis, personalized lotto, 로또 번호 생성기, 로또번호생성기, 로또번호 예측, 동행복권, 로또생성, ai 로또",
-    "faqHeading": "Understanding Our AI-Powered Strategies",
-    "faq1Question": "How does the 'Statistical Stability' strategy work?",
-    "faq1Answer": "This strategy recommends lottery numbers that have appeared most frequently throughout history. It operates on the theory that numbers with a high frequency of past draws have a greater probability of appearing again.",
-    "faq2Question": "What is the 'Recent Trends' strategy?",
-    "faq2Answer": "This approach focuses on identifying 'hot' numbers—those that have been drawn frequently in the most recent lottery results. It's a strategy that bets on the continuation of a current, short-term trend.",
-    "faq3Question": "What defines the 'Long Shot' strategy?",
-    "faq3Answer": "The 'Long Shot' strategy selects 'cold' numbers, which are those that have not been drawn for a significant period. The underlying belief is that these numbers are statistically 'due' for an appearance soon.",
-    "faq4Question": "How does the 'Personalized Combo' work?",
-    "faq4Answer": "You provide a personal lucky number, and our generator creates a custom combination that has historically shown the best compatibility or 'chemistry' with your chosen number, based on past draw data."
+    "strategy1Detail": "This strategy recommends lottery numbers that have appeared most frequently throughout history. It operates on the theory that numbers with a high frequency of past draws have a greater probability of appearing again.",
+    "strategy2Detail": "This approach focuses on identifying 'hot' numbers—those that have been drawn frequently in the most recent lottery results. It's a strategy that bets on the continuation of a current, short-term trend.",
+    "strategy3Detail": "The 'Long Shot' strategy selects 'cold' numbers, which are those that have not been drawn for a significant period. The underlying belief is that these numbers are statistically 'due' for an appearance soon.",
+    "strategy4Detail": "You provide a personal lucky number, and our generator creates a custom combination that has historically shown the best compatibility or 'chemistry' with your chosen number, based on past draw data."
 }

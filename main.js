@@ -471,6 +471,30 @@ document.addEventListener('DOMContentLoaded', () => {
     const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
     setTheme(savedTheme || (prefersDark ? 'dark' : 'light'));
 
+    // Strategy card accordion
+    const infoIcons = document.querySelectorAll('.info-icon');
+    const strategyCards = document.querySelectorAll('.strategy-card');
+
+    infoIcons.forEach(icon => {
+        icon.addEventListener('click', (e) => {
+            e.preventDefault(); // Stop the label from triggering the radio input
+            e.stopPropagation(); // Stop event bubbling
+
+            const clickedCard = e.target.closest('.strategy-card');
+            const isActive = clickedCard.classList.contains('active');
+
+            // Close all other cards
+            strategyCards.forEach(card => {
+                card.classList.remove('active');
+            });
+
+            // If the clicked card wasn't already active, open it
+            if (!isActive) {
+                clickedCard.classList.add('active');
+            }
+        });
+    });
+
     // AI Strategy Form listener
     const strategyForm = document.getElementById('strategy-form');
     const resultContainer = document.getElementById('strategy-result-container');

@@ -122,29 +122,45 @@
                         <label class="strategy-option">
                             <input type="radio" name="strategy" value="statistical" checked>
                             <div class="strategy-card">
-                                <h3 data-i18n-key="strategy1Title">Statistical Stability</h3>
+                                <div class="strategy-title-container">
+                                    <h3 data-i18n-key="strategy1Title">Statistical Stability</h3>
+                                    <span class="info-icon">i</span>
+                                </div>
                                 <p data-i18n-key="strategy1Desc">Based on numbers that have appeared most frequently over time.</p>
+                                <p class="strategy-detail" data-i18n-key="strategy1Detail">This strategy recommends lottery numbers that have appeared most frequently throughout history. It operates on the theory that numbers with a high frequency of past draws have a greater probability of appearing again.</p>
                             </div>
                         </label>
                         <label class="strategy-option">
                             <input type="radio" name="strategy" value="trends">
                             <div class="strategy-card">
-                                <h3 data-i18n-key="strategy2Title">Recent Trends</h3>
+                                <div class="strategy-title-container">
+                                    <h3 data-i18n-key="strategy2Title">Recent Trends</h3>
+                                    <span class="info-icon">i</span>
+                                </div>
                                 <p data-i18n-key="strategy2Desc">Focuses on 'hot' numbers from the most recent draws.</p>
+                                <p class="strategy-detail" data-i18n-key="strategy2Detail">This approach focuses on identifying 'hot' numbers—those that have been drawn frequently in the most recent lottery results. It's a strategy that bets on the continuation of a current, short-term trend.</p>
                             </div>
                         </label>
                         <label class="strategy-option">
                             <input type="radio" name="strategy" value="longshot">
                             <div class="strategy-card">
-                                <h3 data-i18n-key="strategy3Title">Long Shot</h3>
+                                <div class="strategy-title-container">
+                                    <h3 data-i18n-key="strategy3Title">Long Shot</h3>
+                                    <span class="info-icon">i</span>
+                                </div>
                                 <p data-i18n-key="strategy3Desc">Picks 'cold' numbers that haven't appeared in a long while.</p>
+                                <p class="strategy-detail" data-i18n-key="strategy3Detail">The 'Long Shot' strategy selects 'cold' numbers, which are those that have not been drawn for a significant period. The underlying belief is that these numbers are statistically 'due' for an appearance soon.</p>
                             </div>
                         </label>
                         <label class="strategy-option">
                             <input type="radio" name="strategy" value="personal">
                             <div class="strategy-card">
-                                <h3 data-i18n-key="strategy4Title">Personalized Combo</h3>
+                                <div class="strategy-title-container">
+                                    <h3 data-i18n-key="strategy4Title">Personalized Combo</h3>
+                                    <span class="info-icon">i</span>
+                                </div>
                                 <p data-i18n-key="strategy4Desc">Enter your lucky number (1-45) for a custom combination.</p>
+                                <p class="strategy-detail" data-i18n-key="strategy4Detail">You provide a personal lucky number, and our generator creates a custom combination that has historically shown the best compatibility or 'chemistry' with your chosen number, based on past draw data.</p>
                                 <input type="text" id="personal-number" data-i18n-key="personalNumberPlaceholder" placeholder="e.g., 8, 15, 23">
                             </div>
                         </label>
@@ -152,26 +168,6 @@
                     <button type="submit" class="generate-btn" data-i18n-key="generateButton">Get Recommendation</button>
                 </form>
                 <div id="strategy-result-container"></div>
-            </section>
-
-            <section class="faq-content-section">
-                <h2 data-i18n-key="faqHeading">Understanding Our AI-Powered Strategies</h2>
-                <article class="faq-item">
-                    <h3 data-i18n-key="faq1Question">How does the 'Statistical Stability' strategy work?</h3>
-                    <p data-i18n-key="faq1Answer">This strategy recommends lottery numbers that have appeared most frequently throughout history. It operates on the theory that numbers with a high frequency of past draws have a greater probability of appearing again.</p>
-                </article>
-                <article class="faq-item">
-                    <h3 data-i18n-key="faq2Question">What is the 'Recent Trends' strategy?</h3>
-                    <p data-i18n-key="faq2Answer">This approach focuses on identifying 'hot' numbers—those that have been drawn frequently in the most recent lottery results. It's a strategy that bets on the continuation of a current, short-term trend.</p>
-                </article>
-                <article class="faq-item">
-                    <h3 data-i18n-key="faq3Question">What defines the 'Long Shot' strategy?</h3>
-                    <p data-i18n-key="faq3Answer">The 'Long Shot' strategy selects 'cold' numbers, which are those that have not been drawn for a significant period. The underlying belief is that these numbers are statistically 'due' for an appearance soon.</p>
-                </article>
-                <article class="faq-item">
-                    <h3 data-i18n-key="faq4Question">How does the 'Personalized Combo' work?</h3>
-                    <p data-i18n-key="faq4Answer">You provide a personal lucky number, and our generator creates a custom combination that has historically shown the best compatibility or 'chemistry' with your chosen number, based on past draw data.</p>
-                </article>
             </section>
     
     
