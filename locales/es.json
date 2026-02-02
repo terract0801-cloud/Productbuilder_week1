@@ -46,5 +46,10 @@
     "shareTitle": "¡Comparte la buena suerte!",
     "shareText": "¡He conseguido mis números de la suerte con este Generador de Lotería IA! ¡Échale un vistazo!",
     "ctaButton": "¡Pruébalo!",
-    "footerDonghaeng": "Lotería Donghaeng"
+    "footerDonghaeng": "Lotería Donghaeng",
+    "personalizedHeading": "Tu Historia y Números Personalizados",
+    "personalizedSubheading": "Ingresa tu nombre y fecha de nacimiento para crear tus propios números de la suerte únicos.",
+    "formBirthDateLabel": "Fecha de Nacimiento",
+    "personalizedGenerateButton": "Crear Mi Historia",
+    "personalizedNoInput": "Por favor, ingresa tu nombre y fecha de nacimiento."
 }

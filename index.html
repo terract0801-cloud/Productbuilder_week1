@@ -121,6 +121,27 @@
         <main>
             <h1 data-i18n-key="mainHeading">Lotto Number Generator</h1>
     
+            <section id="personalized-generator-section" class="strategy-section">
+                <h2 data-i18n-key="personalizedHeading">Your Personalized Story & Numbers</h2>
+                <p data-i18n-key="personalizedSubheading">Enter your name and birthdate to create your own unique lucky numbers.</p>
+                <form id="personalized-form" class="strategy-form">
+                    <div class="personalized-inputs">
+                        <div class="form-group">
+                            <label for="user-name" data-i18n-key="formNameLabel">Name</label>
+                            <input type="text" id="user-name" required placeholder="Your Name">
+                        </div>
+                        <div class="form-group">
+                            <label for="birth-date" data-i18n-key="formBirthDateLabel">Birthdate</label>
+                            <input type="date" id="birth-date" required>
+                        </div>
+                    </div>
+                    <button type="submit" class="generate-btn" data-i18n-key="personalizedGenerateButton">Create My Story</button>
+                </form>
+                <div id="personalized-result"></div>
+            </section>
+
+            <hr class="section-divider">
+
             <section class="strategy-section">
                 <h2 data-i18n-key="strategyHeading">AI-Powered Recommendation</h2>
                 <p data-i18n-key="strategySubheading">Choose a strategy to get your personalized lotto numbers.</p>

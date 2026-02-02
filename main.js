@@ -714,3 +714,131 @@ document.addEventListener('DOMContentLoaded', () => {
         document.addEventListener('languageChanged', updatePersonalNumberPlaceholder);
     }
 });
+
+// --- Personalized Story & Number Generator ---
+
+class PersonalizedResultDisplay extends HTMLElement {
+    constructor() {
+        super();
+        this.attachShadow({ mode: 'open' });
+    }
+
+    connectedCallback() {
+        const story = this.getAttribute('story');
+        const numbers = JSON.parse(this.getAttribute('numbers'));
+
+        this.shadowRoot.innerHTML = `
+            <style>
+                /* Using styles from the main stylesheet for consistency */
+                .personalized-result-display {
+                    background: rgba(0,0,0,0.2);
+                    padding: 2rem;
+                    border-radius: 15px;
+                    text-align: center;
+                    animation: fadeIn 0.8s ease-in-out;
+                    border: 1px solid var(--component-border-color, rgba(255, 255, 255, 0.2));
+                }
+                .personalized-story {
+                    font-size: 1.2rem;
+                    font-style: italic;
+                    line-height: 1.6;
+                    margin-bottom: 1.5rem;
+                    color: var(--text-color, #f0f0f0);
+                    opacity: 0.9;
+                }
+                .personalized-numbers {
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    gap: 1rem;
+                    flex-wrap: wrap;
+                }
+                .number {
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    width: 55px;
+                    height: 55px;
+                    border-radius: 50%;
+                    font-size: 1.8rem;
+                    font-weight: 600;
+                    color: white;
+                    text-shadow: 0 1px 3px rgba(0,0,0,0.3);
+                    box-shadow: inset 0 -3px 5px rgba(0,0,0,0.2), 0 4px 10px rgba(0,0,0,0.4);
+                }
+                @keyframes fadeIn {
+                    from { opacity: 0; transform: translateY(20px); }
+                    to { opacity: 1; transform: translateY(0); }
+                }
+            </style>
+            <div class="personalized-result-display">
+                <p class="personalized-story">${story}</p>
+                <div class="personalized-numbers">
+                    ${numbers.map(num => `<div class="number" style="background: ${getNumberColor(num)}">${num}</div>`).join('')}
+                </div>
+            </div>
+        `;
+    }
+}
+customElements.define('personalized-result-display', PersonalizedResultDisplay);
+
+
+document.addEventListener('DOMContentLoaded', () => {
+    const personalizedForm = document.getElementById('personalized-form');
+    if (!personalizedForm) return;
+
+    const resultContainer = document.getElementById('personalized-result');
+    const nameInput = document.getElementById('user-name');
+    const birthDateInput = document.getElementById('birth-date');
+
+    personalizedForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+
+        const name = nameInput.value.trim();
+        const birthDate = birthDateInput.value;
+
+        if (!name || !birthDate) {
+            alert(window.getTranslation ? window.getTranslation('personalizedNoInput') : 'Please enter your name and birthdate.');
+            return;
+        }
+
+        const date = new Date(birthDate);
+        const year = date.getFullYear();
+        const month = date.getMonth() + 1;
+        const day = date.getDate();
+
+        // 1. Story Generation
+        const stories = [
+            `From the cosmic energy of ${name}'s birth on ${year}/${month}/${day}, the universe whispers these numbers:`,
+            `${name}, your unique journey began on a special day. The stars on ${year}/${month}/${day} have aligned to reveal:`,
+            `The essence of ${name} and the moment of ${year}/${month}/${day} combine to unlock a secret sequence:`,
+            `Let the vibrant spirit of ${name}, born on ${day}/${month}/${year}, guide you to these fortunate numbers:`
+        ];
+        const story = stories[Math.floor(Math.random() * stories.length)];
+
+
+        // 2. "Destined" Number Generation
+        const seed = name.split('').reduce((acc, char) => acc + char.charCodeAt(0), 0) + year + month + day;
+        
+        // Simple pseudo-random number generator based on the seed
+        let currentSeed = seed;
+        const seededRandom = () => {
+            const x = Math.sin(currentSeed++) * 10000;
+            return x - Math.floor(x);
+        };
+
+        const numbers = new Set();
+        while (numbers.size < 6) {
+            const randomNumber = Math.floor(seededRandom() * 45) + 1;
+            numbers.add(randomNumber);
+        }
+        const sortedNumbers = Array.from(numbers).sort((a, b) => a - b);
+
+        // 3. Display Result
+        resultContainer.innerHTML = '';
+        const resultDisplay = document.createElement('personalized-result-display');
+        resultDisplay.setAttribute('story', story);
+        resultDisplay.setAttribute('numbers', JSON.stringify(sortedNumbers));
+        resultContainer.appendChild(resultDisplay);
+    });
+});
