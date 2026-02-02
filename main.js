@@ -726,10 +726,10 @@ class PersonalizedResultDisplay extends HTMLElement {
     connectedCallback() {
         const story = this.getAttribute('story');
         const numbers = JSON.parse(this.getAttribute('numbers'));
+        const explanation = this.getAttribute('explanation'); // HTML content
 
         this.shadowRoot.innerHTML = `
             <style>
-                /* Using styles from the main stylesheet for consistency */
                 .personalized-result-display {
                     background: rgba(0,0,0,0.2);
                     padding: 2rem;
@@ -745,6 +745,28 @@ class PersonalizedResultDisplay extends HTMLElement {
                     margin-bottom: 1.5rem;
                     color: var(--text-color, #f0f0f0);
                     opacity: 0.9;
+                }
+                .explanation-section {
+                    margin-bottom: 2rem;
+                    padding: 1rem;
+                    background: rgba(0,0,0,0.15);
+                    border-radius: 10px;
+                    text-align: left;
+                }
+                .explanation-section h3 {
+                    margin-top: 0;
+                    color: var(--text-color);
+                    border-bottom: 1px solid rgba(255,255,255,0.2);
+                    padding-bottom: 0.5rem;
+                    margin-bottom: 1rem;
+                }
+                .explanation-section p {
+                    margin: 0.5rem 0;
+                    line-height: 1.5;
+                }
+                .explanation-section strong {
+                    color: #4facfe; /* Highlight color */
+                    font-weight: 700;
                 }
                 .personalized-numbers {
                     display: flex;
@@ -773,6 +795,9 @@ class PersonalizedResultDisplay extends HTMLElement {
             </style>
             <div class="personalized-result-display">
                 <p class="personalized-story">${story}</p>
+                <div class="explanation-section">
+                    ${explanation}
+                </div>
                 <div class="personalized-numbers">
                     ${numbers.map(num => `<div class="number" style="background: ${getNumberColor(num)}">${num}</div>`).join('')}
                 </div>
@@ -816,28 +841,52 @@ document.addEventListener('DOMContentLoaded', () => {
         ];
         const story = stories[Math.floor(Math.random() * stories.length)];
 
-
-        // 2. "Destined" Number Generation
-        const seed = name.split('').reduce((acc, char) => acc + char.charCodeAt(0), 0) + year + month + day;
+        // 2. Transparent Number Generation
+        const numbers = new Set();
         
-        // Simple pseudo-random number generator based on the seed
+        // Name Number
+        const nameNumber = (name.split('').reduce((acc, char) => acc + char.charCodeAt(0), 0) % 45) + 1;
+        numbers.add(nameNumber);
+
+        // Destiny Numbers from birthdate
+        if (!numbers.has(day)) numbers.add(day);
+        if (numbers.size < 6 && !numbers.has(month)) numbers.add(month);
+        
+        const yearSum = String(year).split('').reduce((acc, digit) => acc + parseInt(digit), 0);
+        if (numbers.size < 6 && !numbers.has(yearSum)) {
+            numbers.add(yearSum);
+        }
+
+        // Fill the rest with a seeded random generator
+        const seed = year + month + day;
         let currentSeed = seed;
         const seededRandom = () => {
             const x = Math.sin(currentSeed++) * 10000;
             return x - Math.floor(x);
         };
-
-        const numbers = new Set();
         while (numbers.size < 6) {
             const randomNumber = Math.floor(seededRandom() * 45) + 1;
-            numbers.add(randomNumber);
+            if (!numbers.has(randomNumber)) {
+                numbers.add(randomNumber);
+            }
         }
         const sortedNumbers = Array.from(numbers).sort((a, b) => a - b);
+        
+        // 3. Explanation Generation
+        const explanationHTML = `
+            <h3>Your Personalized Number Story</h3>
+            <p>We've crafted your unique lottery numbers based on a story written in your name and birthdate.</p>
+            <p>From the essence of your name, <strong>${name}</strong>, we've distilled your 'Name Number': <strong>${nameNumber}</strong>.</p>
+            <p>From your birthdate, <strong>${day}/${month}/${year}</strong>, we've uncovered these 'Destiny Numbers': <strong>${day}</strong> and <strong>${month}</strong>.</p>
+            <p>The sum of the digits of your birth year gives us another potent number: <strong>${yearSum}</strong>.</p>
+            <p>These core numbers, derived from your unique identity, form the foundation of your lucky set. The remaining numbers are cosmic fillers, aligned by the energy of your birth day to complete your sequence.</p>
+        `;
 
-        // 3. Display Result
+        // 4. Display Result
         resultContainer.innerHTML = '';
         const resultDisplay = document.createElement('personalized-result-display');
         resultDisplay.setAttribute('story', story);
+        resultDisplay.setAttribute('explanation', explanationHTML);
         resultDisplay.setAttribute('numbers', JSON.stringify(sortedNumbers));
         resultContainer.appendChild(resultDisplay);
     });
