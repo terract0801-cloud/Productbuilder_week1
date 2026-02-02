@@ -26,20 +26,29 @@ This document outlines the features, design, and development plan for the Lotto 
 - **Interactivity:** Engaging UI components that respond to user actions.
 - **Accessibility (A11Y):** Implement accessibility standards to ensure the app is usable by everyone.
 
-## Current Task: Enhance Personalized Number Generation
+## Completed Tasks
 
-### Problem
+### Enhance Personalized Number Generation
+- **Problem:** The "Personalized Story & Numbers" feature was opaque and did not provide a clear connection between user input and the generated numbers.
+- **Solution:** The feature was updated to provide a transparent and meaningful narrative, explaining how the numbers are derived from the user's name and birthdate.
+  - **[Completed]** Created `blueprint.md` for project documentation.
+  - **[Completed]** Modified UI in `index.html`.
+  - **[Completed]** Modified logic in `main.js` for transparent number generation.
+  - **[Completed]** Updated `PersonalizedResultDisplay` custom element.
 
-The current "Personalized Story & Numbers" feature lacks transparency. Users input their name and birthdate but are given a set of numbers with a generic "cosmic energy" story. There is no clear explanation of how the inputs are connected to the outputs, which diminishes the user's perception of value.
+## Current Task: Implement Emotion-Based Number Generator
+
+### Description
+
+This new feature will allow users to select from a predefined list of emotion keywords and receive a set of 6 lottery numbers. The generation process will be explained to the user, making it feel "AI-like" and transparent.
 
 ### Plan
 
-The plan is to make the number generation process transparent and meaningful by creating a compelling narrative that shows the user how their personal information is used to craft their lucky numbers.
-
-1.  **[Completed] Create `blueprint.md`:** Document the project's purpose, features, and the plan for the current change.
-2.  **[Completed] Modify UI in `index.html`:** Add a new container within the `personalized-result` div to display the "calculation steps" or the "story" of how the numbers were generated.
-3.  **[Completed] Modify logic in `main.js`:**
-    -   Break down the calculation into understandable "lucky numbers" derived from the name and birthday (e.g., "Name Number," "Destiny Numbers").
-    -   Use these derived numbers as the core of the generated lotto numbers.
-    -   Construct a narrative that explains each step of the process.
-4.  **[Completed] Update `PersonalizedResultDisplay` custom element:** Modify the custom element to display the new, more detailed story and the numbers.
+1.  **[Completed] Update `blueprint.md`:** Add the new feature "Emotion-Based Number Generator" to the blueprint and outline the plan.
+2.  **[Completed] Update `index.html`:** Add a new section for the emotion-based generator, including a list of selectable keywords (checkboxes), a "Generate" button, and a result container.
+3.  **[Completed] Update `main.js`:**
+    -   Define a list of emotion keywords and their associated numerical values.
+    -   Implement an event listener for the new "Generate" button.
+    -   Create an "AI-like" algorithm to convert selected keywords into 6 unique lottery numbers.
+    -   Generate a detailed explanation for each number.
+    -   Create a new custom element `emotion-result-display` to display the results.

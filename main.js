@@ -715,6 +715,98 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 });
 
+// --- Emotion-Based Number Generator ---
+
+const emotionKeywords = {
+    happy: { base: 7, description: "Vibrates with the energy of Jupiter, signifying luck and expansion." },
+    excited: { base: 13, description: "Channels the fiery spirit of Mars, bringing passion and drive." },
+    calm: { base: 22, description: "Reflects the serene influence of Venus, promoting harmony and balance." },
+    grateful: { base: 11, description: "Taps into the Moon's energy, enhancing intuition and gratitude." },
+    adventurous: { base: 5, description: "Embodies the quick-witted nature of Mercury, sparking curiosity and discovery." },
+    creative: { base: 3, description: "Is fueled by the Sun's radiant power, inspiring originality and expression." },
+    loving: { base: 6, description: "Connects with the gentle heart of the Earth, fostering compassion and connection." },
+    optimistic: { base: 1, description: "Represents the dawn of new beginnings, full of hope and potential." },
+    confident: { base: 8, description: "Draws on the strength of Saturn, building structure and self-assurance." },
+    peaceful: { base: 33, description: "Holds a master vibration of tranquility and spiritual awareness." }
+};
+
+class EmotionResultDisplay extends HTMLElement {
+    constructor() {
+        super();
+        this.attachShadow({ mode: 'open' });
+    }
+
+    connectedCallback() {
+        const explanations = JSON.parse(this.getAttribute('explanations'));
+        const numbers = JSON.parse(this.getAttribute('numbers'));
+
+        this.shadowRoot.innerHTML = `
+            <style>
+                .emotion-result-display {
+                    background: rgba(0,0,0,0.2);
+                    padding: 2rem;
+                    border-radius: 15px;
+                    text-align: center;
+                    animation: fadeIn 0.8s ease-in-out;
+                    border: 1px solid var(--component-border-color, rgba(255, 255, 255, 0.2));
+                }
+                .explanations {
+                    text-align: left;
+                    margin-bottom: 2rem;
+                }
+                .explanation-item {
+                    background: rgba(0,0,0,0.15);
+                    padding: 1rem;
+                    border-radius: 10px;
+                    margin-bottom: 1rem;
+                }
+                .explanation-item strong {
+                    font-size: 1.5rem;
+                    color: #4facfe;
+                }
+                .personalized-numbers {
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    gap: 1rem;
+                    flex-wrap: wrap;
+                }
+                .number {
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    width: 55px;
+                    height: 55px;
+                    border-radius: 50%;
+                    font-size: 1.8rem;
+                    font-weight: 600;
+                    color: white;
+                    text-shadow: 0 1px 3px rgba(0,0,0,0.3);
+                    box-shadow: inset 0 -3px 5px rgba(0,0,0,0.2), 0 4px 10px rgba(0,0,0,0.4);
+                }
+                @keyframes fadeIn {
+                    from { opacity: 0; transform: translateY(20px); }
+                    to { opacity: 1; transform: translateY(0); }
+                }
+            </style>
+            <div class="emotion-result-display">
+                <div class="explanations">
+                    ${explanations.map(ex => `
+                        <div class="explanation-item">
+                            <p><strong>${ex.number}:</strong> ${ex.text}</p>
+                        </div>
+                    `).join('')}
+                </div>
+                <div class="personalized-numbers">
+                    ${numbers.map(num => `<div class="number" style="background: ${getNumberColor(num)}">${num}</div>`).join('')}
+                </div>
+            </div>
+        `;
+    }
+}
+customElements.define('emotion-result-display', EmotionResultDisplay);
+
+
 // --- Personalized Story & Number Generator ---
 
 class PersonalizedResultDisplay extends HTMLElement {
@@ -890,4 +982,83 @@ document.addEventListener('DOMContentLoaded', () => {
         resultDisplay.setAttribute('numbers', JSON.stringify(sortedNumbers));
         resultContainer.appendChild(resultDisplay);
     });
+});
+
+document.addEventListener('DOMContentLoaded', () => {
+    const emotionKeywordsContainer = document.getElementById('emotion-keywords');
+    const emotionForm = document.getElementById('emotion-form');
+    const emotionResultContainer = document.getElementById('emotion-result');
+
+    if (emotionKeywordsContainer) {
+        // Populate keywords
+        for (const key in emotionKeywords) {
+            const label = document.createElement('label');
+            label.className = 'emotion-label';
+            const checkbox = document.createElement('input');
+            checkbox.type = 'checkbox';
+            checkbox.name = 'emotions';
+            checkbox.value = key;
+            label.appendChild(checkbox);
+            label.appendChild(document.createTextNode(key.charAt(0).toUpperCase() + key.slice(1)));
+            emotionKeywordsContainer.appendChild(label);
+        }
+    }
+
+    if (emotionForm) {
+        emotionForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const selectedKeywords = Array.from(emotionForm.querySelectorAll('input[name="emotions"]:checked')).map(cb => cb.value);
+
+            if (selectedKeywords.length === 0) {
+                alert('Please select at least one emotion.');
+                return;
+            }
+
+            const numbers = new Set();
+            const explanations = [];
+
+            // 1. Generate numbers from keywords
+            selectedKeywords.forEach((key, index) => {
+                if (numbers.size >= 6) return;
+                const keywordData = emotionKeywords[key];
+                let newNumber = (keywordData.base + index * selectedKeywords.length) % 45 + 1;
+                while (numbers.has(newNumber)) {
+                    newNumber = (newNumber + 1) % 45 + 1;
+                }
+                numbers.add(newNumber);
+                explanations.push({
+                    number: newNumber,
+                    text: `Derived from your feeling of <strong>${key}</strong>, which ${keywordData.description}`
+                });
+            });
+
+            // 2. Fill remaining numbers with a seeded random
+            const seed = selectedKeywords.reduce((acc, key) => acc + emotionKeywords[key].base, 0);
+            let currentSeed = seed;
+            const seededRandom = () => {
+                const x = Math.sin(currentSeed++) * 10000;
+                return x - Math.floor(x);
+            };
+
+            let cosmicCount = 1;
+            while (numbers.size < 6) {
+                const randomNumber = Math.floor(seededRandom() * 45) + 1;
+                if (!numbers.has(randomNumber)) {
+                    numbers.add(randomNumber);
+                     explanations.push({
+                        number: randomNumber,
+                        text: `This is your <strong>Cosmic Number ${cosmicCount++}</strong>, a random cosmic energy drawn to the synergy of your chosen emotions.`
+                    });
+                }
+            }
+            
+            const sortedNumbers = Array.from(numbers).sort((a, b) => a - b);
+
+            emotionResultContainer.innerHTML = '';
+            const resultDisplay = document.createElement('emotion-result-display');
+            resultDisplay.setAttribute('explanations', JSON.stringify(explanations));
+            resultDisplay.setAttribute('numbers', JSON.stringify(sortedNumbers));
+            emotionResultContainer.appendChild(resultDisplay);
+        });
+    }
 });
