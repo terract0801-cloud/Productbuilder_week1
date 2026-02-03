@@ -1,5 +1,10 @@
 let translations = {};
 
+let languagePromiseResolve;
+const languagePromise = new Promise(resolve => {
+    languagePromiseResolve = resolve;
+});
+
 async function setLanguage(lang) {
     try {
         const response = await fetch(`locales/${lang}.json`);
@@ -12,15 +17,25 @@ async function setLanguage(lang) {
         document.documentElement.lang = lang;
 
         // Update active class on buttons
-        document.getElementById('lang-en').classList.toggle('active', lang === 'en');
-        document.getElementById('lang-es').classList.toggle('active', lang === 'es');
-        document.getElementById('lang-ko').classList.toggle('active', lang === 'ko');
+        const langEn = document.getElementById('lang-en');
+        const langEs = document.getElementById('lang-es');
+        const langKo = document.getElementById('lang-ko');
+        if(langEn && langEs && langKo) {
+            langEn.classList.toggle('active', lang === 'en');
+            langEs.classList.toggle('active', lang === 'es');
+            langKo.classList.toggle('active', lang === 'ko');
+        }
 
     } catch (error) {
         console.error(error);
         // Fallback to English if a language fails to load
         if (lang !== 'en') {
-            setLanguage('en');
+            await setLanguage('en');
+        }
+    } finally {
+        if (typeof languagePromiseResolve === 'function') {
+            languagePromiseResolve();
+            languagePromiseResolve = null; // Ensure it only resolves once
         }
     }
 }
@@ -28,10 +43,15 @@ async function setLanguage(lang) {
 function applyTranslations() {
     document.querySelectorAll('[data-i18n-key]').forEach(element => {
         const key = element.getAttribute('data-i18n-key');
-        element.textContent = translations[key] || `Missing key: ${key}`;
+        const translation = translations[key];
+        if (translation) {
+            element.textContent = translation;
+        }
     });
     // Manually set title as it's not a standard element
-    document.title = translations.appTitle || 'Lotto Number Generator';
+    if (translations.appTitle) {
+        document.title = translations.appTitle;
+    }
     
     // Dispatch a custom event to notify other components of the language change
     document.dispatchEvent(new CustomEvent('languageChanged'));
@@ -47,14 +67,17 @@ document.addEventListener('DOMContentLoaded', () => {
     const langEsButton = document.getElementById('lang-es');
     const langKoButton = document.getElementById('lang-ko');
 
-    langEnButton.addEventListener('click', () => setLanguage('en'));
-    langEsButton.addEventListener('click', () => setLanguage('es'));
-    langKoButton.addEventListener('click', () => setLanguage('ko'));
+    if(langEnButton && langEsButton && langKoButton) {
+        langEnButton.addEventListener('click', () => setLanguage('en'));
+        langEsButton.addEventListener('click', () => setLanguage('es'));
+        langKoButton.addEventListener('click', () => setLanguage('ko'));
+    }
 
     const initialLang = localStorage.getItem('language') || 'ko';
     setLanguage(initialLang);
 });
 
-// We need a way for other scripts to access translations, especially for dynamic content.
-// A simple solution is to make a function globally available.
+// We need a way for other scripts to access translations and sync with loading.
 window.getTranslation = getTranslation;
+window.languagePromise = languagePromise;
+window.translations = translations;
