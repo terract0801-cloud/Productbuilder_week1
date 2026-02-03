@@ -66,7 +66,83 @@ class StrategyResultDisplay extends HTMLElement {
 
         this.shadowRoot.innerHTML = `
             <style>
-                /* ... [styles remain unchanged] ... */
+                .result-wrapper {
+                    padding: 0.8rem;
+                    background: transparent;
+                    border-radius: 0;
+                    text-align: center;
+                    animation: fadeIn 0.5s ease-in-out;
+                    margin-bottom: 0;
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    gap: 0.5rem;
+                    position: relative;
+                    box-shadow: none;
+                }
+                @keyframes fadeIn {
+                    from { opacity: 0; transform: translateY(20px); }
+                    to { opacity: 1; transform: translateY(0); }
+                }
+                .result-header {
+                    width: 100%;
+                }
+                .result-title {
+                    font-size: 1.3rem;
+                    font-weight: 700;
+                    margin-bottom: 0.3rem;
+                    color: var(--text-color);
+                }
+                .numbers-table {
+                    border-collapse: collapse;
+                    margin: 0.5rem 0;
+                }
+                .number {
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    width: 45px;
+                    height: 45px;
+                    border-radius: 50%;
+                    font-size: 1.5rem;
+                    font-weight: 600;
+                    color: white;
+                    text-shadow: 0 1px 3px rgba(0,0,0,0.3);
+                    box-shadow: inset 0 -3px 5px rgba(0,0,0,0.2), 0 4px 10px rgba(0,0,0,0.4);
+                    margin: 0 4px;
+                }
+                .explanation {
+                    font-style: italic;
+                    opacity: 0.9;
+                    font-size: 0.85rem;
+                    padding: 0 0.5rem;
+                    color: var(--text-color);
+                }
+                .copy-btn-result {
+                    background: none;
+                    border: none;
+                    color: var(--text-color);
+                    cursor: pointer;
+                    position: absolute;
+                    top: 5px;
+                    right: 5px;
+                    padding: 3px;
+                    border-radius: 50%;
+                    width: 30px;
+                    height: 30px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    transition: all 0.3s ease;
+                }
+                .copy-btn-result:hover {
+                    background: var(--component-background);
+                    box-shadow: 0 0 8px 2px var(--glow-color);
+                }
+                .copy-btn-result svg {
+                    width: 16px;
+                    height: 16px;
+                }
             </style>
             <div class="result-wrapper">
                 ${headerHtml}
@@ -457,111 +533,123 @@ function handleStrategyForm() {
 
         
 
-        const resultsWrapper = document.createElement('div');
-
-        resultsWrapper.style.display = 'flex';
-
-        resultsWrapper.style.flexDirection = 'column';
-
-        resultsWrapper.style.gap = '1.5rem';
-
-        resultsWrapper.style.marginTop = '1rem';
-
-        resultsWrapper.style.padding = '1rem';
-
-        resultsWrapper.style.background = 'var(--component-background)';
-
-        resultsWrapper.style.borderRadius = '20px';
-
-        resultsWrapper.style.boxShadow = 'inset 0 0 15px rgba(0,0,0,0.1)';
-
-
-
-        let allGeneratedNumbers = new Set();
-
-        let overallTitle = '';
-
-        let overallExplanation = '';
-
-        let isFirstSet = true;
+                const resultsWrapper = document.createElement('div');
 
         
 
-        for (let i = 0; i < 5; i++) {
+                resultsWrapper.className = 'results-wrapper-container';
 
-            const numbersToExcludeForThisSet = (strategy === 'personal') 
+        
 
-                ? new Set([...allGeneratedNumbers, ...userNumbers]) 
+        
 
-                : allGeneratedNumbers;
+        
 
+                let allGeneratedNumbers = new Set();
 
+        
 
-            const result = generateStrategyNumbers(strategy, userNumbers, numbersToExcludeForThisSet);
+                
 
-            
+        
 
-            if (isFirstSet) {
+                for (let i = 0; i < 5; i++) {
 
-                overallTitle = result.title;
+        
 
-                overallExplanation = result.explanation;
+                    const numbersToExcludeForThisSet = (strategy === 'personal') 
 
-                isFirstSet = false;
+        
 
-            }
+                        ? new Set([...allGeneratedNumbers, ...userNumbers]) 
 
+        
 
+                        : allGeneratedNumbers;
 
-            const resultDisplay = document.createElement('strategy-result-display');
+        
 
-            resultDisplay.setAttribute('numbers', JSON.stringify(result.numbers));
+        
 
-            resultsWrapper.appendChild(resultDisplay);
+        
 
+                    const result = generateStrategyNumbers(strategy, userNumbers, numbersToExcludeForThisSet);
 
+        
 
-            result.numbers.forEach(num => allGeneratedNumbers.add(num));
+                    
 
-        }
+        
 
+                    const resultDisplay = document.createElement('strategy-result-display');
 
+        
 
-        const wrapperHeader = document.createElement('div');
+                    resultDisplay.setAttribute('numbers', JSON.stringify(result.numbers));
 
-        wrapperHeader.style.textAlign = 'center';
+        
 
-        wrapperHeader.style.marginBottom = '1rem';
+                    resultDisplay.setAttribute('title', result.title); // Set individual title
 
-        wrapperHeader.innerHTML = `
+        
 
-            <h3 style="font-size: 1.8rem; font-weight: 700; margin-bottom: 0.5rem; color: var(--text-color);">${overallTitle}</h3>
+                    resultDisplay.setAttribute('explanation', result.explanation); // Set individual explanation
 
-            <p style="font-style: italic; opacity: 0.9; font-size: 1rem; color: var(--text-color);">${overallExplanation}</p>
+        
 
-        `;
+                    resultsWrapper.appendChild(resultDisplay);
 
-        resultsWrapper.prepend(wrapperHeader);
+        
 
+        
 
+        
 
-        const donghaengButton = document.createElement('button');
+                    result.numbers.forEach(num => allGeneratedNumbers.add(num));
 
-        donghaengButton.classList.add('go-to-lotto-btn');
+        
 
-        donghaengButton.textContent = window.getTranslation('goToDonghaengLotto');
+                }
 
-        donghaengButton.onclick = () => window.open('https://dhlottery.co.kr/common.do?method=main', '_blank', 'noopener,noreferrer');
+        
 
-        resultsWrapper.appendChild(donghaengButton);
+        
 
+        
 
+                const donghaengButton = document.createElement('button');
 
-        createShareButtons(resultsWrapper);
+        
 
+                donghaengButton.classList.add('go-to-lotto-btn');
 
+        
 
-        resultContainer.appendChild(resultsWrapper);
+                donghaengButton.textContent = window.getTranslation('goToDonghaengLotto');
+
+        
+
+                donghaengButton.onclick = () => window.open('https://dhlottery.co.kr/common.do?method=main', '_blank', 'noopener,noreferrer');
+
+        
+
+                resultsWrapper.appendChild(donghaengButton);
+
+        
+
+        
+
+        
+
+                createShareButtons(resultsWrapper);
+
+        
+
+        
+
+        
+
+                resultContainer.appendChild(resultsWrapper);
 
     });
 
@@ -946,532 +1034,521 @@ const emotionKeywords = {
     }
 };
 
-function handleEmotionForm() {
+class EmotionResultDisplay extends HTMLElement {
 
+    constructor() {
 
+        super();
 
-    const emotionKeywordsContainer = document.getElementById('emotion-keywords');
+        this.attachShadow({ mode: 'open' });
 
+    }
 
 
-    const emotionForm = document.getElementById('emotion-form');
 
+    connectedCallback() {
 
+        const explanations = JSON.parse(this.getAttribute('explanations'));
 
-    const emotionResultContainer = document.getElementById('emotion-result');
+        const numbers = JSON.parse(this.getAttribute('numbers'));
 
 
 
+        this.shadowRoot.innerHTML = `
 
+            <style>
 
+                .emotion-result-display {
 
+                    background: rgba(0,0,0,0.2);
 
-    if (!emotionKeywordsContainer || !emotionForm) return;
+                    padding: 2rem;
 
+                    border-radius: 15px;
 
+                    text-align: center;
 
+                    animation: fadeIn 0.8s ease-in-out;
 
+                    border: 1px solid var(--component-border-color, rgba(255, 255, 255, 0.2));
 
+                }
 
+                .explanations {
 
-    const renderCategories = () => {
+                    text-align: left;
 
+                    margin-bottom: 2rem;
 
+                }
 
-        emotionKeywordsContainer.innerHTML = ''; // Clear previous content
+                .explanation-item {
 
+                    background: rgba(0,0,0,0.15);
 
+                    padding: 1rem;
 
-        emotionResultContainer.innerHTML = ''; // Clear results
+                    border-radius: 10px;
 
+                    margin-bottom: 1rem;
 
+                }
 
-        emotionForm.querySelector('[data-i18n-key="emotionGenerateButton"]').style.display = 'none';
+                .explanation-item strong {
 
+                    font-size: 1.5rem;
 
+                    color: #4facfe;
 
+                }
 
+                .personalized-numbers {
 
+                    display: flex;
 
+                    justify-content: center;
 
-        const categoryWrapper = document.createElement('div');
+                    align-items: center;
 
+                    gap: 1rem;
 
+                    flex-wrap: wrap;
 
-        categoryWrapper.className = 'emotion-categories';
+                }
 
+                .number {
 
+                    display: flex;
 
+                    align-items: center;
 
+                    justify-content: center;
 
+                    width: 55px;
 
+                    height: 55px;
 
-        const categoryQuestion = document.createElement('h3');
+                    border-radius: 50%;
 
+                    font-size: 1.8rem;
 
+                    font-weight: 600;
 
-        categoryQuestion.textContent = window.getTranslation('emotionCategoryQuestion');
+                    color: white;
 
+                    text-shadow: 0 1px 3px rgba(0,0,0,0.3);
 
+                    box-shadow: inset 0 -3px 5px rgba(0,0,0,0.2), 0 4px 10px rgba(0,0,0,0.4);
 
-        categoryWrapper.appendChild(categoryQuestion);
+                }
 
+                @keyframes fadeIn {
 
+                    from { opacity: 0; transform: translateY(20px); }
 
+                    to { opacity: 1; transform: translateY(0); }
 
+                }
 
+            </style>
 
+            <div class="emotion-result-display">
 
-        Object.keys(emotionKeywords).forEach(category => {
+                <div class="explanations">
 
+                    ${explanations.map(ex => `
 
+                        <div class="explanation-item">
 
-            const button = document.createElement('button');
+                            <p><strong>${ex.number}:</strong> ${ex.text}</p>
 
+                        </div>
 
+                    `).join('')}
 
-            button.textContent = category;
+                </div>
 
+                <div class="personalized-numbers">
 
+                    ${numbers.map(num => `<div class="number" style="background: ${getNumberColor(num)}">${num}</div>`).join('')}
 
-            button.className = 'category-btn';
+                </div>
 
+            </div>
 
+        `;
 
-            button.type = 'button'; // Prevent form submission
-
-
-
-            button.onclick = () => renderKeywords(category);
-
-
-
-            categoryWrapper.appendChild(button);
-
-
-
-        });
-
-
-
-
-
-
-
-        emotionKeywordsContainer.appendChild(categoryWrapper);
-
-
-
-    };
-
-
-
-
-
-
-
-    const renderKeywords = (category) => {
-
-
-
-        emotionKeywordsContainer.innerHTML = ''; // Clear categories
-
-
-
-        emotionForm.querySelector('[data-i18n-key="emotionGenerateButton"]').style.display = 'block';
-
-
-
-
-
-
-
-        const keywordWrapper = document.createElement('div');
-
-
-
-        keywordWrapper.className = 'emotion-keywords-list fade-in';
-
-
-
-
-
-
-
-        const backButton = document.createElement('button');
-
-
-
-        backButton.textContent = window.getTranslation('backButton');
-
-
-
-        backButton.className = 'back-btn';
-
-
-
-        backButton.type = 'button';
-
-
-
-        backButton.onclick = renderCategories;
-
-
-
-        keywordWrapper.appendChild(backButton);
-
-
-
-
-
-
-
-        const keywords = emotionKeywords[category];
-
-
-
-        for (const key in keywords) {
-
-
-
-            const label = document.createElement('label');
-
-
-
-            label.className = 'emotion-keyword-label';
-
-
-
-            
-
-
-
-            const checkbox = document.createElement('input');
-
-
-
-            checkbox.type = 'checkbox';
-
-
-
-            checkbox.name = 'emotions';
-
-
-
-            checkbox.value = key;
-
-
-
-            
-
-
-
-            const span = document.createElement('span');
-
-
-
-            span.textContent = key.charAt(0).toUpperCase() + key.slice(1);
-
-
-
-
-
-
-
-            label.appendChild(checkbox);
-
-
-
-            label.appendChild(span);
-
-
-
-            keywordWrapper.appendChild(label);
-
-
-
-        }
-
-
-
-        
-
-
-
-        emotionKeywordsContainer.appendChild(keywordWrapper);
-
-
-
-    };
-
-
-
-
-
-
-
-    emotionForm.addEventListener('submit', (e) => {
-
-
-
-        e.preventDefault();
-
-
-
-        const selectedKeywords = Array.from(emotionForm.querySelectorAll('input[name="emotions"]:checked')).map(cb => cb.value);
-
-
-
-
-
-
-
-        if (selectedKeywords.length === 0) {
-
-
-
-            alert('Please select at least one emotion.');
-
-
-
-            return;
-
-
-
-        }
-
-
-
-
-
-
-
-        const numbers = new Set();
-
-
-
-        const explanations = [];
-
-
-
-        
-
-
-
-        // Find the full keyword data from the nested structure
-
-
-
-        const allKeywords = Object.values(emotionKeywords).reduce((acc, val) => ({ ...acc, ...val }), {});
-
-
-
-
-
-
-
-        selectedKeywords.forEach((key, index) => {
-
-
-
-            if (numbers.size >= 6) return;
-
-
-
-            const keywordData = allKeywords[key];
-
-
-
-            if (!keywordData) return;
-
-
-
-
-
-
-
-            let newNumber = (keywordData.base + index * selectedKeywords.length) % 45 + 1;
-
-
-
-            while (numbers.has(newNumber)) {
-
-
-
-                newNumber = (newNumber + 1) % 45 + 1;
-
-
-
-                if (newNumber === 0) newNumber = 1;
-
-
-
-            }
-
-
-
-            numbers.add(newNumber);
-
-
-
-            explanations.push({
-
-
-
-                number: newNumber,
-
-
-
-                text: `Derived from your feeling of <strong>${key}</strong>, which ${keywordData.description}`
-
-
-
-            });
-
-
-
-        });
-
-
-
-
-
-
-
-        const seed = selectedKeywords.reduce((acc, key) => acc + (allKeywords[key]?.base || 0), 0);
-
-
-
-        let currentSeed = seed;
-
-
-
-        const seededRandom = () => {
-
-
-
-            const x = Math.sin(currentSeed++) * 10000;
-
-
-
-            return x - Math.floor(x);
-
-
-
-        };
-
-
-
-
-
-
-
-        let cosmicCount = 1;
-
-
-
-        while (numbers.size < 6) {
-
-
-
-            const randomNumber = Math.floor(seededRandom() * 45) + 1;
-
-
-
-            if (!numbers.has(randomNumber)) {
-
-
-
-                numbers.add(randomNumber);
-
-
-
-                 explanations.push({
-
-
-
-                    number: randomNumber,
-
-
-
-                    text: `This is your <strong>Cosmic Number ${cosmicCount++}</strong>, a random cosmic energy drawn to the synergy of your chosen emotions.`
-
-
-
-                });
-
-
-
-            }
-
-
-
-        }
-
-
-
-        
-
-
-
-        const sortedNumbers = Array.from(numbers).sort((a, b) => a - b);
-
-
-
-
-
-
-
-        emotionResultContainer.innerHTML = '';
-
-
-
-        const resultDisplay = document.createElement('emotion-result-display');
-
-
-
-        resultDisplay.setAttribute('explanations', JSON.stringify(explanations));
-
-
-
-        resultDisplay.setAttribute('numbers', JSON.stringify(sortedNumbers));
-
-
-
-        emotionResultContainer.appendChild(resultDisplay);
-
-
-
-    });
-
-
-
-
-
-
-
-    renderCategories(); // Initial render
-
-
-
-    document.addEventListener('languageChanged', renderCategories);
-
-
+    }
 
 }
 
+customElements.define('emotion-result-display', EmotionResultDisplay);
+
+
+class PersonalizedResultDisplay extends HTMLElement {
+
+    constructor() {
+
+        super();
+
+        this.attachShadow({ mode: 'open' });
+
+    }
 
 
 
+    connectedCallback() {
+
+        const story = this.getAttribute('story');
+
+        const numbers = JSON.parse(this.getAttribute('numbers'));
+
+        const explanation = this.getAttribute('explanation'); // HTML content
 
 
 
+        this.shadowRoot.innerHTML = `
+
+            <style>
+
+                .personalized-result-display {
+
+                    background: rgba(0,0,0,0.2);
+
+                    padding: 2rem;
+
+                    border-radius: 15px;
+
+                    text-align: center;
+
+                    animation: fadeIn 0.8s ease-in-out;
+
+                    border: 1px solid var(--component-border-color, rgba(255, 255, 255, 0.2));
+
+                }
+
+                .personalized-story {
+
+                    font-size: 1.2rem;
+
+                    font-style: italic;
+
+                    line-height: 1.6;
+
+                    margin-bottom: 1.5rem;
+
+                    color: var(--text-color, #f0f0f0);
+
+                    opacity: 0.9;
+
+                }
+
+                .explanation-section {
+
+                    margin-bottom: 2rem;
+
+                    padding: 1rem;
+
+                    background: rgba(0,0,0,0.15);
+
+                    border-radius: 10px;
+
+                    text-align: left;
+
+                }
+
+                .explanation-section h3 {
+
+                    margin-top: 0;
+
+                    color: var(--text-color);
+
+                    border-bottom: 1px solid rgba(255,255,255,0.2);
+
+                    padding-bottom: 0.5rem;
+
+                    margin-bottom: 1rem;
+
+                }
+
+                .explanation-section p {
+
+                    margin: 0.5rem 0;
+
+                    line-height: 1.5;
+
+                }
+
+                .explanation-section strong {
+
+                    color: #4facfe; /* Highlight color */
+
+                    font-weight: 700;
+
+                }
+
+                .personalized-numbers {
+
+                    display: flex;
+
+                    justify-content: center;
+
+                    align-items: center;
+
+                    gap: 1rem;
+
+                    flex-wrap: wrap;
+
+                }
+
+                .number {
+
+                    display: flex;
+
+                    align-items: center;
+
+                    justify-content: center;
+
+                    width: 55px;
+
+                    height: 55px;
+
+                    border-radius: 50%;
+
+                    font-size: 1.8rem;
+
+                    font-weight: 600;
+
+                    color: white;
+
+                    text-shadow: 0 1px 3px rgba(0,0,0,0.3);
+
+                    box-shadow: inset 0 -3px 5px rgba(0,0,0,0.2), 0 4px 10px rgba(0,0,0,0.4);
+
+                }
+
+                @keyframes fadeIn {
+
+                    from { opacity: 0; transform: translateY(20px); }
+
+                    to { opacity: 1; transform: translateY(0); }
+
+                }
+
+            </style>
+
+            <div class="personalized-result-display">
+
+                <p class="personalized-story">${story}</p>
+
+                <div class="explanation-section">
+
+                    ${explanation}
+
+                </div>
+
+                <div class="personalized-numbers">
+
+                    ${numbers.map(num => `<div class="number" style="background: ${getNumberColor(num)}">${num}</div>`).join('')}
+
+                </div>
+
+            </div>
+
+        `;
+
+    }
+
+}
+
+customElements.define('personalized-result-display', PersonalizedResultDisplay);
 
 
 
+const emotionKeywords = {
+    'Positive': {
+        happy: { base: 7, description: "Vibrates with the energy of Jupiter, signifying luck and expansion." },
+        joyful: { base: 2, description: "Radiates pure delight and celebration." },
+        grateful: { base: 11, description: "Taps into the Moon's energy, enhancing intuition and gratitude." },
+        excited: { base: 13, description: "Channels the fiery spirit of Mars, bringing passion and drive." },
+        optimistic: { base: 1, description: "Represents the dawn of new beginnings, full of hope and potential." },
+        proud: { base: 19, description: "Stands tall with the confidence of past successes." },
+        blissful: { base: 29, description: "Is a state of perfect happiness and great joy." },
+        enthusiastic: { base: 31, description: "Overflows with eager enjoyment and interest." },
+    },
+    'Reflective': {
+        calm: { base: 22, description: "Reflects the serene influence of Venus, promoting harmony and balance." },
+        peaceful: { base: 33, description: "Holds a master vibration of tranquility and spiritual awareness." },
+        relaxed: { base: 4, description: "Is free from tension and anxiety." },
+        thoughtful: { base: 15, description: "Engages in deep, quiet thinking." },
+        serene: { base: 28, description: "Is calm, peaceful, and untroubled; tranquil." },
+        contemplative: { base: 37, description: "Involves deep, reflective thought." },
+        nostalgic: { base: 25, description: "Evokes a sentimental longing for the past." },
+        introspective: { base: 43, description: "Focuses on the examination of one's own thoughts and feelings." }
+    },
+    'Ambitious': {
+        confident: { base: 8, description: "Draws on the strength of Saturn, building structure and self-assurance." },
+        adventurous: { base: 5, description: "Embodies the quick-witted nature of Mercury, sparking curiosity and discovery." },
+        daring: { base: 17, description: "Is adventurous and willing to take risks." },
+        bold: { base: 21, description: "Shows a willingness to take risks; confident and courageous." },
+        determined: { base: 36, description: "Is firm in purpose and unwavering." },
+        focused: { base: 41, description: "Directs a great deal of attention towards a particular aim." },
+        powerful: { base: 44, description: "Has great power or strength." },
+        successful: { base: 10, description: "Accomplishes a desired aim or result." }
+    },
+    'Playful': {
+        creative: { base: 3, description: "Is fueled by the Sun's radiant power, inspiring originality and expression." },
+        loving: { base: 6, description: "Connects with the gentle heart of the Earth, fostering compassion and connection." },
+        silly: { base: 12, description: "Having or showing a lack of common sense or judgment; absurd and foolish." },
+        whimsical: { base: 18, description: "Is playfully quaint or fanciful, especially in an appealing and amusing way." },
+        energetic: { base: 24, description: "Shows or involves great activity or vitality." },
+        spontaneous: { base: 30, description: "Is open, natural, and uninhibited." },
+        mischievous: { base: 34, description: "Causes or shows a fondness for causing trouble in a playful way." },
+        flirty: { base: 42, description: "Is playfully romantic and charming." }
+    }
+};
 
+function handleEmotionForm() {
+    const emotionKeywordsContainer = document.getElementById('emotion-keywords');
+    const emotionForm = document.getElementById('emotion-form');
+    const emotionResultContainer = document.getElementById('emotion-result');
 
+    if (!emotionKeywordsContainer || !emotionForm) return;
 
+    let selectedEmotions = new Set(); // To store selected emotions
+
+    const renderCategories = () => {
+        emotionKeywordsContainer.innerHTML = ''; // Clear previous content
+        emotionResultContainer.innerHTML = ''; // Clear results
+        emotionForm.querySelector('[data-i18n-key="emotionGenerateButton"]').style.display = 'none';
+
+        const categoryWrapper = document.createElement('div');
+        categoryWrapper.className = 'emotion-categories';
+
+        const categoryQuestion = document.createElement('h3');
+        categoryQuestion.textContent = window.getTranslation('emotionCategoryQuestion');
+        categoryWrapper.appendChild(categoryQuestion);
+
+        Object.keys(emotionKeywords).forEach(category => {
+            const button = document.createElement('button');
+            button.textContent = category;
+            button.className = 'category-btn';
+            button.type = 'button'; // Prevent form submission
+            button.onclick = () => renderKeywords(category);
+            categoryWrapper.appendChild(button);
+        });
+
+        emotionKeywordsContainer.appendChild(categoryWrapper);
+    };
+
+    const renderKeywords = (category) => {
+        emotionKeywordsContainer.innerHTML = ''; // Clear categories
+        emotionForm.querySelector('[data-i18n-key="emotionGenerateButton"]').style.display = 'block';
+
+        const keywordWrapper = document.createElement('div');
+        keywordWrapper.className = 'emotion-keywords-list fade-in';
+
+        const backButton = document.createElement('button');
+        backButton.textContent = window.getTranslation('backButton');
+        backButton.className = 'back-btn';
+        backButton.type = 'button';
+        backButton.onclick = renderCategories;
+        keywordWrapper.appendChild(backButton);
+
+        const keywords = emotionKeywords[category];
+        for (const key in keywords) {
+            const label = document.createElement('label');
+            label.className = 'emotion-keyword-label';
+            
+            const checkbox = document.createElement('input');
+            checkbox.type = 'checkbox';
+            checkbox.name = 'emotions';
+            checkbox.value = key;
+            checkbox.checked = selectedEmotions.has(key); // Set checked state based on selectedEmotions
+            checkbox.onchange = (e) => {
+                if (e.target.checked) {
+                    selectedEmotions.add(key);
+                } else {
+                    selectedEmotions.delete(key);
+                }
+            };
+            
+            const span = document.createElement('span');
+            span.textContent = key.charAt(0).toUpperCase() + key.slice(1);
+
+            label.appendChild(checkbox);
+            label.appendChild(span);
+            keywordWrapper.appendChild(label);
+        }
+        
+        emotionKeywordsContainer.appendChild(keywordWrapper);
+    };
+
+    emotionForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        // Use the selectedEmotions Set directly
+        const selectedKeywords = Array.from(selectedEmotions);
+
+        if (selectedKeywords.length === 0) {
+            alert('Please select at least one emotion.');
+            return;
+        }
+
+        const numbers = new Set();
+        const explanations = [];
+        
+        // Find the full keyword data from the nested structure
+        const allKeywords = Object.values(emotionKeywords).reduce((acc, val) => ({ ...acc, ...val }), {});
+
+        selectedKeywords.forEach((key, index) => {
+            if (numbers.size >= 6) return;
+            const keywordData = allKeywords[key];
+            if (!keywordData) return;
+
+            // Ensure unique number generation within the current context
+            let newNumber = (keywordData.base + index * selectedKeywords.length) % 45 + 1;
+            while (numbers.has(newNumber)) {
+                newNumber = (newNumber + 1) % 45 + 1;
+                if (newNumber === 0) newNumber = 1;
+            }
+            numbers.add(newNumber);
+            explanations.push({
+                number: newNumber,
+                text: `Derived from your feeling of <strong>${key}</strong>, which ${keywordData.description}`
+            });
+        });
+
+        const seed = selectedKeywords.reduce((acc, key) => acc + (allKeywords[key]?.base || 0), 0);
+        let currentSeed = seed;
+        const seededRandom = () => {
+            const x = Math.sin(currentSeed++) * 10000;
+            return x - Math.floor(x);
+        };
+
+        let cosmicCount = 1;
+        while (numbers.size < 6) {
+            const randomNumber = Math.floor(seededRandom() * 45) + 1;
+            if (!numbers.has(randomNumber)) {
+                numbers.add(randomNumber);
+                 explanations.push({
+                    number: randomNumber,
+                    text: `This is your <strong>Cosmic Number ${cosmicCount++}</strong>, a random cosmic energy drawn to the synergy of your chosen emotions.`
+                });
+            }
+        }
+        
+        const sortedNumbers = Array.from(numbers).sort((a, b) => a - b);
+
+        emotionResultContainer.innerHTML = '';
+        const resultDisplay = document.createElement('emotion-result-display');
+        resultDisplay.setAttribute('explanations', JSON.stringify(explanations));
+        resultDisplay.setAttribute('numbers', JSON.stringify(sortedNumbers));
+        emotionResultContainer.appendChild(resultDisplay);
+    });
+
+    renderCategories(); // Initial render
+    document.addEventListener('languageChanged', renderCategories);
+}
 
 
 document.addEventListener('DOMContentLoaded', async () => {
