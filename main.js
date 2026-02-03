@@ -529,125 +529,129 @@ function handleStrategyForm() {
 
 
 
-        resultContainer.innerHTML = '';
+                resultContainer.innerHTML = '';
 
-        
 
-                const resultsWrapper = document.createElement('div');
-
-        
-
-                resultsWrapper.className = 'results-wrapper-container';
-
-        
-
-        
-
-        
-
-                let allGeneratedNumbers = new Set();
-
-        
 
                 
 
+
+
+                const resultsWrapper = document.createElement('div');
+
+
+
+                resultsWrapper.className = 'results-wrapper-container';
+
+
+
         
+
+
+
+                let allGeneratedNumbers = new Set();
+
+
+
+                
+
+
 
                 for (let i = 0; i < 5; i++) {
 
-        
+
 
                     const numbersToExcludeForThisSet = (strategy === 'personal') 
 
-        
+
 
                         ? new Set([...allGeneratedNumbers, ...userNumbers]) 
 
-        
+
 
                         : allGeneratedNumbers;
 
-        
+
 
         
 
-        
+
 
                     const result = generateStrategyNumbers(strategy, userNumbers, numbersToExcludeForThisSet);
 
-        
+
 
                     
 
-        
+
 
                     const resultDisplay = document.createElement('strategy-result-display');
 
-        
+
 
                     resultDisplay.setAttribute('numbers', JSON.stringify(result.numbers));
 
-        
 
-                    resultDisplay.setAttribute('title', result.title); // Set individual title
 
-        
+                    resultDisplay.setAttribute('title', result.title);
 
-                    resultDisplay.setAttribute('explanation', result.explanation); // Set individual explanation
 
-        
+
+                    resultDisplay.setAttribute('explanation', result.explanation);
+
+
 
                     resultsWrapper.appendChild(resultDisplay);
 
-        
+
 
         
 
-        
+
 
                     result.numbers.forEach(num => allGeneratedNumbers.add(num));
 
-        
+
 
                 }
 
-        
+
 
         
 
-        
+
 
                 const donghaengButton = document.createElement('button');
 
-        
+
 
                 donghaengButton.classList.add('go-to-lotto-btn');
 
-        
+
 
                 donghaengButton.textContent = window.getTranslation('goToDonghaengLotto');
 
-        
+
 
                 donghaengButton.onclick = () => window.open('https://dhlottery.co.kr/common.do?method=main', '_blank', 'noopener,noreferrer');
 
-        
+
 
                 resultsWrapper.appendChild(donghaengButton);
 
-        
+
 
         
 
-        
+
 
                 createShareButtons(resultsWrapper);
 
-        
+
 
         
 
-        
+
 
                 resultContainer.appendChild(resultsWrapper);
 
