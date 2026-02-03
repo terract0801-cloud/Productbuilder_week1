@@ -672,305 +672,93 @@ function handleStrategyForm() {
 
 
 function handlePersonalizedForm() {
-
-
+    console.log("handlePersonalizedForm initialized");
 
     const personalizedForm = document.getElementById('personalized-form');
 
-
-
-    if (!personalizedForm) return;
-
-
-
-
-
-
+    if (!personalizedForm) {
+        console.error("Personalized form not found!");
+        return;
+    }
 
     const resultContainer = document.getElementById('personalized-result');
-
-
-
     const nameInput = document.getElementById('user-name');
-
-
-
     const birthDateInput = document.getElementById('birth-date');
 
-
-
-
-
-
-
     personalizedForm.addEventListener('submit', (e) => {
-
-
-
+        console.log("Personalized form submitted");
         e.preventDefault();
 
-
-
-
-
-
-
         const name = nameInput.value.trim();
-
-
-
         const birthDate = birthDateInput.value;
 
-
-
-
-
-
+        console.log("Name:", name, "Birthdate:", birthDate);
 
         if (!name || !birthDate) {
-
-
-
             alert(window.getTranslation ? window.getTranslation('personalizedNoInput') : 'Please enter your name and birthdate.');
-
-
-
             return;
-
-
-
         }
-
-
-
-
-
-
 
         const date = new Date(birthDate);
-
-
-
         const year = date.getFullYear();
-
-
-
         const month = date.getMonth() + 1;
-
-
-
         const day = date.getDate();
 
-
-
-
-
-
-
         const stories = [
-
-
-
             `From the cosmic energy of ${name}'s birth on ${year}/${month}/${day}, the universe whispers these numbers:`,
-
-
-
             `${name}, your unique journey began on a special day. The stars on ${year}/${month}/${day} have aligned to reveal:`,
-
-
-
             `The essence of ${name} and the moment of ${year}/${month}/${day} combine to unlock a secret sequence:`,
-
-
-
             `Let the vibrant spirit of ${name}, born on ${day}/${month}/${year}, guide you to these fortunate numbers:`
-
-
-
         ];
-
-
-
         const story = stories[Math.floor(Math.random() * stories.length)];
 
-
-
-
-
-
-
         const numbers = new Set();
-
-
-
         
-
-
-
         const nameNumber = (name.split('').reduce((acc, char) => acc + char.charCodeAt(0), 0) % 45) + 1;
-
-
-
         numbers.add(nameNumber);
 
-
-
-
-
-
-
         if (!numbers.has(day)) numbers.add(day);
-
-
-
         if (numbers.size < 6 && !numbers.has(month)) numbers.add(month);
-
-
-
         
-
-
-
         const yearSum = String(year).split('').reduce((acc, digit) => acc + parseInt(digit), 0);
-
-
-
         if (numbers.size < 6 && !numbers.has(yearSum)) {
-
-
-
             numbers.add(yearSum);
-
-
-
         }
-
-
-
-
-
-
 
         const seed = year + month + day;
-
-
-
         let currentSeed = seed;
-
-
-
         const seededRandom = () => {
-
-
-
             const x = Math.sin(currentSeed++) * 10000;
-
-
-
             return x - Math.floor(x);
-
-
-
         };
 
-
-
         while (numbers.size < 6) {
-
-
-
             const randomNumber = Math.floor(seededRandom() * 45) + 1;
-
-
-
             if (!numbers.has(randomNumber)) {
-
-
-
                 numbers.add(randomNumber);
-
-
-
             }
-
-
-
         }
 
-
-
         const sortedNumbers = Array.from(numbers).sort((a, b) => a - b);
-
-
-
         
-
-
-
         const explanationHTML = `
-
-
-
             <h3>Your Personalized Number Story</h3>
-
-
-
             <p>We've crafted your unique lottery numbers based on a story written in your name and birthdate.</p>
-
-
-
             <p>From the essence of your name, <strong>${name}</strong>, we've distilled your 'Name Number': <strong>${nameNumber}</strong>.</p>
-
-
-
             <p>From your birthdate, <strong>${day}/${month}/${year}</strong>, we've uncovered these 'Destiny Numbers': <strong>${day}</strong> and <strong>${month}</strong>.</p>
-
-
-
             <p>The sum of the digits of your birth year gives us another potent number: <strong>${yearSum}</strong>.</p>
-
-
-
             <p>These core numbers, derived from your unique identity, form the foundation of your lucky set. The remaining numbers are cosmic fillers, aligned by the energy of your birth day to complete your sequence.</p>
-
-
-
         `;
 
-
-
-
-
-
-
+        console.log("Generated numbers:", sortedNumbers);
         resultContainer.innerHTML = '';
-
-
-
         const resultDisplay = document.createElement('personalized-result-display');
-
-
-
         resultDisplay.setAttribute('story', story);
-
-
-
         resultDisplay.setAttribute('explanation', explanationHTML);
-
-
-
         resultDisplay.setAttribute('numbers', JSON.stringify(sortedNumbers));
-
-
-
         resultContainer.appendChild(resultDisplay);
-
-
-
+        console.log("Result display element created and appended.");
     });
-
-
-
 }
 
 
