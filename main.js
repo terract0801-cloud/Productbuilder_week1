@@ -755,22 +755,6 @@ function handlePersonalizedForm() {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 const emotionKeywords = {
     'Positive': {
         happy: { base: 7, description: "Vibrates with the energy of Jupiter, signifying luck and expansion." },
@@ -1142,51 +1126,6 @@ class PersonalizedResultDisplay extends HTMLElement {
 }
 
 customElements.define('personalized-result-display', PersonalizedResultDisplay);
-
-
-
-const emotionKeywords = {
-    'Positive': {
-        happy: { base: 7, description: "Vibrates with the energy of Jupiter, signifying luck and expansion." },
-        joyful: { base: 2, description: "Radiates pure delight and celebration." },
-        grateful: { base: 11, description: "Taps into the Moon's energy, enhancing intuition and gratitude." },
-        excited: { base: 13, description: "Channels the fiery spirit of Mars, bringing passion and drive." },
-        optimistic: { base: 1, description: "Represents the dawn of new beginnings, full of hope and potential." },
-        proud: { base: 19, description: "Stands tall with the confidence of past successes." },
-        blissful: { base: 29, description: "Is a state of perfect happiness and great joy." },
-        enthusiastic: { base: 31, description: "Overflows with eager enjoyment and interest." },
-    },
-    'Reflective': {
-        calm: { base: 22, description: "Reflects the serene influence of Venus, promoting harmony and balance." },
-        peaceful: { base: 33, description: "Holds a master vibration of tranquility and spiritual awareness." },
-        relaxed: { base: 4, description: "Is free from tension and anxiety." },
-        thoughtful: { base: 15, description: "Engages in deep, quiet thinking." },
-        serene: { base: 28, description: "Is calm, peaceful, and untroubled; tranquil." },
-        contemplative: { base: 37, description: "Involves deep, reflective thought." },
-        nostalgic: { base: 25, description: "Evokes a sentimental longing for the past." },
-        introspective: { base: 43, description: "Focuses on the examination of one's own thoughts and feelings." }
-    },
-    'Ambitious': {
-        confident: { base: 8, description: "Draws on the strength of Saturn, building structure and self-assurance." },
-        adventurous: { base: 5, description: "Embodies the quick-witted nature of Mercury, sparking curiosity and discovery." },
-        daring: { base: 17, description: "Is adventurous and willing to take risks." },
-        bold: { base: 21, description: "Shows a willingness to take risks; confident and courageous." },
-        determined: { base: 36, description: "Is firm in purpose and unwavering." },
-        focused: { base: 41, description: "Directs a great deal of attention towards a particular aim." },
-        powerful: { base: 44, description: "Has great power or strength." },
-        successful: { base: 10, description: "Accomplishes a desired aim or result." }
-    },
-    'Playful': {
-        creative: { base: 3, description: "Is fueled by the Sun's radiant power, inspiring originality and expression." },
-        loving: { base: 6, description: "Connects with the gentle heart of the Earth, fostering compassion and connection." },
-        silly: { base: 12, description: "Having or showing a lack of common sense or judgment; absurd and foolish." },
-        whimsical: { base: 18, description: "Is playfully quaint or fanciful, especially in an appealing and amusing way." },
-        energetic: { base: 24, description: "Shows or involves great activity or vitality." },
-        spontaneous: { base: 30, description: "Is open, natural, and uninhibited." },
-        mischievous: { base: 34, description: "Causes or shows a fondness for causing trouble in a playful way." },
-        flirty: { base: 42, description: "Is playfully romantic and charming." }
-    }
-};
 
 function handleEmotionForm() {
     const emotionKeywordsContainer = document.getElementById('emotion-keywords');
