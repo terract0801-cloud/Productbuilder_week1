@@ -37,205 +37,7 @@ themeToggle.addEventListener('click', () => {
     setTheme(newTheme);
 });
 
-// LottoGenerator class is no longer used, but keeping for reference if needed.
-// class LottoGenerator extends HTMLElement {
-//   constructor() {
-//     super();
-//     const shadow = this.attachShadow({ mode: 'open' });
 
-//     const wrapper = document.createElement('div');
-//     wrapper.setAttribute('class', 'wrapper');
-
-//     this.generateBtn = document.createElement('button');
-//     this.generateBtn.classList.add('generate-btn');
-//     this.generateBtn.addEventListener('click', () => this.generateNumbers());
-    
-//     const result = document.createElement('div');
-//     result.setAttribute('class', 'result');
-
-//     const style = document.createElement('style');
-//     style.textContent = `
-//       .wrapper {
-//         display: flex;
-//         flex-direction: column;
-//         align-items: center;
-//         gap: 2rem;
-//       }
-//       .generate-btn {
-//         padding: 0.8rem 2rem;
-//         font-size: 1.2rem;
-//         font-weight: 600;
-//         font-family: 'Poppins', sans-serif;
-//         cursor: pointer;
-//         border-radius: 15px;
-//         color: var(--text-color);
-//         background: var(--component-background);
-//         border: 1px solid var(--component-border-color);
-//         box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-//         backdrop-filter: blur(5px);
-//         -webkit-backdrop-filter: blur(5px);
-//         transition: all 0.3s ease;
-//       }
-//       .generate-btn:hover {
-//         box-shadow: 0 0 20px 5px var(--glow-color);
-//       }
-//       .result {
-//         display: flex;
-//         flex-direction: column;
-//         gap: 1.5rem;
-//         width: 100%;
-//       }
-//       .lotto-row {
-//         display: flex;
-//         align-items: center;
-//         justify-content: center;
-//         gap: 1rem;
-//         padding: 1rem;
-//         background: rgba(255,255,255,0.05);
-//         border-radius: 15px;
-//       }
-//       .number {
-//         display: flex;
-//         align-items: center;
-//         justify-content: center;
-//         width: 55px;
-//         height: 55px;
-//         border-radius: 50%;
-//         font-size: 1.8rem;
-//         font-weight: 600;
-//         color: white;
-//         text-shadow: 0 1px 3px rgba(0,0,0,0.3);
-//         box-shadow: inset 0 -3px 5px rgba(0,0,0,0.2), 0 4px 10px rgba(0,0,0,0.4);
-//         transition: all 0.3s ease;
-//       }
-//       .bonus-number {
-//         transform: scale(0.9);
-//         box-shadow: inset 0 -2px 4px rgba(0,0,0,0.2), 0 2px 5px rgba(0,0,0,0.3);
-//         border: 3px solid rgba(255,255,255,0.8);
-//       }
-//       .plus-icon {
-//         font-size: 1.5rem;
-//         font-weight: 600;
-//         color: var(--text-color);
-//         opacity: 0.8;
-//       }
-//       .copy-btn {
-//         background: none;
-//         border: none;
-//         color: var(--text-color);
-//         cursor: pointer;
-//         margin-left: auto;
-//         padding: 5px;
-//         border-radius: 50%;
-//         width: 40px;
-//         height: 40px;
-//         display: flex;
-//         align-items: center;
-//         justify-content: center;
-//         transition: all 0.3s ease;
-//       }
-//       .copy-btn:hover {
-//         background: var(--component-background);
-//         box-shadow: 0 0 10px 3px var(--glow-color);
-//       }
-//       .copy-btn svg {
-//         width: 20px;
-//         height: 20px;
-//       }
-//     `;
-
-//     shadow.appendChild(style);
-//     shadow.appendChild(wrapper);
-//     wrapper.appendChild(this.generateBtn);
-//     wrapper.appendChild(result);
-
-//     this.resultContainer = result;
-//     this.bonusCheckbox = document.getElementById('bonus-checkbox');
-//   }
-
-//     connectedCallback() {
-//         this.updateButtonText();
-//         document.addEventListener('languageChanged', () => this.updateButtonText());
-//     }
-
-//     updateButtonText() {
-//         if (window.getTranslation) {
-//             this.generateBtn.textContent = window.getTranslation('generateButton');
-//         }
-//     }
-
-//   copyNumbers(numbers, bonusNumber, button) {
-//     let textToCopy = numbers.join(', ');
-//     if (bonusNumber) {
-//       textToCopy += ` + ${bonusNumber}`;
-//     }
-//     navigator.clipboard.writeText(textToCopy).then(() => {
-//       button.innerHTML = ICONS.check;
-//       setTimeout(() => {
-//         button.innerHTML = ICONS.copy;
-//       }, 1500);
-//     }).catch(err => {
-//       console.error('Failed to copy numbers: ', err);
-//     });
-//   }
-
-//   generateNumbers() {
-//     this.updateButtonText();
-    
-//     const includeBonus = this.bonusCheckbox.checked;
-//     this.resultContainer.innerHTML = '';
-//     for (let i = 0; i < 5; i++) {
-//       const numbers = new Set();
-//       const numbersToGenerate = includeBonus ? 7 : 6;
-//       while (numbers.size < numbersToGenerate) {
-//         numbers.add(Math.floor(Math.random() * 45) + 1);
-//       }
-
-//       const sortedNumbers = Array.from(numbers).sort((a, b) => a - b);
-//       const row = document.createElement('div');
-//       row.setAttribute('class', 'lotto-row');
-//       const mainNumbers = includeBonus ? sortedNumbers.slice(0, 6) : sortedNumbers;
-//       const bonusNumber = includeBonus ? sortedNumbers[6] : null;
-//       const numbersContainer = document.createElement('div');
-//       numbersContainer.style.display = 'flex';
-//       numbersContainer.style.gap = '1rem';
-//       numbersContainer.style.alignItems = 'center';
-
-//       for (const number of mainNumbers) {
-//         const numberDiv = document.createElement('div');
-//         numberDiv.setAttribute('class', 'number');
-//         numberDiv.textContent = number;
-//         numberDiv.style.background = getNumberColor(number);
-//         numbersContainer.appendChild(numberDiv);
-//       }
-
-//       row.appendChild(numbersContainer);
-
-//       if (bonusNumber) {
-//         const plusIcon = document.createElement('span');
-//         plusIcon.setAttribute('class', 'plus-icon');
-//         plusIcon.textContent = '+';
-//         row.appendChild(plusIcon);
-
-//         const bonusDiv = document.createElement('div');
-//         bonusDiv.setAttribute('class', 'number bonus-number');
-//         bonusDiv.textContent = bonusNumber;
-//         bonusDiv.style.background = getNumberColor(bonusNumber);
-//         row.appendChild(bonusDiv);
-//       }
-
-//       const copyButton = document.createElement('button');
-//       copyButton.setAttribute('class', 'copy-btn');
-//       copyButton.innerHTML = ICONS.copy;
-//       copyButton.title = window.getTranslation ? window.getTranslation('copyButton') : 'Copy';
-//       copyButton.addEventListener('click', () => this.copyNumbers(mainNumbers, bonusNumber, copyButton));
-//       row.appendChild(copyButton);
-
-//       this.resultContainer.appendChild(row);
-//     }
-//   }
-// }
-// customElements.define('lotto-generator', LottoGenerator);
 
 // --- AI Strategy Generator ---
 
@@ -470,595 +272,1121 @@ function generateStrategyNumbers(strategy, userNumbers = [], numbersToExclude = 
 }
 
 function createShareButtons(container) {
+
     const shareContainer = document.createElement('div');
+
     shareContainer.className = 'share-container';
 
+
+
     const shareTitle = document.createElement('p');
+
     shareTitle.className = 'share-title';
+
     shareTitle.textContent = window.getTranslation ? window.getTranslation('shareTitle') : 'Share the good luck!'; // Temp text
+
     shareContainer.appendChild(shareTitle);
 
+
+
     const buttonsWrapper = document.createElement('div');
+
     buttonsWrapper.className = 'share-buttons-wrapper';
+
     
+
     const siteUrl = 'https://productbuilder-week1-2gy.pages.dev/';
+
     const shareText = window.getTranslation ? window.getTranslation('shareText') : 'I got my lucky numbers from this AI Lotto Generator!'; // Temp text
 
+
+
     const networks = [
+
         { name: 'facebook', icon: ICONS.facebook, color: '#1877F2' },
+
         { name: 'twitter', icon: ICONS.twitter, color: '#1DA1F2' },
+
         { name: 'kakao', icon: ICONS.kakao, color: '#FEE500' },
+
         { name: 'link', icon: ICONS.link, color: '#cccccc' }
+
     ];
 
+
+
     networks.forEach(network => {
+
         const button = document.createElement('button');
+
         button.className = 'share-btn';
+
         button.innerHTML = network.icon;
+
         button.style.setProperty('--glow-color', network.color + '80'); // Add transparency to glow
+
         
+
         button.addEventListener('click', () => {
+
             switch(network.name) {
+
                 case 'facebook':
+
                     window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(siteUrl)}`, '_blank');
+
                     break;
+
                 case 'twitter':
+
                     window.open(`https://twitter.com/intent/tweet?url=${encodeURIComponent(siteUrl)}&text=${encodeURIComponent(shareText)}`, '_blank');
+
                     break;
+
                 case 'kakao':
+
                     if (window.Kakao && Kakao.isInitialized()) {
+
                         Kakao.Share.sendDefault({
+
                             objectType: 'feed',
+
                             content: {
+
                                 title: window.getTranslation ? window.getTranslation('appTitle') : 'AI Lotto Generator',
+
                                 description: shareText,
+
                                 imageUrl: 'https://productbuilder-week1-2gy.pages.dev/social-share.jpg', // Replace with actual image
+
                                 link: {
+
                                     mobileWebUrl: siteUrl,
+
                                     webUrl: siteUrl,
+
                                 },
+
                             },
+
                             buttons: [
+
                                 {
+
                                     title: window.getTranslation ? window.getTranslation('ctaButton') : 'Try it out!',
+
                                     link: {
+
                                         mobileWebUrl: siteUrl,
+
                                         webUrl: siteUrl,
+
                                     },
+
                                 },
+
                             ],
+
                         });
+
                     }
+
                     break;
+
                 case 'link':
+
                     navigator.clipboard.writeText(siteUrl).then(() => {
+
                         button.innerHTML = ICONS.check;
+
                         setTimeout(() => {
+
                             button.innerHTML = ICONS.link;
+
                         }, 2000);
+
                     }).catch(err => console.error('Failed to copy link', err));
+
                     break;
+
             }
+
         });
+
         buttonsWrapper.appendChild(button);
+
     });
+
+
 
     shareContainer.appendChild(buttonsWrapper);
+
     container.appendChild(shareContainer);
+
 }
 
-document.addEventListener('DOMContentLoaded', () => {
-    // Theme initialization
-    const savedTheme = localStorage.getItem('theme');
-    const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
-    setTheme(savedTheme || (prefersDark ? 'dark' : 'light'));
 
-    // Strategy card accordion
-    const infoIcons = document.querySelectorAll('.info-icon');
-    const strategyCards = document.querySelectorAll('.strategy-card');
 
-    infoIcons.forEach(icon => {
-        icon.addEventListener('click', (e) => {
-            e.preventDefault(); // Stop the label from triggering the radio input
-            e.stopPropagation(); // Stop event bubbling
+function handleStrategyForm() {
 
-            const clickedCard = e.target.closest('.strategy-card');
-            const isActive = clickedCard.classList.contains('active');
-
-            // Close all other cards
-            strategyCards.forEach(card => {
-                card.classList.remove('active');
-            });
-
-            // If the clicked card wasn't already active, open it
-            if (!isActive) {
-                clickedCard.classList.add('active');
-            }
-        });
-    });
-
-    // AI Strategy Form listener
     const strategyForm = document.getElementById('strategy-form');
+
+    if (!strategyForm) return;
+
+
+
     const resultContainer = document.getElementById('strategy-result-container');
+
     const personalNumberInput = document.getElementById('personal-number');
-    let strategyRadioButtons = []; // Initialize to an empty array
 
-    if (strategyForm) {
-        strategyRadioButtons = strategyForm.querySelectorAll('input[name="strategy"]'); // Safe assignment
-    }
+    const strategyRadioButtons = strategyForm.querySelectorAll('input[name="strategy"]');
 
-    // Function to update placeholder for personal number input
+
+
     const updatePersonalNumberPlaceholder = () => {
-        let selectedStrategy = null;
-        // Safely get checked radio button if strategyForm exists
-        const checkedRadio = strategyForm ? strategyForm.querySelector('input[name="strategy"]:checked') : null;
-        if (checkedRadio) {
-            selectedStrategy = checkedRadio.value;
-        }
+
+        const selectedStrategy = strategyForm.querySelector('input[name="strategy"]:checked').value;
 
         const personalCard = document.querySelector('label.strategy-option input[value="personal"] + .strategy-card');
+
         
+
         if (selectedStrategy === 'personal') {
+
             personalNumberInput.placeholder = window.getTranslation('personalNumberPlaceholder');
-            personalNumberInput.style.display = 'block'; // Show input
-            // Adjust card height for personal strategy
+
+            personalNumberInput.style.display = 'block';
+
             if (personalCard) personalCard.style.minHeight = 'auto';
+
         } else {
+
             personalNumberInput.placeholder = '';
-            personalNumberInput.value = ''; // Clear value when not personal
-            personalNumberInput.style.display = 'none'; // Hide input
-            // Reset card height if not personal strategy
-            if (personalCard) personalCard.style.minHeight = '150px'; // Adjust as needed
+
+            personalNumberInput.value = '';
+
+            personalNumberInput.style.display = 'none';
+
+            if (personalCard) personalCard.style.minHeight = '150px';
+
         }
+
     };
 
-    if(strategyForm) {
-        strategyForm.addEventListener('submit', (e) => {
-            e.preventDefault();
-            const formData = new FormData(strategyForm);
-            const strategy = formData.get('strategy');
-            
-            let userNumbers = [];
-            if (strategy === 'personal') {
-                const inputValue = personalNumberInput.value.trim();
-                if (!inputValue) {
-                    alert(window.getTranslation('personalNumberNoInput'));
-                    return;
-                }
-                
-                const parts = inputValue.split(',').map(part => parseInt(part.trim(), 10));
-                
-                // Filter out non-numbers and duplicates, then check range
-                const uniqueNumbers = [...new Set(parts)].filter(num => !isNaN(num) && num >= 1 && num >= 1 && num <= 45);
-                
-                if (uniqueNumbers.length === 0 || uniqueNumbers.length > 6) {
-                    alert(window.getTranslation('personalNumberInvalid'));
-                    return;
-                }
-                userNumbers = uniqueNumbers;
-            }
-    
-            resultContainer.innerHTML = ''; // Clear previous results
-            
-            // Add a wrapper for better visual grouping of multiple results
-            const resultsWrapper = document.createElement('div');
-            resultsWrapper.style.display = 'flex';
-            resultsWrapper.style.flexDirection = 'column';
-            resultsWrapper.style.gap = '1.5rem'; // Adjusted gap between individual results for tighter packing
-            resultsWrapper.style.marginTop = '1rem';
-            resultsWrapper.style.padding = '1rem';
-            resultsWrapper.style.background = 'var(--component-background)'; // Use component background
-            resultsWrapper.style.borderRadius = '20px';
-            resultsWrapper.style.boxShadow = 'inset 0 0 15px rgba(0,0,0,0.1)';
-
-            let allGeneratedNumbers = new Set(); // To store all numbers generated across sets
-
-            // Store the overall title and explanation once
-            let overallTitle = '';
-            let overallExplanation = '';
-            let isFirstSet = true;
-            
-            for (let i = 0; i < 5; i++) {
-                // For personal strategy, userNumbers is always included, so exclude those too for filling randoms
-                const numbersToExcludeForThisSet = (strategy === 'personal') 
-                    ? new Set([...allGeneratedNumbers, ...userNumbers]) 
-                    : allGeneratedNumbers;
-
-                const result = generateStrategyNumbers(strategy, userNumbers, numbersToExcludeForThisSet);
-                
-                // Set overall title and explanation only once from the first result
-                if (isFirstSet) {
-                    overallTitle = result.title;
-                    overallExplanation = result.explanation;
-                    isFirstSet = false;
-                }
-
-                const resultDisplay = document.createElement('strategy-result-display');
-                resultDisplay.setAttribute('numbers', JSON.stringify(result.numbers));
-                resultsWrapper.appendChild(resultDisplay);
-
-                // Add newly generated numbers to the exclusion set for the next iteration
-                result.numbers.forEach(num => allGeneratedNumbers.add(num));
-            }
-
-            // Create a header for the resultsWrapper to display the overall title and explanation once
-            const wrapperHeader = document.createElement('div');
-            wrapperHeader.style.textAlign = 'center';
-            wrapperHeader.style.marginBottom = '1rem';
-            wrapperHeader.innerHTML = `
-                <h3 style="font-size: 1.8rem; font-weight: 700; margin-bottom: 0.5rem; color: var(--text-color);">${overallTitle}</h3>
-                <p style="font-style: italic; opacity: 0.9; font-size: 1rem; color: var(--text-color);">${overallExplanation}</p>
-            `;
-            resultsWrapper.prepend(wrapperHeader); // Add header at the beginning of the wrapper
-
-            // Add the "Go to Donghaeng Lottery" button
-            const donghaengButton = document.createElement('button');
-            donghaengButton.classList.add('go-to-lotto-btn');
-            donghaengButton.textContent = window.getTranslation('goToDonghaengLotto');
-            donghaengButton.onclick = () => window.open('https://dhlottery.co.kr/common.do?method=main', '_blank', 'noopener,noreferrer');
-            resultsWrapper.appendChild(donghaengButton); // Append button to the resultsWrapper
-
-            createShareButtons(resultsWrapper);
-
-            resultContainer.appendChild(resultsWrapper);
-        });
-
-        // Add change listeners to radio buttons
-        strategyRadioButtons.forEach(radio => {
-            radio.addEventListener('change', updatePersonalNumberPlaceholder);
-        });
-
-        // Initial call to set correct placeholder/visibility on load
-        updatePersonalNumberPlaceholder();
-        // Also update placeholder if language changes
-        document.addEventListener('languageChanged', updatePersonalNumberPlaceholder);
-    }
-});
-
-// --- Emotion-Based Number Generator ---
-
-const emotionKeywords = {
-    happy: { base: 7, description: "Vibrates with the energy of Jupiter, signifying luck and expansion." },
-    excited: { base: 13, description: "Channels the fiery spirit of Mars, bringing passion and drive." },
-    calm: { base: 22, description: "Reflects the serene influence of Venus, promoting harmony and balance." },
-    grateful: { base: 11, description: "Taps into the Moon's energy, enhancing intuition and gratitude." },
-    adventurous: { base: 5, description: "Embodies the quick-witted nature of Mercury, sparking curiosity and discovery." },
-    creative: { base: 3, description: "Is fueled by the Sun's radiant power, inspiring originality and expression." },
-    loving: { base: 6, description: "Connects with the gentle heart of the Earth, fostering compassion and connection." },
-    optimistic: { base: 1, description: "Represents the dawn of new beginnings, full of hope and potential." },
-    confident: { base: 8, description: "Draws on the strength of Saturn, building structure and self-assurance." },
-    peaceful: { base: 33, description: "Holds a master vibration of tranquility and spiritual awareness." }
-};
-
-class EmotionResultDisplay extends HTMLElement {
-    constructor() {
-        super();
-        this.attachShadow({ mode: 'open' });
-    }
-
-    connectedCallback() {
-        const explanations = JSON.parse(this.getAttribute('explanations'));
-        const numbers = JSON.parse(this.getAttribute('numbers'));
-
-        this.shadowRoot.innerHTML = `
-            <style>
-                .emotion-result-display {
-                    background: rgba(0,0,0,0.2);
-                    padding: 2rem;
-                    border-radius: 15px;
-                    text-align: center;
-                    animation: fadeIn 0.8s ease-in-out;
-                    border: 1px solid var(--component-border-color, rgba(255, 255, 255, 0.2));
-                }
-                .explanations {
-                    text-align: left;
-                    margin-bottom: 2rem;
-                }
-                .explanation-item {
-                    background: rgba(0,0,0,0.15);
-                    padding: 1rem;
-                    border-radius: 10px;
-                    margin-bottom: 1rem;
-                }
-                .explanation-item strong {
-                    font-size: 1.5rem;
-                    color: #4facfe;
-                }
-                .personalized-numbers {
-                    display: flex;
-                    justify-content: center;
-                    align-items: center;
-                    gap: 1rem;
-                    flex-wrap: wrap;
-                }
-                .number {
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
-                    width: 55px;
-                    height: 55px;
-                    border-radius: 50%;
-                    font-size: 1.8rem;
-                    font-weight: 600;
-                    color: white;
-                    text-shadow: 0 1px 3px rgba(0,0,0,0.3);
-                    box-shadow: inset 0 -3px 5px rgba(0,0,0,0.2), 0 4px 10px rgba(0,0,0,0.4);
-                }
-                @keyframes fadeIn {
-                    from { opacity: 0; transform: translateY(20px); }
-                    to { opacity: 1; transform: translateY(0); }
-                }
-            </style>
-            <div class="emotion-result-display">
-                <div class="explanations">
-                    ${explanations.map(ex => `
-                        <div class="explanation-item">
-                            <p><strong>${ex.number}:</strong> ${ex.text}</p>
-                        </div>
-                    `).join('')}
-                </div>
-                <div class="personalized-numbers">
-                    ${numbers.map(num => `<div class="number" style="background: ${getNumberColor(num)}">${num}</div>`).join('')}
-                </div>
-            </div>
-        `;
-    }
-}
-customElements.define('emotion-result-display', EmotionResultDisplay);
 
 
-// --- Personalized Story & Number Generator ---
+    strategyForm.addEventListener('submit', (e) => {
 
-class PersonalizedResultDisplay extends HTMLElement {
-    constructor() {
-        super();
-        this.attachShadow({ mode: 'open' });
-    }
-
-    connectedCallback() {
-        const story = this.getAttribute('story');
-        const numbers = JSON.parse(this.getAttribute('numbers'));
-        const explanation = this.getAttribute('explanation'); // HTML content
-
-        this.shadowRoot.innerHTML = `
-            <style>
-                .personalized-result-display {
-                    background: rgba(0,0,0,0.2);
-                    padding: 2rem;
-                    border-radius: 15px;
-                    text-align: center;
-                    animation: fadeIn 0.8s ease-in-out;
-                    border: 1px solid var(--component-border-color, rgba(255, 255, 255, 0.2));
-                }
-                .personalized-story {
-                    font-size: 1.2rem;
-                    font-style: italic;
-                    line-height: 1.6;
-                    margin-bottom: 1.5rem;
-                    color: var(--text-color, #f0f0f0);
-                    opacity: 0.9;
-                }
-                .explanation-section {
-                    margin-bottom: 2rem;
-                    padding: 1rem;
-                    background: rgba(0,0,0,0.15);
-                    border-radius: 10px;
-                    text-align: left;
-                }
-                .explanation-section h3 {
-                    margin-top: 0;
-                    color: var(--text-color);
-                    border-bottom: 1px solid rgba(255,255,255,0.2);
-                    padding-bottom: 0.5rem;
-                    margin-bottom: 1rem;
-                }
-                .explanation-section p {
-                    margin: 0.5rem 0;
-                    line-height: 1.5;
-                }
-                .explanation-section strong {
-                    color: #4facfe; /* Highlight color */
-                    font-weight: 700;
-                }
-                .personalized-numbers {
-                    display: flex;
-                    justify-content: center;
-                    align-items: center;
-                    gap: 1rem;
-                    flex-wrap: wrap;
-                }
-                .number {
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
-                    width: 55px;
-                    height: 55px;
-                    border-radius: 50%;
-                    font-size: 1.8rem;
-                    font-weight: 600;
-                    color: white;
-                    text-shadow: 0 1px 3px rgba(0,0,0,0.3);
-                    box-shadow: inset 0 -3px 5px rgba(0,0,0,0.2), 0 4px 10px rgba(0,0,0,0.4);
-                }
-                @keyframes fadeIn {
-                    from { opacity: 0; transform: translateY(20px); }
-                    to { opacity: 1; transform: translateY(0); }
-                }
-            </style>
-            <div class="personalized-result-display">
-                <p class="personalized-story">${story}</p>
-                <div class="explanation-section">
-                    ${explanation}
-                </div>
-                <div class="personalized-numbers">
-                    ${numbers.map(num => `<div class="number" style="background: ${getNumberColor(num)}">${num}</div>`).join('')}
-                </div>
-            </div>
-        `;
-    }
-}
-customElements.define('personalized-result-display', PersonalizedResultDisplay);
-
-
-document.addEventListener('DOMContentLoaded', () => {
-    const personalizedForm = document.getElementById('personalized-form');
-    if (!personalizedForm) return;
-
-    const resultContainer = document.getElementById('personalized-result');
-    const nameInput = document.getElementById('user-name');
-    const birthDateInput = document.getElementById('birth-date');
-
-    personalizedForm.addEventListener('submit', (e) => {
         e.preventDefault();
 
+        const formData = new FormData(strategyForm);
+
+        const strategy = formData.get('strategy');
+
+        
+
+        let userNumbers = [];
+
+        if (strategy === 'personal') {
+
+            const inputValue = personalNumberInput.value.trim();
+
+            if (!inputValue) {
+
+                alert(window.getTranslation('personalNumberNoInput'));
+
+                return;
+
+            }
+
+            
+
+            const parts = inputValue.split(',').map(part => parseInt(part.trim(), 10));
+
+            const uniqueNumbers = [...new Set(parts)].filter(num => !isNaN(num) && num >= 1 && num <= 45);
+
+            
+
+            if (uniqueNumbers.length === 0 || uniqueNumbers.length > 6) {
+
+                alert(window.getTranslation('personalNumberInvalid'));
+
+                return;
+
+            }
+
+            userNumbers = uniqueNumbers;
+
+        }
+
+
+
+        resultContainer.innerHTML = '';
+
+        
+
+        const resultsWrapper = document.createElement('div');
+
+        resultsWrapper.style.display = 'flex';
+
+        resultsWrapper.style.flexDirection = 'column';
+
+        resultsWrapper.style.gap = '1.5rem';
+
+        resultsWrapper.style.marginTop = '1rem';
+
+        resultsWrapper.style.padding = '1rem';
+
+        resultsWrapper.style.background = 'var(--component-background)';
+
+        resultsWrapper.style.borderRadius = '20px';
+
+        resultsWrapper.style.boxShadow = 'inset 0 0 15px rgba(0,0,0,0.1)';
+
+
+
+        let allGeneratedNumbers = new Set();
+
+        let overallTitle = '';
+
+        let overallExplanation = '';
+
+        let isFirstSet = true;
+
+        
+
+        for (let i = 0; i < 5; i++) {
+
+            const numbersToExcludeForThisSet = (strategy === 'personal') 
+
+                ? new Set([...allGeneratedNumbers, ...userNumbers]) 
+
+                : allGeneratedNumbers;
+
+
+
+            const result = generateStrategyNumbers(strategy, userNumbers, numbersToExcludeForThisSet);
+
+            
+
+            if (isFirstSet) {
+
+                overallTitle = result.title;
+
+                overallExplanation = result.explanation;
+
+                isFirstSet = false;
+
+            }
+
+
+
+            const resultDisplay = document.createElement('strategy-result-display');
+
+            resultDisplay.setAttribute('numbers', JSON.stringify(result.numbers));
+
+            resultsWrapper.appendChild(resultDisplay);
+
+
+
+            result.numbers.forEach(num => allGeneratedNumbers.add(num));
+
+        }
+
+
+
+        const wrapperHeader = document.createElement('div');
+
+        wrapperHeader.style.textAlign = 'center';
+
+        wrapperHeader.style.marginBottom = '1rem';
+
+        wrapperHeader.innerHTML = `
+
+            <h3 style="font-size: 1.8rem; font-weight: 700; margin-bottom: 0.5rem; color: var(--text-color);">${overallTitle}</h3>
+
+            <p style="font-style: italic; opacity: 0.9; font-size: 1rem; color: var(--text-color);">${overallExplanation}</p>
+
+        `;
+
+        resultsWrapper.prepend(wrapperHeader);
+
+
+
+        const donghaengButton = document.createElement('button');
+
+        donghaengButton.classList.add('go-to-lotto-btn');
+
+        donghaengButton.textContent = window.getTranslation('goToDonghaengLotto');
+
+        donghaengButton.onclick = () => window.open('https://dhlottery.co.kr/common.do?method=main', '_blank', 'noopener,noreferrer');
+
+        resultsWrapper.appendChild(donghaengButton);
+
+
+
+        createShareButtons(resultsWrapper);
+
+
+
+        resultContainer.appendChild(resultsWrapper);
+
+    });
+
+
+
+    strategyRadioButtons.forEach(radio => {
+
+        radio.addEventListener('change', updatePersonalNumberPlaceholder);
+
+    });
+
+
+
+    updatePersonalNumberPlaceholder();
+
+    document.addEventListener('languageChanged', updatePersonalNumberPlaceholder);
+
+}
+
+
+
+function handlePersonalizedForm() {
+
+    const personalizedForm = document.getElementById('personalized-form');
+
+    if (!personalizedForm) return;
+
+
+
+    const resultContainer = document.getElementById('personalized-result');
+
+    const nameInput = document.getElementById('user-name');
+
+    const birthDateInput = document.getElementById('birth-date');
+
+
+
+    personalizedForm.addEventListener('submit', (e) => {
+
+        e.preventDefault();
+
+
+
         const name = nameInput.value.trim();
+
         const birthDate = birthDateInput.value;
 
+
+
         if (!name || !birthDate) {
+
             alert(window.getTranslation ? window.getTranslation('personalizedNoInput') : 'Please enter your name and birthdate.');
+
+            return;
+
+        }
+
+
+
+        const date = new Date(birthDate);
+
+        const year = date.getFullYear();
+
+        const month = date.getMonth() + 1;
+
+        const day = date.getDate();
+
+
+
+        const stories = [
+
+            `From the cosmic energy of ${name}'s birth on ${year}/${month}/${day}, the universe whispers these numbers:`,
+
+            `${name}, your unique journey began on a special day. The stars on ${year}/${month}/${day} have aligned to reveal:`,
+
+            `The essence of ${name} and the moment of ${year}/${month}/${day} combine to unlock a secret sequence:`,
+
+            `Let the vibrant spirit of ${name}, born on ${day}/${month}/${year}, guide you to these fortunate numbers:`
+
+        ];
+
+        const story = stories[Math.floor(Math.random() * stories.length)];
+
+
+
+        const numbers = new Set();
+
+        
+
+        const nameNumber = (name.split('').reduce((acc, char) => acc + char.charCodeAt(0), 0) % 45) + 1;
+
+        numbers.add(nameNumber);
+
+
+
+        if (!numbers.has(day)) numbers.add(day);
+
+        if (numbers.size < 6 && !numbers.has(month)) numbers.add(month);
+
+        
+
+        const yearSum = String(year).split('').reduce((acc, digit) => acc + parseInt(digit), 0);
+
+        if (numbers.size < 6 && !numbers.has(yearSum)) {
+
+            numbers.add(yearSum);
+
+        }
+
+
+
+        const seed = year + month + day;
+
+        let currentSeed = seed;
+
+        const seededRandom = () => {
+
+            const x = Math.sin(currentSeed++) * 10000;
+
+            return x - Math.floor(x);
+
+        };
+
+        while (numbers.size < 6) {
+
+            const randomNumber = Math.floor(seededRandom() * 45) + 1;
+
+            if (!numbers.has(randomNumber)) {
+
+                numbers.add(randomNumber);
+
+            }
+
+        }
+
+        const sortedNumbers = Array.from(numbers).sort((a, b) => a - b);
+
+        
+
+        const explanationHTML = `
+
+            <h3>Your Personalized Number Story</h3>
+
+            <p>We've crafted your unique lottery numbers based on a story written in your name and birthdate.</p>
+
+            <p>From the essence of your name, <strong>${name}</strong>, we've distilled your 'Name Number': <strong>${nameNumber}</strong>.</p>
+
+            <p>From your birthdate, <strong>${day}/${month}/${year}</strong>, we've uncovered these 'Destiny Numbers': <strong>${day}</strong> and <strong>${month}</strong>.</p>
+
+            <p>The sum of the digits of your birth year gives us another potent number: <strong>${yearSum}</strong>.</p>
+
+            <p>These core numbers, derived from your unique identity, form the foundation of your lucky set. The remaining numbers are cosmic fillers, aligned by the energy of your birth day to complete your sequence.</p>
+
+        `;
+
+
+
+        resultContainer.innerHTML = '';
+
+        const resultDisplay = document.createElement('personalized-result-display');
+
+        resultDisplay.setAttribute('story', story);
+
+        resultDisplay.setAttribute('explanation', explanationHTML);
+
+        resultDisplay.setAttribute('numbers', JSON.stringify(sortedNumbers));
+
+        resultContainer.appendChild(resultDisplay);
+
+    });
+
+}
+
+
+
+function handleEmotionForm() {
+    const emotionKeywordsContainer = document.getElementById('emotion-keywords');
+    const emotionForm = document.getElementById('emotion-form');
+    const emotionResultContainer = document.getElementById('emotion-result');
+
+    if (!emotionKeywordsContainer || !emotionForm) return;
+
+    const renderCategories = () => {
+        emotionKeywordsContainer.innerHTML = ''; // Clear previous content
+        emotionResultContainer.innerHTML = ''; // Clear results
+        emotionForm.querySelector('[data-i18n-key="emotionGenerateButton"]').style.display = 'none';
+
+        const categoryWrapper = document.createElement('div');
+        categoryWrapper.className = 'emotion-categories';
+
+        const categoryQuestion = document.createElement('h3');
+        categoryQuestion.textContent = window.getTranslation('emotionCategoryQuestion');
+        categoryWrapper.appendChild(categoryQuestion);
+
+        Object.keys(emotionKeywords).forEach(category => {
+            const button = document.createElement('button');
+            button.textContent = category;
+            button.className = 'category-btn';
+            button.type = 'button'; // Prevent form submission
+            button.onclick = () => renderKeywords(category);
+            categoryWrapper.appendChild(button);
+        });
+
+        emotionKeywordsContainer.appendChild(categoryWrapper);
+    };
+
+    const renderKeywords = (category) => {
+        emotionKeywordsContainer.innerHTML = ''; // Clear categories
+        emotionForm.querySelector('[data-i18n-key="emotionGenerateButton"]').style.display = 'block';
+
+        const keywordWrapper = document.createElement('div');
+        keywordWrapper.className = 'emotion-keywords-list fade-in';
+
+        const backButton = document.createElement('button');
+        backButton.textContent = window.getTranslation('backButton');
+        backButton.className = 'back-btn';
+        backButton.type = 'button';
+        backButton.onclick = renderCategories;
+        keywordWrapper.appendChild(backButton);
+
+        const keywords = emotionKeywords[category];
+        for (const key in keywords) {
+            const label = document.createElement('label');
+            label.className = 'emotion-keyword-label';
+            
+            const checkbox = document.createElement('input');
+            checkbox.type = 'checkbox';
+            checkbox.name = 'emotions';
+            checkbox.value = key;
+            
+            const span = document.createElement('span');
+            span.textContent = key.charAt(0).toUpperCase() + key.slice(1);
+
+            label.appendChild(checkbox);
+            label.appendChild(span);
+            keywordWrapper.appendChild(label);
+        }
+        
+        emotionKeywordsContainer.appendChild(keywordWrapper);
+    };
+
+    emotionForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const selectedKeywords = Array.from(emotionForm.querySelectorAll('input[name="emotions"]:checked')).map(cb => cb.value);
+
+        if (selectedKeywords.length === 0) {
+            alert('Please select at least one emotion.');
             return;
         }
 
-        const date = new Date(birthDate);
-        const year = date.getFullYear();
-        const month = date.getMonth() + 1;
-        const day = date.getDate();
-
-        // 1. Story Generation
-        const stories = [
-            `From the cosmic energy of ${name}'s birth on ${year}/${month}/${day}, the universe whispers these numbers:`,
-            `${name}, your unique journey began on a special day. The stars on ${year}/${month}/${day} have aligned to reveal:`,
-            `The essence of ${name} and the moment of ${year}/${month}/${day} combine to unlock a secret sequence:`,
-            `Let the vibrant spirit of ${name}, born on ${day}/${month}/${year}, guide you to these fortunate numbers:`
-        ];
-        const story = stories[Math.floor(Math.random() * stories.length)];
-
-        // 2. Transparent Number Generation
         const numbers = new Set();
+        const explanations = [];
         
-        // Name Number
-        const nameNumber = (name.split('').reduce((acc, char) => acc + char.charCodeAt(0), 0) % 45) + 1;
-        numbers.add(nameNumber);
+        // Find the full keyword data from the nested structure
+        const allKeywords = Object.values(emotionKeywords).reduce((acc, val) => ({ ...acc, ...val }), {});
 
-        // Destiny Numbers from birthdate
-        if (!numbers.has(day)) numbers.add(day);
-        if (numbers.size < 6 && !numbers.has(month)) numbers.add(month);
-        
-        const yearSum = String(year).split('').reduce((acc, digit) => acc + parseInt(digit), 0);
-        if (numbers.size < 6 && !numbers.has(yearSum)) {
-            numbers.add(yearSum);
-        }
+        selectedKeywords.forEach((key, index) => {
+            if (numbers.size >= 6) return;
+            const keywordData = allKeywords[key];
+            if (!keywordData) return;
 
-        // Fill the rest with a seeded random generator
-        const seed = year + month + day;
+            let newNumber = (keywordData.base + index * selectedKeywords.length) % 45 + 1;
+            while (numbers.has(newNumber)) {
+                newNumber = (newNumber + 1) % 45 + 1;
+                if (newNumber === 0) newNumber = 1;
+            }
+            numbers.add(newNumber);
+            explanations.push({
+                number: newNumber,
+                text: `Derived from your feeling of <strong>${key}</strong>, which ${keywordData.description}`
+            });
+        });
+
+        const seed = selectedKeywords.reduce((acc, key) => acc + (allKeywords[key]?.base || 0), 0);
         let currentSeed = seed;
         const seededRandom = () => {
             const x = Math.sin(currentSeed++) * 10000;
             return x - Math.floor(x);
         };
+
+        let cosmicCount = 1;
         while (numbers.size < 6) {
             const randomNumber = Math.floor(seededRandom() * 45) + 1;
             if (!numbers.has(randomNumber)) {
                 numbers.add(randomNumber);
+                 explanations.push({
+                    number: randomNumber,
+                    text: `This is your <strong>Cosmic Number ${cosmicCount++}</strong>, a random cosmic energy drawn to the synergy of your chosen emotions.`
+                });
             }
         }
-        const sortedNumbers = Array.from(numbers).sort((a, b) => a - b);
         
-        // 3. Explanation Generation
-        const explanationHTML = `
-            <h3>Your Personalized Number Story</h3>
-            <p>We've crafted your unique lottery numbers based on a story written in your name and birthdate.</p>
-            <p>From the essence of your name, <strong>${name}</strong>, we've distilled your 'Name Number': <strong>${nameNumber}</strong>.</p>
-            <p>From your birthdate, <strong>${day}/${month}/${year}</strong>, we've uncovered these 'Destiny Numbers': <strong>${day}</strong> and <strong>${month}</strong>.</p>
-            <p>The sum of the digits of your birth year gives us another potent number: <strong>${yearSum}</strong>.</p>
-            <p>These core numbers, derived from your unique identity, form the foundation of your lucky set. The remaining numbers are cosmic fillers, aligned by the energy of your birth day to complete your sequence.</p>
-        `;
+        const sortedNumbers = Array.from(numbers).sort((a, b) => a - b);
 
-        // 4. Display Result
-        resultContainer.innerHTML = '';
-        const resultDisplay = document.createElement('personalized-result-display');
-        resultDisplay.setAttribute('story', story);
-        resultDisplay.setAttribute('explanation', explanationHTML);
+        emotionResultContainer.innerHTML = '';
+        const resultDisplay = document.createElement('emotion-result-display');
+        resultDisplay.setAttribute('explanations', JSON.stringify(explanations));
         resultDisplay.setAttribute('numbers', JSON.stringify(sortedNumbers));
-        resultContainer.appendChild(resultDisplay);
+        emotionResultContainer.appendChild(resultDisplay);
     });
-});
+
+    renderCategories(); // Initial render
+}
+
+
 
 document.addEventListener('DOMContentLoaded', () => {
-    const emotionKeywordsContainer = document.getElementById('emotion-keywords');
-    const emotionForm = document.getElementById('emotion-form');
-    const emotionResultContainer = document.getElementById('emotion-result');
 
-    if (emotionKeywordsContainer) {
-        // Populate keywords
-        for (const key in emotionKeywords) {
-            const label = document.createElement('label');
-            label.className = 'emotion-label';
-            const checkbox = document.createElement('input');
-            checkbox.type = 'checkbox';
-            checkbox.name = 'emotions';
-            checkbox.value = key;
-            label.appendChild(checkbox);
-            label.appendChild(document.createTextNode(key.charAt(0).toUpperCase() + key.slice(1)));
-            emotionKeywordsContainer.appendChild(label);
-        }
-    }
+    // Theme initialization
 
-    if (emotionForm) {
-        emotionForm.addEventListener('submit', (e) => {
-            e.preventDefault();
-            const selectedKeywords = Array.from(emotionForm.querySelectorAll('input[name="emotions"]:checked')).map(cb => cb.value);
+    const savedTheme = localStorage.getItem('theme');
 
-            if (selectedKeywords.length === 0) {
-                alert('Please select at least one emotion.');
-                return;
-            }
+    const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
 
-            const numbers = new Set();
-            const explanations = [];
+    setTheme(savedTheme || (prefersDark ? 'dark' : 'light'));
 
-            // 1. Generate numbers from keywords
-            selectedKeywords.forEach((key, index) => {
-                if (numbers.size >= 6) return;
-                const keywordData = emotionKeywords[key];
-                let newNumber = (keywordData.base + index * selectedKeywords.length) % 45 + 1;
-                while (numbers.has(newNumber)) {
-                    newNumber = (newNumber + 1) % 45 + 1;
-                }
-                numbers.add(newNumber);
-                explanations.push({
-                    number: newNumber,
-                    text: `Derived from your feeling of <strong>${key}</strong>, which ${keywordData.description}`
-                });
+
+
+    // Strategy card accordion
+
+    const infoIcons = document.querySelectorAll('.info-icon');
+
+    const strategyCards = document.querySelectorAll('.strategy-card');
+
+
+
+    infoIcons.forEach(icon => {
+
+        icon.addEventListener('click', (e) => {
+
+            e.preventDefault(); // Stop the label from triggering the radio input
+
+            e.stopPropagation(); // Stop event bubbling
+
+
+
+            const clickedCard = e.target.closest('.strategy-card');
+
+            const isActive = clickedCard.classList.contains('active');
+
+
+
+            // Close all other cards
+
+            strategyCards.forEach(card => {
+
+                card.classList.remove('active');
+
             });
 
-            // 2. Fill remaining numbers with a seeded random
-            const seed = selectedKeywords.reduce((acc, key) => acc + emotionKeywords[key].base, 0);
-            let currentSeed = seed;
-            const seededRandom = () => {
-                const x = Math.sin(currentSeed++) * 10000;
-                return x - Math.floor(x);
-            };
 
-            let cosmicCount = 1;
-            while (numbers.size < 6) {
-                const randomNumber = Math.floor(seededRandom() * 45) + 1;
-                if (!numbers.has(randomNumber)) {
-                    numbers.add(randomNumber);
-                     explanations.push({
-                        number: randomNumber,
-                        text: `This is your <strong>Cosmic Number ${cosmicCount++}</strong>, a random cosmic energy drawn to the synergy of your chosen emotions.`
-                    });
-                }
+
+            // If the clicked card wasn't already active, open it
+
+            if (!isActive) {
+
+                clickedCard.classList.add('active');
+
             }
-            
-            const sortedNumbers = Array.from(numbers).sort((a, b) => a - b);
 
-            emotionResultContainer.innerHTML = '';
-            const resultDisplay = document.createElement('emotion-result-display');
-            resultDisplay.setAttribute('explanations', JSON.stringify(explanations));
-            resultDisplay.setAttribute('numbers', JSON.stringify(sortedNumbers));
-            emotionResultContainer.appendChild(resultDisplay);
         });
-    }
+
+    });
+
+
+
+    handleStrategyForm();
+
+    handlePersonalizedForm();
+
+    handleEmotionForm();
+
 });
+
+
+
+// --- Emotion-Based Number Generator ---
+
+
+
+const emotionKeywords = {
+    'Positive': {
+        happy: { base: 7, description: "Vibrates with the energy of Jupiter, signifying luck and expansion." },
+        joyful: { base: 2, description: "Radiates pure delight and celebration." },
+        grateful: { base: 11, description: "Taps into the Moon's energy, enhancing intuition and gratitude." },
+        excited: { base: 13, description: "Channels the fiery spirit of Mars, bringing passion and drive." },
+        optimistic: { base: 1, description: "Represents the dawn of new beginnings, full of hope and potential." },
+        proud: { base: 19, description: "Stands tall with the confidence of past successes." },
+        blissful: { base: 29, description: "Is a state of perfect happiness and great joy." },
+        enthusiastic: { base: 31, description: "Overflows with eager enjoyment and interest." },
+    },
+    'Reflective': {
+        calm: { base: 22, description: "Reflects the serene influence of Venus, promoting harmony and balance." },
+        peaceful: { base: 33, description: "Holds a master vibration of tranquility and spiritual awareness." },
+        relaxed: { base: 4, description: "Is free from tension and anxiety." },
+        thoughtful: { base: 15, description: "Engages in deep, quiet thinking." },
+        serene: { base: 28, description: "Is calm, peaceful, and untroubled; tranquil." },
+        contemplative: { base: 37, description: "Involves deep, reflective thought." },
+        nostalgic: { base: 25, description: "Evokes a sentimental longing for the past." },
+        introspective: { base: 43, description: "Focuses on the examination of one's own thoughts and feelings." }
+    },
+    'Ambitious': {
+        confident: { base: 8, description: "Draws on the strength of Saturn, building structure and self-assurance." },
+        adventurous: { base: 5, description: "Embodies the quick-witted nature of Mercury, sparking curiosity and discovery." },
+        daring: { base: 17, description: "Is adventurous and willing to take risks." },
+        bold: { base: 21, description: "Shows a willingness to take risks; confident and courageous." },
+        determined: { base: 36, description: "Is firm in purpose and unwavering." },
+        focused: { base: 41, description: "Directs a great deal of attention towards a particular aim." },
+        powerful: { base: 44, description: "Has great power or strength." },
+        successful: { base: 10, description: "Accomplishes a desired aim or result." }
+    },
+    'Playful': {
+        creative: { base: 3, description: "Is fueled by the Sun's radiant power, inspiring originality and expression." },
+        loving: { base: 6, description: "Connects with the gentle heart of the Earth, fostering compassion and connection." },
+        silly: { base: 12, description: "Having or showing a lack of common sense or judgment; absurd and foolish." },
+        whimsical: { base: 18, description: "Is playfully quaint or fanciful, especially in an appealing and amusing way." },
+        energetic: { base: 24, description: "Shows or involves great activity or vitality." },
+        spontaneous: { base: 30, description: "Is open, natural, and uninhibited." },
+        mischievous: { base: 34, description: "Causes or shows a fondness for causing trouble in a playful way." },
+        flirty: { base: 42, description: "Is playfully romantic and charming." }
+    }
+};
+
+
+
+class EmotionResultDisplay extends HTMLElement {
+
+    constructor() {
+
+        super();
+
+        this.attachShadow({ mode: 'open' });
+
+    }
+
+
+
+    connectedCallback() {
+
+        const explanations = JSON.parse(this.getAttribute('explanations'));
+
+        const numbers = JSON.parse(this.getAttribute('numbers'));
+
+
+
+        this.shadowRoot.innerHTML = `
+
+            <style>
+
+                .emotion-result-display {
+
+                    background: rgba(0,0,0,0.2);
+
+                    padding: 2rem;
+
+                    border-radius: 15px;
+
+                    text-align: center;
+
+                    animation: fadeIn 0.8s ease-in-out;
+
+                    border: 1px solid var(--component-border-color, rgba(255, 255, 255, 0.2));
+
+                }
+
+                .explanations {
+
+                    text-align: left;
+
+                    margin-bottom: 2rem;
+
+                }
+
+                .explanation-item {
+
+                    background: rgba(0,0,0,0.15);
+
+                    padding: 1rem;
+
+                    border-radius: 10px;
+
+                    margin-bottom: 1rem;
+
+                }
+
+                .explanation-item strong {
+
+                    font-size: 1.5rem;
+
+                    color: #4facfe;
+
+                }
+
+                .personalized-numbers {
+
+                    display: flex;
+
+                    justify-content: center;
+
+                    align-items: center;
+
+                    gap: 1rem;
+
+                    flex-wrap: wrap;
+
+                }
+
+                .number {
+
+                    display: flex;
+
+                    align-items: center;
+
+                    justify-content: center;
+
+                    width: 55px;
+
+                    height: 55px;
+
+                    border-radius: 50%;
+
+                    font-size: 1.8rem;
+
+                    font-weight: 600;
+
+                    color: white;
+
+                    text-shadow: 0 1px 3px rgba(0,0,0,0.3);
+
+                    box-shadow: inset 0 -3px 5px rgba(0,0,0,0.2), 0 4px 10px rgba(0,0,0,0.4);
+
+                }
+
+                @keyframes fadeIn {
+
+                    from { opacity: 0; transform: translateY(20px); }
+
+                    to { opacity: 1; transform: translateY(0); }
+
+                }
+
+            </style>
+
+            <div class="emotion-result-display">
+
+                <div class="explanations">
+
+                    ${explanations.map(ex => `
+
+                        <div class="explanation-item">
+
+                            <p><strong>${ex.number}:</strong> ${ex.text}</p>
+
+                        </div>
+
+                    `).join('')}
+
+                </div>
+
+                <div class="personalized-numbers">
+
+                    ${numbers.map(num => `<div class="number" style="background: ${getNumberColor(num)}">${num}</div>`).join('')}
+
+                </div>
+
+            </div>
+
+        `;
+
+    }
+
+}
+
+customElements.define('emotion-result-display', EmotionResultDisplay);
+
+
+
+
+
+// --- Personalized Story & Number Generator ---
+
+
+
+class PersonalizedResultDisplay extends HTMLElement {
+
+    constructor() {
+
+        super();
+
+        this.attachShadow({ mode: 'open' });
+
+    }
+
+
+
+    connectedCallback() {
+
+        const story = this.getAttribute('story');
+
+        const numbers = JSON.parse(this.getAttribute('numbers'));
+
+        const explanation = this.getAttribute('explanation'); // HTML content
+
+
+
+        this.shadowRoot.innerHTML = `
+
+            <style>
+
+                .personalized-result-display {
+
+                    background: rgba(0,0,0,0.2);
+
+                    padding: 2rem;
+
+                    border-radius: 15px;
+
+                    text-align: center;
+
+                    animation: fadeIn 0.8s ease-in-out;
+
+                    border: 1px solid var(--component-border-color, rgba(255, 255, 255, 0.2));
+
+                }
+
+                .personalized-story {
+
+                    font-size: 1.2rem;
+
+                    font-style: italic;
+
+                    line-height: 1.6;
+
+                    margin-bottom: 1.5rem;
+
+                    color: var(--text-color, #f0f0f0);
+
+                    opacity: 0.9;
+
+                }
+
+                .explanation-section {
+
+                    margin-bottom: 2rem;
+
+                    padding: 1rem;
+
+                    background: rgba(0,0,0,0.15);
+
+                    border-radius: 10px;
+
+                    text-align: left;
+
+                }
+
+                .explanation-section h3 {
+
+                    margin-top: 0;
+
+                    color: var(--text-color);
+
+                    border-bottom: 1px solid rgba(255,255,255,0.2);
+
+                    padding-bottom: 0.5rem;
+
+                    margin-bottom: 1rem;
+
+                }
+
+                .explanation-section p {
+
+                    margin: 0.5rem 0;
+
+                    line-height: 1.5;
+
+                }
+
+                .explanation-section strong {
+
+                    color: #4facfe; /* Highlight color */
+
+                    font-weight: 700;
+
+                }
+
+                .personalized-numbers {
+
+                    display: flex;
+
+                    justify-content: center;
+
+                    align-items: center;
+
+                    gap: 1rem;
+
+                    flex-wrap: wrap;
+
+                }
+
+                .number {
+
+                    display: flex;
+
+                    align-items: center;
+
+                    justify-content: center;
+
+                    width: 55px;
+
+                    height: 55px;
+
+                    border-radius: 50%;
+
+                    font-size: 1.8rem;
+
+                    font-weight: 600;
+
+                    color: white;
+
+                    text-shadow: 0 1px 3px rgba(0,0,0,0.3);
+
+                    box-shadow: inset 0 -3px 5px rgba(0,0,0,0.2), 0 4px 10px rgba(0,0,0,0.4);
+
+                }
+
+                @keyframes fadeIn {
+
+                    from { opacity: 0; transform: translateY(20px); }
+
+                    to { opacity: 1; transform: translateY(0); }
+
+                }
+
+            </style>
+
+            <div class="personalized-result-display">
+
+                <p class="personalized-story">${story}</p>
+
+                <div class="explanation-section">
+
+                    ${explanation}
+
+                </div>
+
+                <div class="personalized-numbers">
+
+                    ${numbers.map(num => `<div class="number" style="background: ${getNumberColor(num)}">${num}</div>`).join('')}
+
+                </div>
+
+            </div>
+
+        `;
+
+    }
+
+}
+
+customElements.define('personalized-result-display', PersonalizedResultDisplay);

@@ -51,5 +51,10 @@
     "personalizedSubheading": "Ingresa tu nombre y fecha de nacimiento para crear tus propios números de la suerte únicos.",
     "formBirthDateLabel": "Fecha de Nacimiento",
     "personalizedGenerateButton": "Crear Mi Historia",
-    "personalizedNoInput": "Por favor, ingresa tu nombre y fecha de nacimiento."
+    "personalizedNoInput": "Por favor, ingresa tu nombre y fecha de nacimiento.",
+    "emotionHeading": "Números Basados en Emociones",
+    "emotionSubheading": "Selecciona las emociones que sientes hoy para generar números que resuenen con tu estado de ánimo actual.",
+    "emotionGenerateButton": "Generar Mis Números",
+    "emotionCategoryQuestion": "¿Cómo te sientes hoy?",
+    "backButton": "← Volver a Categorías"
 }

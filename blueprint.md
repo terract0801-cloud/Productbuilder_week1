@@ -28,27 +28,34 @@ This document outlines the features, design, and development plan for the Lotto 
 
 ## Completed Tasks
 
+### Fix i18n "Missing Key" Errors and Overhaul UI/UX
+- **Problem:** The UI had "Missing key" errors due to an incomplete English translation file, and the overall design was inconsistent.
+- **Solution:**
+  - **[Completed]** Populated `en.json` with all necessary keys.
+  - **[Completed]** Overhauled `style.css` to create a unified, card-based layout for all generator sections.
+  - **[Completed]** Styled the emotion keywords as interactive tags.
+  - **[Completed]** Updated `main.js` to support the new styling.
+
 ### Enhance Personalized Number Generation
 - **Problem:** The "Personalized Story & Numbers" feature was opaque and did not provide a clear connection between user input and the generated numbers.
 - **Solution:** The feature was updated to provide a transparent and meaningful narrative, explaining how the numbers are derived from the user's name and birthdate.
-  - **[Completed]** Created `blueprint.md` for project documentation.
-  - **[Completed]** Modified UI in `index.html`.
-  - **[Completed]** Modified logic in `main.js` for transparent number generation.
-  - **[Completed]** Updated `PersonalizedResultDisplay` custom element.
 
-## Current Task: Implement Emotion-Based Number Generator
+## Current Task: Enhance Emotion-Based Generator UX
 
 ### Description
-
-This new feature will allow users to select from a predefined list of emotion keywords and receive a set of 6 lottery numbers. The generation process will be explained to the user, making it feel "AI-like" and transparent.
+To make the keyword selection process more engaging and increase the variety of generated numbers, the emotion-based generator will be enhanced with a new interactive "journey."
 
 ### Plan
-
-1.  **[Completed] Update `blueprint.md`:** Add the new feature "Emotion-Based Number Generator" to the blueprint and outline the plan.
-2.  **[Completed] Update `index.html`:** Add a new section for the emotion-based generator, including a list of selectable keywords (checkboxes), a "Generate" button, and a result container.
-3.  **[Completed] Update `main.js`:**
-    -   Define a list of emotion keywords and their associated numerical values.
-    -   Implement an event listener for the new "Generate" button.
-    -   Create an "AI-like" algorithm to convert selected keywords into 6 unique lottery numbers.
-    -   Generate a detailed explanation for each number.
-    -   Create a new custom element `emotion-result-display` to display the results.
+1.  **[In-Progress] Update `blueprint.md`:** Document the new enhancement for the emotion-based generator.
+2.  **[Pending] Expand Keywords in `main.js`:**
+    -   Restructure the `emotionKeywords` object to be a nested, categorized list (e.g., Positive, Reflective, Ambitious).
+    -   Significantly expand the number of keywords to provide more variety.
+3.  **[Pending] Create Interactive Journey in `main.js`:**
+    -   Modify the `handleEmotionForm` function to dynamically build a multi-step UI.
+    -   First, display the keyword categories to the user.
+    -   Upon selecting a category, display the associated keywords.
+4.  **[Pending] Enhance UI in `style.css`:**
+    -   Add styles for the new category selection buttons.
+    -   Add fade-in animations to make the appearance of keywords smoother.
+5.  **[Pending] Adjust `index.html`:** Make minor adjustments to the `emotion-generator-section` to accommodate the new dynamic UI.
+6.  **[Pending] Verify Changes:** Ensure the new interactive journey is functional, intuitive, and visually polished.

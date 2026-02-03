@@ -51,5 +51,10 @@
     "personalizedSubheading": "이름과 생년월일을 입력하여 당신만의 특별한 행운 번호를 만들어보세요.",
     "formBirthDateLabel": "생년월일",
     "personalizedGenerateButton": "나의 이야기 만들기",
-    "personalizedNoInput": "이름과 생년월일을 모두 입력해주세요."
+    "personalizedNoInput": "이름과 생년월일을 모두 입력해주세요.",
+    "emotionHeading": "감정 기반 번호 생성",
+    "emotionSubheading": "오늘의 감정을 선택하여 당신의 마음 상태와 공명하는 번호를 생성하세요.",
+    "emotionGenerateButton": "내 번호 생성",
+    "emotionCategoryQuestion": "오늘 기분이 어떠세요?",
+    "backButton": "← 카테고리로 돌아가기"
 }

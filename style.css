@@ -577,12 +577,108 @@ body.dark-mode .contact-form textarea::placeholder {
     margin-top: 2rem;
 }
 
-.hr.section-divider {
+hr.section-divider {
     width: 80%;
     border: 0;
     height: 1px;
     background-image: linear-gradient(to right, rgba(255, 255, 255, 0), var(--component-border-color), rgba(255, 255, 255, 0));
     margin: 3rem 0;
+}
+
+.emotion-categories {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 100%;
+}
+
+.emotion-categories h3 {
+    width: 100%;
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+.category-btn {
+    padding: 0.8rem 2rem;
+    font-size: 1.2rem;
+    font-weight: 600;
+    width: 80%;
+    max-width: 300px;
+    font-family: 'Poppins', sans-serif;
+    cursor: pointer;
+    border-radius: 15px;
+    color: var(--text-color);
+    background: var(--component-background);
+    border: 1px solid var(--component-border-color);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    transition: all 0.3s ease;
+}
+
+.category-btn:hover {
+    box-shadow: 0 0 20px 5px var(--glow-color);
+    transform: scale(1.02);
+}
+
+.back-btn {
+    background: none;
+    border: none;
+    color: var(--text-color);
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+    align-self: flex-start;
+    transition: color 0.3s ease;
+}
+
+.back-btn:hover {
+    color: var(--glow-color);
+}
+
+.emotion-keywords-list {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.emotion-keywords {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    justify-content: center;
+    margin-bottom: 2rem;
+}
+
+.emotion-keyword-label {
+    display: inline-block;
+    padding: 0.6rem 1.2rem;
+    border-radius: 50px;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid var(--component-border-color);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-weight: 600;
+}
+
+.emotion-keyword-label input {
+    display: none;
+}
+
+.emotion-keyword-label:hover {
+    background: rgba(255, 255, 255, 0.2);
+    box-shadow: 0 0 15px 3px var(--glow-color);
+}
+
+.emotion-keyword-label input:checked + span {
+    color: var(--glow-color);
+    text-shadow: 0 0 5px var(--glow-color);
+}
+
+.fade-in {
+    animation: fadeIn 0.5s ease-in-out;
 }
 
 /* Responsive adjustments */
