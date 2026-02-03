@@ -27,7 +27,7 @@
     "strategy3Desc": "Selecciona números 'fríos' que no han aparecido en mucho tiempo.",
     "strategy4Title": "Combo Personalizado",
     "strategy4Desc": "Ingresa tus números de la suerte (1-45, hasta 6) para una combinación personalizada.",
-    "generateButton": "Generar Números",
+    "generateButton": "Obtener Recomendación",
     "personalNumberPlaceholder": "ej., 8, 15, 23",
     "strategy1Explanation": "Estos números se basan en una simulación de los números sorteados con mayor frecuencia a lo largo de la historia.",
     "strategy2Explanation": "Esta combinación se centra en números que han sido simulados como 'calientes' en los sorteos recientes.",
