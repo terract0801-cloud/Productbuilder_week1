@@ -672,12 +672,9 @@ function handleStrategyForm() {
 
 
 function handlePersonalizedForm() {
-    console.log("handlePersonalizedForm initialized");
-
     const personalizedForm = document.getElementById('personalized-form');
 
     if (!personalizedForm) {
-        console.error("Personalized form not found!");
         return;
     }
 
@@ -686,13 +683,10 @@ function handlePersonalizedForm() {
     const birthDateInput = document.getElementById('birth-date');
 
     personalizedForm.addEventListener('submit', (e) => {
-        console.log("Personalized form submitted");
         e.preventDefault();
 
         const name = nameInput.value.trim();
         const birthDate = birthDateInput.value;
-
-        console.log("Name:", name, "Birthdate:", birthDate);
 
         if (!name || !birthDate) {
             alert(window.getTranslation ? window.getTranslation('personalizedNoInput') : 'Please enter your name and birthdate.');
@@ -750,14 +744,12 @@ function handlePersonalizedForm() {
             <p>These core numbers, derived from your unique identity, form the foundation of your lucky set. The remaining numbers are cosmic fillers, aligned by the energy of your birth day to complete your sequence.</p>
         `;
 
-        console.log("Generated numbers:", sortedNumbers);
         resultContainer.innerHTML = '';
         const resultDisplay = document.createElement('personalized-result-display');
         resultDisplay.setAttribute('story', story);
         resultDisplay.setAttribute('explanation', explanationHTML);
         resultDisplay.setAttribute('numbers', JSON.stringify(sortedNumbers));
         resultContainer.appendChild(resultDisplay);
-        console.log("Result display element created and appended.");
     });
 }
 
@@ -1341,6 +1333,19 @@ function handleEmotionForm() {
 
 document.addEventListener('DOMContentLoaded', async () => {
     try {
+        const langEnButton = document.getElementById('lang-en');
+        const langEsButton = document.getElementById('lang-es');
+        const langKoButton = document.getElementById('lang-ko');
+
+        if(langEnButton && langEsButton && langKoButton) {
+            langEnButton.addEventListener('click', () => setLanguage('en'));
+            langEsButton.addEventListener('click', () => setLanguage('es'));
+            langKoButton.addEventListener('click', () => setLanguage('ko'));
+        }
+
+        const initialLang = localStorage.getItem('language') || 'ko';
+        setLanguage(initialLang);
+
         await window.languagePromise; // Wait for the initial language to be loaded
         console.log("Language promise resolved.");
         console.log("Translations object:", window.translations);

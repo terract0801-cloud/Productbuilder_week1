@@ -62,20 +62,7 @@ function getTranslation(key) {
 }
 
 
-document.addEventListener('DOMContentLoaded', () => {
-    const langEnButton = document.getElementById('lang-en');
-    const langEsButton = document.getElementById('lang-es');
-    const langKoButton = document.getElementById('lang-ko');
 
-    if(langEnButton && langEsButton && langKoButton) {
-        langEnButton.addEventListener('click', () => setLanguage('en'));
-        langEsButton.addEventListener('click', () => setLanguage('es'));
-        langKoButton.addEventListener('click', () => setLanguage('ko'));
-    }
-
-    const initialLang = localStorage.getItem('language') || 'ko';
-    setLanguage(initialLang);
-});
 
 // We need a way for other scripts to access translations and sync with loading.
 window.getTranslation = getTranslation;
