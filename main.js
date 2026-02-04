@@ -777,325 +777,1330 @@ function generatePersonalizedNumbers(name, month, day, year, storyData) {
 
 
 function handlePersonalizedForm() {
+
+
     const personalizedForm = document.getElementById('personalized-form');
 
+
+
+
+
     if (!personalizedForm) {
+
+
         return;
+
+
     }
 
+
+
+
+
     const resultContainer = document.getElementById('personalized-result');
+
+
     const nameInput = document.getElementById('user-name');
+
+
     const birthDateInput = document.getElementById('birth-date');
 
+
+
+
+
     personalizedForm.addEventListener('submit', (e) => {
+
+
         e.preventDefault();
 
+
+
+
+
         const name = nameInput.value.trim();
+
+
         const birthDate = birthDateInput.value;
 
+
+
+
+
         if (!name || !birthDate) {
+
+
             alert(window.getTranslation ? window.getTranslation('personalizedNoInput') : 'Please enter your name and birthdate.');
+
+
             return;
+
+
         }
 
+
+
+
+
         const date = new Date(birthDate);
+
+
         const year = date.getFullYear();
+
+
         const month = date.getMonth() + 1;
+
+
         const day = date.getDate();
 
-        const storyData = getPersonalizedStory(month, day);
-        const numbers = generatePersonalizedNumbers(name, month, day, year, storyData);
+
+
+
+
+        const resultData = generatePersonalizedStoryAndNumbers(name, month, day, year);
+
+
         
+
+
         resultContainer.innerHTML = '';
+
+
         const resultDisplay = document.createElement('personalized-result-display');
-        resultDisplay.setAttribute('title', storyData.title || "Your Personal Story");
-        resultDisplay.setAttribute('story', storyData.story);
-        resultDisplay.setAttribute('numbers', JSON.stringify(numbers));
-        resultDisplay.setAttribute('name', name);
-        resultDisplay.setAttribute('birthdate', `${year}/${month}/${day}`);
+
+
+        resultDisplay.setAttribute('title', resultData.title);
+
+
+        resultDisplay.setAttribute('story', resultData.story);
+
+
+        resultDisplay.setAttribute('numbers', JSON.stringify(resultData.numbers));
+
+
+        resultDisplay.setAttribute('explanations', JSON.stringify(resultData.explanations));
+
+
+
+
 
         resultContainer.appendChild(resultDisplay);
+
+
     });
+
+
 }
+
+
+
+
+
+
+
+
+const numberMeanings = {
+
+
+    1: "represents new beginnings, leadership, and the power to manifest your desires.",
+
+
+    2: "symbolizes balance, partnership, and the importance of harmony in your relationships.",
+
+
+    3: "is the number of creativity, self-expression, and communication. It encourages you to share your voice.",
+
+
+    4: "is about stability, hard work, and building a solid foundation for your dreams.",
+
+
+    5: "vibrates with the energy of freedom, adventure, and embracing change.",
+
+
+    6: "represents love, family, and the responsibility of caring for others.",
+
+
+    7: "is the number of luck, spiritual awakening, and introspection. It asks you to trust your intuition.",
+
+
+    8: "symbolizes abundance, power, and financial success. It's a sign of material achievement.",
+
+
+    9: "is about completion, wisdom, and humanitarianism. It encourages you to serve others.",
+
+
+    10: "represents the completion of a cycle and the beginning of a new one. It's a number of great potential.",
+
+
+    11: "is a master number of intuition, spiritual insight, and connection to the divine.",
+
+
+    12: "symbolizes creative and intellectual energy, encouraging you to think outside the box.",
+
+
+    13: "is a number of transformation and rebirth. It asks you to release the old to make way for the new.",
+
+
+    14: "represents moderation, balance, and the need to find harmony in all things.",
+
+
+    15: "is a number of charm, wit, and a magnetic personality. It brings opportunities for joy.",
+
+
+    16: "symbolizes the tower of spiritual awakening, a sudden insight that changes everything.",
+
+
+    17: "is the number of the star, representing hope, inspiration, and a bright future.",
+
+
+    18: "is connected to the moon, illusion, and the power of your subconscious mind.",
+
+
+    19: "is the number of the sun, representing success, vitality, and a joyful life.",
+
+
+    20: "symbolizes judgment and the awakening to a new level of consciousness.",
+
+
+    21: "is the number of the world, representing completion, integration, and fulfillment.",
+
+
+    22: "is a master number of building dreams in the material world. It's about practical manifestation.",
+
+
+    23: "is a royal star number, promising success and protection from the heavens.",
+
+
+    24: "represents harmony in the family and the joy of domestic life.",
+
+
+    25: "is a number of spiritual wisdom gained through experience.",
+
+
+    26: "symbolizes the flow of abundance and the connection between the spiritual and material worlds.",
+
+
+    27: "is a number of compassion, humanitarianism, and a desire to heal the world.",
+
+
+    28: "represents wealth, ambition, and the ability to lead others.",
+
+
+    29: "is a number of intuition and knowing, of trusting the messages from your soul.",
+
+
+    30: "symbolizes communication, creativity, and a joyful expression of your talents.",
+
+
+    31: "is a number of focus, determination, and the practical application of your skills.",
+
+
+    32: "represents the power of communication to create and build.",
+
+
+    33: "is a master number of teaching, healing, and selfless service to humanity.",
+
+
+    34: "is a number of intuition and insight, especially in practical matters.",
+
+
+    35: "represents the creative use of freedom to bring about positive change.",
+
+
+    36: "symbolizes the compassionate and creative expression of the heart.",
+
+
+    37: "is a number of good fortune, especially in partnerships and collaborations.",
+
+
+    38: "represents the healing power of love and compassion.",
+
+
+    39: "symbolizes the joy of living and the celebration of life's blessings.",
+
+
+    40: "is a number of discipline, hard work, and the patient building of your dreams.",
+
+
+    41: "is a number of powerful intuition and the ability to manifest your visions.",
+
+
+    42: "represents the joy of service and the satisfaction of helping others.",
+
+
+    43: "is a number of practicality, and the ability to turn ideas into reality.",
+
+
+    44: "is a master number of discipline and the power to create lasting change in the world.",
+
+
+    45: "symbolizes the completion of a great cycle and the wisdom gained from experience."
+
+
+};
+
+
+
+
+
+function generatePersonalizedStoryAndNumbers(name, month, day, year) {
+
+
+    const numbers = new Set();
+
+
+    const explanations = [];
+
+
+    const storyData = getPersonalizedStory(month, day); // from previous implementation
+
+
+
+
+
+    // 1. Core numbers from birth date
+
+
+    numbers.add(day);
+
+
+    if (!numbers.has(month)) numbers.add(month);
+
+
+
+
+
+    // 2. Name number
+
+
+    const nameNumber = (name.split('').reduce((acc, char) => acc + char.charCodeAt(0), 0) % 45) + 1;
+
+
+    if (!numbers.has(nameNumber)) numbers.add(nameNumber);
+
+
+
+
+
+    // 3. Year sum
+
+
+    const yearSum = String(year).split('').reduce((acc, digit) => acc + parseInt(digit), 0);
+
+
+    if (!numbers.has(yearSum) && yearSum > 0 && yearSum <= 45) {
+
+
+        numbers.add(yearSum);
+
+
+    }
+
+
+    
+
+
+    // 4. Fill with seeded randoms
+
+
+    const seed = year + month + day + name.length + new Date().getTime(); // Add timestamp for more randomness
+
+
+    let currentSeed = seed;
+
+
+    const seededRandom = () => {
+
+
+        const x = Math.sin(currentSeed++) * 10000;
+
+
+        return x - Math.floor(x);
+
+
+    };
+
+
+
+
+
+    while (numbers.size < 6) {
+
+
+        const randomNumber = Math.floor(seededRandom() * 45) + 1;
+
+
+        if (!numbers.has(randomNumber)) {
+
+
+            numbers.add(randomNumber);
+
+
+        }
+
+
+    }
+
+
+
+
+
+    const sortedNumbers = Array.from(numbers).sort((a, b) => a - b);
+
+
+
+
+
+    // Create explanations for each number
+
+
+    sortedNumbers.forEach(num => {
+
+
+        explanations.push({
+
+
+            number: num,
+
+
+            meaning: numberMeanings[num] || "is a mysterious cosmic number, full of untapped potential."
+
+
+        });
+
+
+    });
+
+
+
+
+
+    const storyTemplates = [
+
+
+        `On the special day of your birth, ${name}, the universe wove a unique tapestry of fate. The numbers it selected for you are not random; each holds a piece of your story.`,
+
+
+        `From the moment you arrived, ${name}, your journey has been written in the stars. These numbers are a reflection of your path, each with a secret to share.`,
+
+
+        `Hello, ${name}. Your birth on ${month}/${day}/${year} created a unique cosmic signature. The numbers that have aligned for you are a key to unlocking your potential.`
+
+
+    ];
+
+
+
+
+
+    const randomTemplate = storyTemplates[Math.floor(Math.random() * storyTemplates.length)];
+
+
+
+
+
+    return {
+
+
+        title: storyData.title || "Your Cosmic Blueprint",
+
+
+        story: storyData.story ? `${storyData.story} ${randomTemplate}` : randomTemplate,
+
+
+        numbers: sortedNumbers,
+
+
+        explanations: explanations
+
+
+    };
+
+
+}
+
+
+
+
 
 
 
 
 const emotionKeywords = {
+
+
     'Positive': {
+
+
         happy: { base: 7, description: "Vibrates with the energy of Jupiter, signifying luck and expansion." },
+
+
         joyful: { base: 2, description: "Radiates pure delight and celebration." },
+
+
         grateful: { base: 11, description: "Taps into the Moon's energy, enhancing intuition and gratitude." },
+
+
         excited: { base: 13, description: "Channels the fiery spirit of Mars, bringing passion and drive." },
+
+
         optimistic: { base: 1, description: "Represents the dawn of new beginnings, full of hope and potential." },
+
+
         proud: { base: 19, description: "Stands tall with the confidence of past successes." },
+
+
         blissful: { base: 29, description: "Is a state of perfect happiness and great joy." },
+
+
         enthusiastic: { base: 31, description: "Overflows with eager enjoyment and interest." },
+
+
     },
+
+
     'Reflective': {
+
+
         calm: { base: 22, description: "Reflects the serene influence of Venus, promoting harmony and balance." },
+
+
         peaceful: { base: 33, description: "Holds a master vibration of tranquility and spiritual awareness." },
+
+
         relaxed: { base: 4, description: "Is free from tension and anxiety." },
+
+
         thoughtful: { base: 15, description: "Engages in deep, quiet thinking." },
+
+
         serene: { base: 28, description: "Is calm, peaceful, and untroubled; tranquil." },
+
+
         contemplative: { base: 37, description: "Involves deep, reflective thought." },
+
+
         nostalgic: { base: 25, description: "Evokes a sentimental longing for the past." },
+
+
         introspective: { base: 43, description: "Focuses on the examination of one's own thoughts and feelings." }
+
+
     },
+
+
     'Ambitious': {
+
+
         confident: { base: 8, description: "Draws on the strength of Saturn, building structure and self-assurance." },
+
+
         adventurous: { base: 5, description: "Embodies the quick-witted nature of Mercury, sparking curiosity and discovery." },
+
+
         daring: { base: 17, description: "Is adventurous and willing to take risks." },
+
+
         bold: { base: 21, description: "Shows a willingness to take risks; confident and courageous." },
+
+
         determined: { base: 36, description: "Is firm in purpose and unwavering." },
+
+
         focused: { base: 41, description: "Directs a great deal of attention towards a particular aim." },
+
+
         powerful: { base: 44, description: "Has great power or strength." },
+
+
         successful: { base: 10, description: "Accomplishes a desired aim or result." }
+
+
     },
+
+
     'Playful': {
+
+
         creative: { base: 3, description: "Is fueled by the Sun's radiant power, inspiring originality and expression." },
+
+
         loving: { base: 6, description: "Connects with the gentle heart of the Earth, fostering compassion and connection." },
+
+
         silly: { base: 12, description: "Having or showing a lack of common sense or judgment; absurd and foolish." },
+
+
         whimsical: { base: 18, description: "Is playfully quaint or fanciful, especially in an appealing and amusing way." },
+
+
         energetic: { base: 24, description: "Shows or involves great activity or vitality." },
+
+
         spontaneous: { base: 30, description: "Is open, natural, and uninhibited." },
+
+
         mischievous: { base: 34, description: "Causes or shows a fondness for causing trouble in a playful way." },
+
+
         flirty: { base: 42, description: "Is playfully romantic and charming." }
+
+
     }
+
+
 };
+
+
+
+
 
 class EmotionResultDisplay extends HTMLElement {
 
+
+
+
+
     constructor() {
+
+
+
+
 
         super();
 
+
+
+
+
         this.attachShadow({ mode: 'open' });
 
+
+
+
+
     }
+
+
+
+
+
+
+
+
 
 
 
     connectedCallback() {
 
+
+
+
+
         const explanations = JSON.parse(this.getAttribute('explanations'));
+
+
+
+
 
         const numbers = JSON.parse(this.getAttribute('numbers'));
 
 
 
+
+
+
+
+
+
+
+
         this.shadowRoot.innerHTML = `
+
+
+
+
 
             <style>
 
+
+
+
+
                 .emotion-result-display {
+
+
+
+
 
                     background: rgba(0,0,0,0.2);
 
+
+
+
+
                     padding: 2rem;
+
+
+
+
 
                     border-radius: 15px;
 
+
+
+
+
                     text-align: center;
+
+
+
+
 
                     animation: fadeIn 0.8s ease-in-out;
 
+
+
+
+
                     border: 1px solid var(--component-border-color, rgba(255, 255, 255, 0.2));
 
+
+
+
+
                 }
+
+
+
+
 
                 .explanations {
 
+
+
+
+
                     text-align: left;
+
+
+
+
 
                     margin-bottom: 2rem;
 
+
+
+
+
                 }
+
+
+
+
 
                 .explanation-item {
 
+
+
+
+
                     background: rgba(0,0,0,0.15);
+
+
+
+
 
                     padding: 1rem;
 
+
+
+
+
                     border-radius: 10px;
+
+
+
+
 
                     margin-bottom: 1rem;
 
+
+
+
+
                 }
+
+
+
+
 
                 .explanation-item strong {
 
+
+
+
+
                     font-size: 1.5rem;
+
+
+
+
 
                     color: #4facfe;
 
+
+
+
+
                 }
+
+
+
+
 
                 .personalized-numbers {
 
+
+
+
+
                     display: flex;
+
+
+
+
 
                     justify-content: center;
 
+
+
+
+
                     align-items: center;
+
+
+
+
 
                     gap: 1rem;
 
+
+
+
+
                     flex-wrap: wrap;
 
+
+
+
+
                 }
+
+
+
+
 
                 .number {
 
+
+
+
+
                     display: flex;
+
+
+
+
 
                     align-items: center;
 
+
+
+
+
                     justify-content: center;
+
+
+
+
 
                     width: 55px;
 
+
+
+
+
                     height: 55px;
+
+
+
+
 
                     border-radius: 50%;
 
+
+
+
+
                     font-size: 1.8rem;
+
+
+
+
 
                     font-weight: 600;
 
+
+
+
+
                     color: white;
+
+
+
+
 
                     text-shadow: 0 1px 3px rgba(0,0,0,0.3);
 
+
+
+
+
                     box-shadow: inset 0 -3px 5px rgba(0,0,0,0.2), 0 4px 10px rgba(0,0,0,0.4);
 
+
+
+
+
                 }
+
+
+
+
 
                 @keyframes fadeIn {
 
+
+
+
+
                     from { opacity: 0; transform: translateY(20px); }
+
+
+
+
 
                     to { opacity: 1; transform: translateY(0); }
 
+
+
+
+
                 }
+
+
+
+
 
             </style>
 
+
+
+
+
             <div class="emotion-result-display">
+
+
+
+
 
                 <div class="explanations">
 
+
+
+
+
                     ${explanations.map(ex => `
+
+
+
+
 
                         <div class="explanation-item">
 
+
+
+
+
                             <p><strong>${ex.number}:</strong> ${ex.text}</p>
+
+
+
+
 
                         </div>
 
+
+
+
+
                     `).join('')}
 
+
+
+
+
                 </div>
+
+
+
+
 
                 <div class="personalized-numbers">
 
+
+
+
+
                     ${numbers.map(num => `<div class="number" style="background: ${getNumberColor(num)}">${num}</div>`).join('')}
+
+
+
+
 
                 </div>
 
+
+
+
+
             </div>
+
+
+
+
 
         `;
 
+
+
+
+
     }
 
+
+
+
+
 }
+
+
+
+
 
 customElements.define('emotion-result-display', EmotionResultDisplay);
 
 
+
+
+
+
+
+
 class PersonalizedResultDisplay extends HTMLElement {
+
+
     constructor() {
+
+
         super();
+
+
         this.attachShadow({ mode: 'open' });
+
+
     }
+
+
+
+
 
     connectedCallback() {
+
+
         const title = this.getAttribute('title');
+
+
         const story = this.getAttribute('story');
+
+
         const numbers = JSON.parse(this.getAttribute('numbers'));
-        const name = this.getAttribute('name');
-        const birthdate = this.getAttribute('birthdate');
+
+
+        const explanations = JSON.parse(this.getAttribute('explanations'));
+
+
+
+
 
         this.shadowRoot.innerHTML = `
+
+
             <style>
+
+
+                /* ... existing styles ... */
+
+
                 .personalized-result-display {
+
+
                     background: rgba(0,0,0,0.2);
+
+
                     padding: 2rem;
+
+
                     border-radius: 15px;
+
+
                     text-align: center;
+
+
                     animation: fadeIn 0.8s ease-in-out;
+
+
                     border: 1px solid var(--component-border-color, rgba(255, 255, 255, 0.2));
+
+
                 }
+
+
                 .result-title {
+
+
                     font-size: 1.8rem;
+
+
                     font-weight: 700;
+
+
                     margin-bottom: 1rem;
+
+
                     color: var(--text-color);
+
+
                 }
+
+
                 .personalized-story {
+
+
                     font-size: 1.2rem;
+
+
                     font-style: italic;
+
+
                     line-height: 1.6;
+
+
                     margin-bottom: 2rem;
+
+
                     color: var(--text-color, #f0f0f0);
+
+
                     opacity: 0.9;
+
+
                 }
+
+
                 .personalized-numbers {
+
+
                     display: flex;
+
+
                     justify-content: center;
+
+
                     align-items: center;
+
+
                     gap: 1rem;
+
+
                     flex-wrap: wrap;
+
+
                     margin-bottom: 2rem;
+
+
                 }
+
+
                 .number {
+
+
                     display: flex;
+
+
                     align-items: center;
+
+
                     justify-content: center;
+
+
                     width: 55px;
+
+
                     height: 55px;
+
+
                     border-radius: 50%;
+
+
                     font-size: 1.8rem;
+
+
                     font-weight: 600;
+
+
                     color: white;
+
+
                     text-shadow: 0 1px 3px rgba(0,0,0,0.3);
+
+
                     box-shadow: inset 0 -3px 5px rgba(0,0,0,0.2), 0 4px 10px rgba(0,0,0,0.4);
+
+
                 }
-                .explanation {
-                    font-size: 0.9rem;
-                    color: var(--text-color);
-                    opacity: 0.8;
+
+
+                .explanations-grid {
+
+
+                    display: grid;
+
+
+                    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+
+
+                    gap: 1.5rem;
+
+
+                    text-align: left;
+
+
                 }
+
+
+                .explanation-item {
+
+
+                    background: rgba(0,0,0,0.15);
+
+
+                    padding: 1rem;
+
+
+                    border-radius: 10px;
+
+
+                }
+
+
+                .explanation-item .number-meaning {
+
+
+                    font-size: 1.5rem;
+
+
+                    font-weight: 700;
+
+
+                    color: #4facfe;
+
+
+                    margin-right: 0.5rem;
+
+
+                }
+
+
                 @keyframes fadeIn {
+
+
                     from { opacity: 0; transform: translateY(20px); }
+
+
                     to { opacity: 1; transform: translateY(0); }
+
+
                 }
+
+
             </style>
+
+
             <div class="personalized-result-display">
+
+
                 <h3 class="result-title">${title}</h3>
+
+
                 <p class="personalized-story">"${story}"</p>
+
+
                 <div class="personalized-numbers">
+
+
                     ${numbers.map(num => `<div class="number" style="background: ${getNumberColor(num)}">${num}</div>`).join('')}
+
+
                 </div>
-                <p class="explanation">
-                    These numbers are woven from the threads of your own story, ${name}. Your birthdate, ${birthdate}, provides the anchor, while the essence of your unique journey whispers the rest.
-                </p>
+
+
+                <div class="explanations-grid">
+
+
+                    ${explanations.map(ex => `
+
+
+                        <div class="explanation-item">
+
+
+                            <span class="number-meaning">${ex.number}:</span>
+
+
+                            <span>${ex.meaning}</span>
+
+
+                        </div>
+
+
+                    `).join('')}
+
+
+                </div>
+
+
             </div>
+
+
         `;
+
+
     }
+
+
 }
+
 
 customElements.define('personalized-result-display', PersonalizedResultDisplay);
 

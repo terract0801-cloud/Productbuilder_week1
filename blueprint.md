@@ -36,9 +36,13 @@ This document outlines the features, design, and development plan for the Lotto 
   - **[Completed]** Styled the emotion keywords as interactive tags.
   - **[Completed]** Updated `main.js` to support the new styling.
 
-### Enhance Personalized Number Generation with Story-Driven Algorithm
-- **Problem:** The "Personalized Story & Numbers" feature was based on a simple, mechanical algorithm that lacked a compelling narrative.
-- **Solution:** Implemented a new story-driven algorithm. The user's birth date is now used to select a unique, meaningful story tied to specific dates (like New Year's or Valentine's Day) or the birth month. This narrative then guides the number generation process, creating a more thematic, engaging, and personalized experience. The UI was also updated to beautifully present this new story-based result.
+### Implemented AI-Powered Dynamic Story Generation
+- **Problem:** The personalized story feature, while improved, still lacked a dynamic, AI-like quality and didn't fully explain the "why" behind the numbers.
+- **Solution:** Overhauled the feature to simulate AI-powered, dynamic story generation.
+    - **[Completed]** Created a `numberMeanings` data structure, assigning a unique symbolic meaning to each number from 1 to 45.
+    - **[Completed]** Implemented a new `generatePersonalizedStoryAndNumbers` function that combines a user's personal data with story templates and the new number meanings. This ensures that a different, unique story is generated with every request.
+    - **[Completed]** The UI now presents not only the story but also a detailed breakdown of each number and its specific meaning, providing the requested explanation and a more engaging, AI-driven experience.
+- **Previous Step:** The earlier story-driven algorithm, which tied stories to specific dates, served as a foundation for this more advanced implementation.
 
 ## Current Task: Enhance Emotion-Based Generator UX
 
