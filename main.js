@@ -2116,6 +2116,7 @@ function handleEmotionForm() {
     const renderCategories = () => {
         emotionKeywordsContainer.innerHTML = ''; // Clear previous content
         emotionResultContainer.innerHTML = ''; // Clear results
+        selectedEmotions.clear(); // Reset selected emotions
         emotionForm.querySelector('[data-i18n-key="emotionGenerateButton"]').style.display = 'none';
 
         const categoryWrapper = document.createElement('div');
@@ -2164,8 +2165,10 @@ function handleEmotionForm() {
             checkbox.onchange = (e) => {
                 if (e.target.checked) {
                     selectedEmotions.add(key);
+                    label.classList.add('selected');
                 } else {
                     selectedEmotions.delete(key);
+                    label.classList.remove('selected');
                 }
             };
             

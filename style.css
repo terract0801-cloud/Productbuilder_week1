@@ -481,3 +481,13 @@ button:hover {
     color: var(--primary-color);
     background: rgba(var(--primary-color), 0.1);
 }
+
+.emotion-keyword-label.selected {
+    background-color: var(--primary-color);
+    color: #fff;
+    box-shadow: 0 0 10px 2px var(--glow-color);
+}
+
+.emotion-keyword-label input:checked + span {
+    color: #fff;
+}
