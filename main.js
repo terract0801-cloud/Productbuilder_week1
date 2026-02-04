@@ -675,6 +675,107 @@ function handleStrategyForm() {
 
 
 
+const dateStories = {
+    '1-1': {
+        title: "The First Dawn",
+        story: "Born on the first day of a new year, your story is one of new beginnings, fresh starts, and limitless potential. Like the first ray of sunshine after a long night, you bring hope and inspiration. Your journey is about setting new paths and leading the way.",
+        keywords: ["new", "beginning", "first", "leader", "potential"]
+    },
+    '2-14': {
+        title: "The Heart's Compass",
+        story: "Born on Valentine's Day, your life is guided by the heart. You possess a deep capacity for love, connection, and empathy. Your path is to build bridges between people and to spread compassion.",
+        keywords: ["love", "heart", "connection", "compassion", "relationships"]
+    },
+    '3-20': {
+        title: "The Spring's Awakening",
+        story: "Born on the first day of Spring, you are a force of nature, a symbol of growth and renewal. You have the ability to bring ideas to life and to inspire change. Your journey is one of creation and transformation.",
+        keywords: ["growth", "renewal", "creation", "nature", "transformation"]
+    },
+    '10-31': {
+        title: "The Veil Thinner",
+        story: "Born on Halloween, you walk between worlds. You have a keen sense of intuition and a natural curiosity for the mysteries of life. Your path is to explore the unknown and to reveal hidden truths.",
+        keywords: ["mystery", "intuition", "magic", "spirit", "unknown"]
+    },
+    '12-25': {
+        title: "The Giver of Light",
+        story: "Born on Christmas Day, you carry a special light within you. Your presence brings joy, warmth, and a sense of celebration to others. Your journey is about sharing your gifts and illuminating the world.",
+        keywords: ["joy", "light", "gift", "celebration", "share"]
+    },
+    // Monthly fallback stories
+    '1': { story: "As a January child, you are a natural leader, resilient and ambitious, with a spirit that guides you through the winter cold." },
+    '2': { story: "As a February child, you are an imaginative and compassionate soul, with a heart as deep as the winter waters." },
+    '3': { story: "As a March child, you are a vibrant and energetic force, heralding the arrival of spring with your every step." },
+    '4': { story: "As an April child, you embody the spirit of renewal, with a personality that blossoms like the first flowers of the season." },
+    '5': { story: "As a May child, you are a bringer of joy and abundance, with a warm heart that nurtures and provides." },
+    '6': { story: "As a June child, you are a social butterfly, radiating the warmth and light of the summer sun." },
+    '7': { story: "As a July child, you are a passionate and emotional being, with a fiery spirit that commands attention." },
+    '8': { story: "As an August child, you are a confident and charismatic leader, shining as brightly as the late summer sun." },
+    '9': { story: "As a September child, you are a wise and artistic soul, with a calm demeanor that reflects the changing of the seasons." },
+    '10': { story: "As an October child, you are a balanced and charming individual, with a love for beauty and harmony." },
+    '11': { story: "As a November child, you are a determined and intuitive person, with a mysterious aura that draws others in." },
+    '12': { story: "As a December child, you are a festive and generous spirit, with a love for celebration and togetherness." }
+};
+
+function getPersonalizedStory(month, day) {
+    const specificDate = `${month}-${day}`;
+    if (dateStories[specificDate]) {
+        return dateStories[specificDate];
+    }
+    return dateStories[String(month)];
+}
+
+
+function generatePersonalizedNumbers(name, month, day, year, storyData) {
+    const numbers = new Set();
+
+    // 1. Core numbers from birth date
+    numbers.add(day);
+    if (numbers.size < 6 && !numbers.has(month)) {
+        numbers.add(month);
+    }
+
+    // 2. Name number
+    const nameNumber = (name.split('').reduce((acc, char) => acc + char.charCodeAt(0), 0) % 45) + 1;
+    if (numbers.size < 6 && !numbers.has(nameNumber)) {
+        numbers.add(nameNumber);
+    }
+    
+    // 3. Year sum
+    const yearSum = String(year).split('').reduce((acc, digit) => acc + parseInt(digit), 0);
+    if (numbers.size < 6 && !numbers.has(yearSum) && yearSum > 0 && yearSum <= 45) {
+        numbers.add(yearSum);
+    }
+
+    // 4. Keyword-based numbers
+    if (storyData && storyData.keywords) {
+        for (const keyword of storyData.keywords) {
+            if (numbers.size >= 6) break;
+            const keywordNumber = (keyword.length % 45) + 1;
+            if (!numbers.has(keywordNumber)) {
+                numbers.add(keywordNumber);
+            }
+        }
+    }
+
+    // 5. Fill with seeded randoms
+    const seed = year + month + day + name.length;
+    let currentSeed = seed;
+    const seededRandom = () => {
+        const x = Math.sin(currentSeed++) * 10000;
+        return x - Math.floor(x);
+    };
+
+    while (numbers.size < 6) {
+        const randomNumber = Math.floor(seededRandom() * 45) + 1;
+        if (!numbers.has(randomNumber)) {
+            numbers.add(randomNumber);
+        }
+    }
+
+    return Array.from(numbers).sort((a, b) => a - b);
+}
+
+
 function handlePersonalizedForm() {
     const personalizedForm = document.getElementById('personalized-form');
 
@@ -702,60 +803,21 @@ function handlePersonalizedForm() {
         const month = date.getMonth() + 1;
         const day = date.getDate();
 
-        const stories = [
-            `From the cosmic energy of ${name}'s birth on ${year}/${month}/${day}, the universe whispers these numbers:`,
-            `${name}, your unique journey began on a special day. The stars on ${year}/${month}/${day} have aligned to reveal:`,
-            `The essence of ${name} and the moment of ${year}/${month}/${day} combine to unlock a secret sequence:`,
-            `Let the vibrant spirit of ${name}, born on ${day}/${month}/${year}, guide you to these fortunate numbers:`
-        ];
-        const story = stories[Math.floor(Math.random() * stories.length)];
-
-        const numbers = new Set();
+        const storyData = getPersonalizedStory(month, day);
+        const numbers = generatePersonalizedNumbers(name, month, day, year, storyData);
         
-        const nameNumber = (name.split('').reduce((acc, char) => acc + char.charCodeAt(0), 0) % 45) + 1;
-        numbers.add(nameNumber);
-
-        if (!numbers.has(day)) numbers.add(day);
-        if (numbers.size < 6 && !numbers.has(month)) numbers.add(month);
-        
-        const yearSum = String(year).split('').reduce((acc, digit) => acc + parseInt(digit), 0);
-        if (numbers.size < 6 && !numbers.has(yearSum)) {
-            numbers.add(yearSum);
-        }
-
-        const seed = year + month + day;
-        let currentSeed = seed;
-        const seededRandom = () => {
-            const x = Math.sin(currentSeed++) * 10000;
-            return x - Math.floor(x);
-        };
-
-        while (numbers.size < 6) {
-            const randomNumber = Math.floor(seededRandom() * 45) + 1;
-            if (!numbers.has(randomNumber)) {
-                numbers.add(randomNumber);
-            }
-        }
-
-        const sortedNumbers = Array.from(numbers).sort((a, b) => a - b);
-        
-        const explanationHTML = `
-            <h3>Your Personalized Number Story</h3>
-            <p>We've crafted your unique lottery numbers based on a story written in your name and birthdate.</p>
-            <p>From the essence of your name, <strong>${name}</strong>, we've distilled your 'Name Number': <strong>${nameNumber}</strong>.</p>
-            <p>From your birthdate, <strong>${day}/${month}/${year}</strong>, we've uncovered these 'Destiny Numbers': <strong>${day}</strong> and <strong>${month}</strong>.</p>
-            <p>The sum of the digits of your birth year gives us another potent number: <strong>${yearSum}</strong>.</p>
-            <p>These core numbers, derived from your unique identity, form the foundation of your lucky set. The remaining numbers are cosmic fillers, aligned by the energy of your birth day to complete your sequence.</p>
-        `;
-
         resultContainer.innerHTML = '';
         const resultDisplay = document.createElement('personalized-result-display');
-        resultDisplay.setAttribute('story', story);
-        resultDisplay.setAttribute('explanation', explanationHTML);
-        resultDisplay.setAttribute('numbers', JSON.stringify(sortedNumbers));
+        resultDisplay.setAttribute('title', storyData.title || "Your Personal Story");
+        resultDisplay.setAttribute('story', storyData.story);
+        resultDisplay.setAttribute('numbers', JSON.stringify(numbers));
+        resultDisplay.setAttribute('name', name);
+        resultDisplay.setAttribute('birthdate', `${year}/${month}/${day}`);
+
         resultContainer.appendChild(resultDisplay);
     });
 }
+
 
 
 
@@ -954,179 +1016,85 @@ customElements.define('emotion-result-display', EmotionResultDisplay);
 
 
 class PersonalizedResultDisplay extends HTMLElement {
-
     constructor() {
-
         super();
-
         this.attachShadow({ mode: 'open' });
-
     }
-
-
 
     connectedCallback() {
-
+        const title = this.getAttribute('title');
         const story = this.getAttribute('story');
-
         const numbers = JSON.parse(this.getAttribute('numbers'));
-
-        const explanation = this.getAttribute('explanation'); // HTML content
-
-
+        const name = this.getAttribute('name');
+        const birthdate = this.getAttribute('birthdate');
 
         this.shadowRoot.innerHTML = `
-
             <style>
-
                 .personalized-result-display {
-
                     background: rgba(0,0,0,0.2);
-
                     padding: 2rem;
-
                     border-radius: 15px;
-
                     text-align: center;
-
                     animation: fadeIn 0.8s ease-in-out;
-
                     border: 1px solid var(--component-border-color, rgba(255, 255, 255, 0.2));
-
                 }
-
-                .personalized-story {
-
-                    font-size: 1.2rem;
-
-                    font-style: italic;
-
-                    line-height: 1.6;
-
-                    margin-bottom: 1.5rem;
-
-                    color: var(--text-color, #f0f0f0);
-
-                    opacity: 0.9;
-
-                }
-
-                .explanation-section {
-
-                    margin-bottom: 2rem;
-
-                    padding: 1rem;
-
-                    background: rgba(0,0,0,0.15);
-
-                    border-radius: 10px;
-
-                    text-align: left;
-
-                }
-
-                .explanation-section h3 {
-
-                    margin-top: 0;
-
-                    color: var(--text-color);
-
-                    border-bottom: 1px solid rgba(255,255,255,0.2);
-
-                    padding-bottom: 0.5rem;
-
-                    margin-bottom: 1rem;
-
-                }
-
-                .explanation-section p {
-
-                    margin: 0.5rem 0;
-
-                    line-height: 1.5;
-
-                }
-
-                .explanation-section strong {
-
-                    color: #4facfe; /* Highlight color */
-
-                    font-weight: 700;
-
-                }
-
-                .personalized-numbers {
-
-                    display: flex;
-
-                    justify-content: center;
-
-                    align-items: center;
-
-                    gap: 1rem;
-
-                    flex-wrap: wrap;
-
-                }
-
-                .number {
-
-                    display: flex;
-
-                    align-items: center;
-
-                    justify-content: center;
-
-                    width: 55px;
-
-                    height: 55px;
-
-                    border-radius: 50%;
-
+                .result-title {
                     font-size: 1.8rem;
-
+                    font-weight: 700;
+                    margin-bottom: 1rem;
+                    color: var(--text-color);
+                }
+                .personalized-story {
+                    font-size: 1.2rem;
+                    font-style: italic;
+                    line-height: 1.6;
+                    margin-bottom: 2rem;
+                    color: var(--text-color, #f0f0f0);
+                    opacity: 0.9;
+                }
+                .personalized-numbers {
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    gap: 1rem;
+                    flex-wrap: wrap;
+                    margin-bottom: 2rem;
+                }
+                .number {
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    width: 55px;
+                    height: 55px;
+                    border-radius: 50%;
+                    font-size: 1.8rem;
                     font-weight: 600;
-
                     color: white;
-
                     text-shadow: 0 1px 3px rgba(0,0,0,0.3);
-
                     box-shadow: inset 0 -3px 5px rgba(0,0,0,0.2), 0 4px 10px rgba(0,0,0,0.4);
-
                 }
-
+                .explanation {
+                    font-size: 0.9rem;
+                    color: var(--text-color);
+                    opacity: 0.8;
+                }
                 @keyframes fadeIn {
-
                     from { opacity: 0; transform: translateY(20px); }
-
                     to { opacity: 1; transform: translateY(0); }
-
                 }
-
             </style>
-
             <div class="personalized-result-display">
-
-                <p class="personalized-story">${story}</p>
-
-                <div class="explanation-section">
-
-                    ${explanation}
-
-                </div>
-
+                <h3 class="result-title">${title}</h3>
+                <p class="personalized-story">"${story}"</p>
                 <div class="personalized-numbers">
-
                     ${numbers.map(num => `<div class="number" style="background: ${getNumberColor(num)}">${num}</div>`).join('')}
-
                 </div>
-
+                <p class="explanation">
+                    These numbers are woven from the threads of your own story, ${name}. Your birthdate, ${birthdate}, provides the anchor, while the essence of your unique journey whispers the rest.
+                </p>
             </div>
-
         `;
-
     }
-
 }
 
 customElements.define('personalized-result-display', PersonalizedResultDisplay);
